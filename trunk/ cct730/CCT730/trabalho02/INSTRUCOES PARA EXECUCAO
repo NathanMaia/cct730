@@ -1,0 +1,18 @@
+Para execução deste programa:
+
+- Criar uma novo projeto
+- Importar o pacote CCT730_02_12623.zip para dentro dele
+- Posicionar os dois arquivos (matrizA.dat e matrizB.dat) dentro da raiz da pasta do projeto
+
+Exemplo:
+
+- Project
+ |
+ - CCT730_02_12623
+    |
+    - default package
+      |
+      - PosicaoMatriz.java
+      - Principal.java  
+ - matrizA.dat
+ - matrizB.dat
