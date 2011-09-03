@@ -98,7 +98,7 @@ public class MediatorPrincipal extends Mediator {
 		if(validaTransformacao()){
 			this.atualizaImagemSintetica(
 				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).rotaciona(
-					this.retornaValorTransformacao("Determine o angulo de rotaï¿½ï¿½o: "), 5, 5
+					this.retornaValorTransformacao("Determine o angulo de rotacao: "), 5, 5
 				)
 			);
 		}
@@ -170,7 +170,7 @@ public class MediatorPrincipal extends Mediator {
 	}
 	
 	/**
-	 * Mï¿½todo responsï¿½vel por finalizar o aplicativo
+	 * Mï¿½todo respons‡vel por finalizar o aplicativo
 	 * 
 	 * @param  void
 	 * @return void
@@ -299,7 +299,7 @@ public class MediatorPrincipal extends Mediator {
 	
 	private boolean validaTransformacao() {
 		if(janelaImagem == null) {
-			Utils.mostraErro(janela, "Nï¿½o ï¿½ possï¿½vel realizar a trasformaï¿½ï¿½o (nenhuma imagem sintï¿½tica foi selecionada).");
+			Utils.mostraErro(janela, "Nao foi possivel realizar a trasformacao (nenhuma imagem sintetica foi selecionada).");
 			return false;
 		}
 		return true;
