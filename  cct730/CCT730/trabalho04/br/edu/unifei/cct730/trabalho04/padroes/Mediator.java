@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
- * Classe abstrata responsavel por intermediar as aï¿½ï¿½es
+ * Classe abstrata responsavel por intermediar as a›es
  * da GUI com o restante da aplicacao
  * 
  * @author fknappe
@@ -48,6 +48,8 @@ public abstract class Mediator {
 	public abstract void registraEventos();
 	public void abrirArquivo(){}
 	public void binarizar(){}
+	public void histograma(){}
+	public void zoom(){}
 	public void sair(){}
 }
 
