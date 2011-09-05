@@ -8,8 +8,22 @@ import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+/**
+ * Classe responsavel por apresentar as mensagens ao usuario do sistema
+ * 
+ * @author fknappe
+ *
+ */
 public class Utils {
 
+	/**
+	 * Metodo responsavel por apresentar uma mensagem de confirmacao ao usuario
+	 * 
+	 * @param Component componente
+	 * @param String mensagem
+	 * 
+	 * @return boolean
+	 */
 	public static boolean confirmaMensagem(Component componente, String mensagem) {
 		final JOptionPane j = new JOptionPane(mensagem, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION, null);
 		j.setComponentOrientation(((componente == null) ?
@@ -29,6 +43,14 @@ public class Utils {
 		return j.getValue().equals(JOptionPane.YES_OPTION);
 	}
 	
+	/**
+	 * Metodo responsavel por apresentar as mensagens ao usuario
+	 * 
+	 * @param Component componente
+	 * @param String erro
+	 * 
+	 * @return void
+	 */
 	public static void mostraErro(final Component componente, String erro) {
 		JOptionPane j = new JOptionPane(erro, JOptionPane.ERROR_MESSAGE);
 		j.setComponentOrientation(((componente == null) ?
@@ -49,6 +71,33 @@ public class Utils {
 		dialog.setVisible(true);
 	}
 	
+	public static void mostraMensagem(final Component componente, String mensagem) {
+		JOptionPane j = new JOptionPane(mensagem, JOptionPane.INFORMATION_MESSAGE);
+		j.setComponentOrientation(((componente == null) ?
+				JOptionPane.getRootFrame() : componente).getComponentOrientation());
+
+		final Component componenteFoco = DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+		JDialog dialog = j.createDialog(componente, "");
+		dialog.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				if(componenteFoco != null) {
+					componenteFoco.requestFocus();
+				}
+			}
+
+		});
+		dialog.setVisible(true);
+	}
+	
+	/**
+	 * Metodo responsavel por receber os dados de entrada do usuario
+	 * 
+	 * @param String mensagem
+	 * @return int
+	 * @throws NumberFormatException
+	 */
 	public static int entradaDeDados(String mensagem) throws NumberFormatException {
 		String valor = JOptionPane.showInputDialog(
 				null, 

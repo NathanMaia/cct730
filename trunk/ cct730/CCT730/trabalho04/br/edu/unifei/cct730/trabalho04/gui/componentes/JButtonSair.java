@@ -8,7 +8,7 @@ import br.edu.unifei.cct730.trabalho04.padroes.Command;
 import br.edu.unifei.cct730.trabalho04.padroes.Mediator;
 
 /**
- * Classe responsavel por instanciar um bot�o encarregado de finalizar a aplicacao
+ * Classe responsavel por instanciar um botao encarregado de finalizar a aplicacao
  * @author fknappe
  *
  */
@@ -38,6 +38,11 @@ public class JButtonSair extends javax.swing.JButton implements Command {
 		this.setText(title);
 	}
 	
+	/**
+	 * Metodo responsavel por executar a acao definida pelo listener
+	 * 
+	 * @return void
+	 */
 	@Override
 	public void executar() {
 		if(this.internalFrame != null) {
