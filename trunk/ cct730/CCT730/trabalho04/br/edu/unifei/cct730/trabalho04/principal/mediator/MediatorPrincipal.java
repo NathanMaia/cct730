@@ -71,6 +71,13 @@ public class MediatorPrincipal extends Mediator {
 	 */
 	public void abrirArquivo() {
 		try {
+			
+			// Finalizando todas as acoes anteriores
+			for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
+				if(j instanceof JanelaImagemBinaria)
+					j.dispose();
+			}
+			
 			arquivoImagem = new ArquivoImagem("IMAGEM.IMG");
 			arquivoCabecalho = new ArquivoCabecalho("IMAGEM.CAB");
 
@@ -108,6 +115,8 @@ public class MediatorPrincipal extends Mediator {
 			);
 		} finally {
 			janela.getBtnHistograma().setEnabled(true);
+			janela.getBtnBinarizar().setEnabled(false);
+			janela.getBtnZoom().setEnabled(false);
 			Utils.mostraMensagem(
 					janela, 
 					"Arquivo lido com sucesso!"
@@ -123,16 +132,10 @@ public class MediatorPrincipal extends Mediator {
 	 */
 	public void histograma() {
 		try {
-			this.histograma = descritor.controiHistograma(
-					Utils.entradaDeDados(
-							"Determine o numero de faixas do histograma: "
-					)
-			);
-			final JanelaHistograma jHistograma = new JanelaHistograma(histograma);
+			this.histograma = descritor.controiHistograma(255);
+			final JanelaHistograma jHistograma = new JanelaHistograma(this.histograma);
 			lancarFrame(jHistograma);
-
-			jHistograma.getBtnFinalizar().addActionListener(new MyActionListener());
-
+			
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 			Utils.mostraErro(

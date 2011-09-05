@@ -66,7 +66,7 @@ public class Descritor {
 		
 		for (Map.Entry<Short, List<PontoBinario>> entrada: tabelaPontos.entrySet()) {
 			tomCinza = entrada.getKey();
-			for (int i = 0; i<entrada.getValue().size(); i++) 
+			for (int i = 0; i < entrada.getValue().size(); i++) 
 				histograma.acrescentar(tomCinza);
 		}
 		return histograma;
@@ -74,7 +74,7 @@ public class Descritor {
 	
 	/**
 	 * Metodo responsavel por retorna uma faixa do histograma
-	 * da imagem
+	 * da imagem proxima a faixa especificada
 	 * 
 	 * @param int porcentagem
 	 * @param int faixas
