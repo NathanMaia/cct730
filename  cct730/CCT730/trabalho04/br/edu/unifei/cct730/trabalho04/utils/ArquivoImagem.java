@@ -5,6 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Classe responsavel por interagir com o arquivo
+ * de dados da imagem
+ * 
+ * @author fknappe
+ *
+ */
 public class ArquivoImagem extends File {
 
 	//Declaracao das variaveis de instancia
@@ -19,8 +26,9 @@ public class ArquivoImagem extends File {
 	}
 
 	/**
+	 * Metodo responsavel por abrir o arquivo para leitura
 	 * 
-	 * @return
+	 * @return BufferedReader
 	 * @throws IOException
 	 */
 	public BufferedReader abrirArquivoImagem() throws IOException {
@@ -29,17 +37,24 @@ public class ArquivoImagem extends File {
 	}
 
 	/**
+	 * Metodo responsavel por fechar o arquivo
 	 * 
-	 * @return
+	 * @return void
+	 * @throws IOException, NullPointerException
 	 */
 	public void fecharArquivo() throws IOException, NullPointerException {
 		this.stream.close();
 	}
 
 	/**
+	 * Metodo responsavel por pegar todos os tons de cinza
+	 * presentes na imagem
 	 * 
-	 * @param nl
-	 * @param nc
+	 * @param int nl
+	 * @param int nc
+	 * 
+	 * @return Short[][]
+	 * @throws IOException
 	 */
 	public Short[][] getTonsCinza(int nl, int nc) throws IOException {
 		Short[][] tonsDeCinza = new Short[nl][nc];

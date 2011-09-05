@@ -1,7 +1,7 @@
 package br.edu.unifei.cct730.trabalho04.padroes;
 
 /**
- * Interface que implementa o comportamento do padr�o Command
+ * Interface que implementa o comportamento do padrao Command
  * @author fknappe
  *
  */

@@ -12,10 +12,22 @@ import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonHistograma;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonZoom;
 import br.edu.unifei.cct730.trabalho04.principal.mediator.MediatorPrincipal;
 
+/**
+ * Classe responsavel por instanciar a interface do aplicativo
+ * 
+ * @author fknappe
+ *
+ */
 public class JanelaPrincipal extends javax.swing.JFrame {
 	
+	// Declaracao das variaveis de instancia
 	private MediatorPrincipal med = null;
 	
+	/**
+	 * Construtor 
+	 * 
+	 * @param String title
+	 */
 	public JanelaPrincipal(String title) {
 		super(title);
 		med = new MediatorPrincipal(this);
@@ -23,10 +35,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		med.registraEventos();
 	}
 	
+	/**
+	 * Metodo responsavel pela inciializacao e disposicao
+	 * dos componentes da GUI
+	 * 
+	 * @return void
+	 */
 	public void initComponents() {
 		
 		java.awt.GridBagConstraints gridBagConstraints;
 		
+		// Inicializacao dos componentes da GUI
 		panelFuncao = new javax.swing.JPanel();
 		desktop = new javax.swing.JDesktopPane();
 		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir Imagem...", this.med);
@@ -73,6 +92,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		this.setVisible(true);
 	}
 	
+	// Declaracao dos componentes da GUI
 	private javax.swing.JDesktopPane desktop;
 	private javax.swing.JPanel panelFuncao;
 	private JButtonAbrirArquivo btnAbrirArquivo;
@@ -82,6 +102,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	private JButtonSair btnSair;
 
 	// MŽtodo getters e setters dos componentes da GUI
+	public javax.swing.JDesktopPane getDesktop() {
+		return desktop;
+	}
+	
 	public JButtonAbrirArquivo getBtnAbrirArquivo() {
 		return btnAbrirArquivo;
 	}

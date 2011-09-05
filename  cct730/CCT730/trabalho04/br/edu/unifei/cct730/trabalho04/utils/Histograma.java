@@ -1,29 +1,47 @@
 package br.edu.unifei.cct730.trabalho04.utils;
 
 
+/**
+ * Classe representativa dos dados do histograma
+ * da imagem
+ * 
+ * @author fknappe
+ *
+ */
 public class Histograma {
 	
 	// Declaração das variaveis de instância
 	private int[] histograma;
 	private int faixas;
 
+	/**
+	 * Construtor
+	 * 
+	 * @param int faixas
+	 */
 	public Histograma(int faixas) {
 		this.faixas = faixas;
 		this.histograma = new int[255];
 	}
 
-	public int getFaixas() {
-		return faixas;
-	}
-
-	public void setFaixas(int faixas) {
-		this.faixas = faixas;
-	}
-
+	/**
+	 * Metodo que adiciona uma nova entrada ao histograma
+	 * da imagem
+	 * 
+	 * @param int linha
+	 * 
+	 * @return void
+	 */
 	public void acrescentar(int linha) {
 		histograma[linha]++;
 	}
 	
+	/**
+	 * Metodo que retorna as porcentagens dos
+	 * tons de cinza do imagem
+	 * 
+	 * @return double[]
+	 */
 	public double[] getPorcentagens() {
 		int i;
 		double[] porcentagens;
@@ -42,15 +60,29 @@ public class Histograma {
 		return porcentagens;		
 	}
 
+	/**
+	 * Metodo que retorna o valor das porcentagens acumuladas
+	 * do histograma
+	 * 
+	 * @return double[]
+	 */
 	public double[] getPorcentagensAcumuladas() {
 		double[] porcentagensAcumuladas = new double[histograma.length];
 		double acumulador = 0;
-		int i;
 		
-		for (i = 0; i < histograma.length; i++) {
+		for (int i = 0; i < histograma.length; i++) {
 			acumulador =+ histograma[i];
 			porcentagensAcumuladas[i] = acumulador;
 		}
 		return porcentagensAcumuladas;
+	}
+	
+	// Métodos getters e setters
+	public int getFaixas() {
+		return faixas;
+	}
+
+	public void setFaixas(int faixas) {
+		this.faixas = faixas;
 	}
 }

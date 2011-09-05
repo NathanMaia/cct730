@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * Classe responsavel por interagir com o arquivo 
+ * de cabecalho da imagem
  * 
  * @author fknappe
  *
@@ -17,15 +19,18 @@ public class ArquivoCabecalho extends File {
 	
 	/**
 	 * Construtor
-	 * @param a
+	 * 
+	 * @param String a
+	 * @throws IllegalArgumentException
 	 */
 	public ArquivoCabecalho(String a) throws IllegalArgumentException {
 		super(a);
 	}
 	
 	/**
+	 * Metodo responsavel pela abertura do arquivo para leitura
 	 * 
-	 * @return
+	 * @return BufferedReader
 	 * @throws IOException
 	 */
 	public BufferedReader abrirArquivoCabecalho() throws IOException { 
@@ -38,8 +43,9 @@ public class ArquivoCabecalho extends File {
 	}
 	
 	/**
+	 * Metodo que retorna o numero de linhas da imagem
 	 * 
-	 * @return
+	 * @return Integer
 	 * @throws IOException
 	 */
 	public Integer getNumeroLinhas() throws IOException {
@@ -52,8 +58,9 @@ public class ArquivoCabecalho extends File {
 	}
 	
 	/**
+	 * Metodo que retorna o numero de colunas da imagem
 	 * 
-	 * @return
+	 * @return Integer
 	 * @throws IOException
 	 */
 	public Integer getNumeroColunas() throws IOException {
@@ -66,8 +73,10 @@ public class ArquivoCabecalho extends File {
 	}
 	
 	/**
+	 * Metodo responsavel por fechar o arquivo
 	 * 
-	 * @return
+	 * @return void
+	 * @throws IOException, NullPointerException
 	 */
 	public void fecharArquivo() throws IOException, NullPointerException {
 		this.stream.close();
