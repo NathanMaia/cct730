@@ -85,4 +85,8 @@ public class Histograma {
 	public void setFaixas(int faixas) {
 		this.faixas = faixas;
 	}
+
+	public int[] getHistograma() {
+		return histograma;
+	}
 }
