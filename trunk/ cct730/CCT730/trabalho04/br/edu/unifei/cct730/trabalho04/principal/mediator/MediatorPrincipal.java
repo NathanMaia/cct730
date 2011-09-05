@@ -206,6 +206,23 @@ public class MediatorPrincipal extends Mediator {
 	 * @return void
 	 */
 	public void zoom() {
+		
+		boolean achei = false;
+		JanelaImagemBinaria jImagemBinaria = null;
+		
+		// Verificando se existe a instancia imagem binaria
+		for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
+			if(j instanceof JanelaImagemBinaria) {
+				jImagemBinaria = (JanelaImagemBinaria) j;
+				achei = true;
+			}
+		}
+		
+		if(!achei) {
+			Utils.mostraErro(janela, "Imagem binaria inexistente!");
+			return;
+		}
+		
 		final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
 		lancarFrame(jParamZoom);
 
