@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho04.utils;
+package br.edu.unifei.cct730.trabalho04.utils.arquivo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +36,7 @@ public class ArquivoCabecalho extends File {
 	public BufferedReader abrirArquivoCabecalho() throws IOException { 
 		this.stream = new BufferedReader(
 			new FileReader(
-				new File(this.getName())
+				new File(this.getAbsolutePath())
 			)
 		);
 		return this.stream;

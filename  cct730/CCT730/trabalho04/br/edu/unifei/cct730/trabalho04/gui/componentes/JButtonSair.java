@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho04.padroes.Command;
-import br.edu.unifei.cct730.trabalho04.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho04.padroes.Controlador;
 
 /**
  * Classe responsavel por instanciar um botao encarregado de finalizar a aplicacao
@@ -15,7 +15,7 @@ import br.edu.unifei.cct730.trabalho04.padroes.Mediator;
 public class JButtonSair extends javax.swing.JButton implements Command {
 	
 	//Declaracao das variaveis de inst�ncia
-	private Mediator med = null;
+	private Controlador med = null;
 	private JInternalFrame internalFrame = null;
 	
 	/**
@@ -23,7 +23,7 @@ public class JButtonSair extends javax.swing.JButton implements Command {
 	 * @param String title
 	 * @param JFrame j
 	 */
-	public JButtonSair(String title, Mediator m) {
+	public JButtonSair(String title, Controlador m) {
 		super(title);
 		this.med = m;
 	}

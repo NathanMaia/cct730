@@ -8,9 +8,9 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.utils.Descritor;
-import br.edu.unifei.cct730.trabalho04.utils.Histograma;
-import br.edu.unifei.cct730.trabalho04.utils.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.utils.formas.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 
 /**
  * Classe responsavel por criar a imagem binarizada
