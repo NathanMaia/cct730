@@ -65,9 +65,11 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void abrirPanel() {
+		// Verificando se ja existe uma imagem sintetica em aberto
 		if(janelaImagem != null) {
 			janelaImagem.dispose();
 		}
+		// Inicializando uma nova imagem sintetica
 		janelaImagem = new JanelaImagemSintetica();
 		PainelDesenho panelDesenho = new PainelDesenho(
 				this.retornaValorAltura(), 
@@ -76,6 +78,7 @@ public class ControladorPrincipal extends Controlador {
 		janelaImagem.setPanelDesenho(panelDesenho);
 		lancarFrame(janelaImagem);
 		
+		//Tratamento das acoes dos botoes da janela que contem a imagem sintetica
 		janelaImagem.getBtnSair().addActionListener(new ActionListener() {
 
 			@Override
@@ -94,7 +97,9 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void rotacao() {
+		// Verifica a existencia da imagem sintetica
 		if(validaTransformacao()){
+			// Atualiza a imagem sintetica apos a realizacao da transformacao
 			this.atualizaImagemSintetica(
 				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).rotaciona(
 					this.retornaValorTransformacao("Determine o angulo de rotacao: "), 5, 5
@@ -111,7 +116,9 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void translacao() {
+		// Verifica a existencia da imagem sintetica
 		if(validaTransformacao()){
+			// Atualiza a imagem sintetica apos a realizacao da transformacao
 			this.atualizaImagemSintetica(
 				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).translada(
 					this.retornaValorTransformacao("Determine o valor do deslocamento em X: "), 
@@ -129,7 +136,9 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void espelhamentoHorizontal() {
+		// Verifica a existencia da imagem sintetica
 		if(validaTransformacao()) {
+			// Atualiza a imagem sintetica apos a realizacao da transformacao
 			this.atualizaImagemSintetica(
 				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).espelhamentoHorizontal()
 			);
@@ -144,7 +153,9 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void espelhamentoVertical() {
+		// Verifica a existencia da imagem sintetica
 		if(validaTransformacao()) {
+			// Atualiza a imagem sinteitca apos a realizacao da transformacao
 			this.atualizaImagemSintetica(
 				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).espelhamentoVertical()
 			);
@@ -235,19 +246,25 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	private void atualizaImagemSintetica(int[][] matrizTransformacao) {
+		// Obtendo as informacoes da imagem sintetica
 		int altura = janelaImagem.getPanelDesenho().getMatriz().getNumLinhas();
 		int largura = janelaImagem.getPanelDesenho().getMatriz().getNumColunas();
+		
+		// Instanciando a imagem sintetica
 		PainelDesenho panelDesenho = new PainelDesenho(
 				altura, 
 				largura,
 				matrizTransformacao
 		);
+		
+		// Adicionando a nova imagem sintetica na GUI
 		janelaImagem.dispose();
 		janelaImagem = null;
 		janelaImagem = new JanelaImagemSintetica();
 		janelaImagem.setPanelDesenho(panelDesenho);
 		lancarFrame(janelaImagem);
 		
+		// Tratamento das acoes dos botoes da GUI
 		janelaImagem.getBtnSair().addActionListener(new ActionListener(){
 
 			@Override
