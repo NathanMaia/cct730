@@ -19,7 +19,7 @@ public class Principal {
 	 * @param String args
 	 */
 	public static void main(String args[]) {
-		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Histograma");
+		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Equalizacao de Imagens");
 		//Tratamento da ação de fechar a janela do aplicativo
 		janela.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

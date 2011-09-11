@@ -6,9 +6,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JInternalFrame;
+import javax.swing.plaf.FileChooserUI;
 
 import br.edu.unifei.cct730.trabalho04.utils.Mensagem;
 import br.edu.unifei.cct730.trabalho04.eventos.MyActionListener;
+import br.edu.unifei.cct730.trabalho04.gui.componentes.MyFileChooser;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaHistograma;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemBinaria;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
@@ -35,6 +37,7 @@ public class ControladorPrincipal extends Controlador {
 	private ArquivoCabecalho arquivoCabecalho = null;
 	private Descritor descritor = null;
 	private Histograma histograma = null;
+	private String caminhoUltimoArquivo = "";
 
 	/**
 	 * Construtor
@@ -79,53 +82,71 @@ public class ControladorPrincipal extends Controlador {
 					j.dispose();
 			}
 
-			arquivoImagem = new ArquivoImagem("trabalho04/IMAGEM.IMG");
-			arquivoCabecalho = new ArquivoCabecalho("trabalho04/IMAGEM.CAB");
+			/* 
+			 * Inicializando a interface para selecionamento do arquivo desejado
+			 */
+			MyFileChooser fileChooser = new MyFileChooser("Selecione a imagem");
+			fileChooser.defineDiretorioInicial(caminhoUltimoArquivo);
+			fileChooser.filtro(".img", "Arquivos em nivel de cinza");
+			
+			int op = fileChooser.lancarOpenDialog(janela);
+			String retorno = fileChooser.getArquivoSelecionado(op);
+			
+			if(!(retorno.equals(MyFileChooser.OPERACAO_CANCELADA) || 
+			     retorno.equals(MyFileChooser.OPERACAO_ERRO))
+			 ) {
+				arquivoImagem = new ArquivoImagem(fileChooser.getCaminhoArquivo());
+				arquivoCabecalho = new ArquivoCabecalho(
+						arquivoImagem.getAbsolutePath().replace("IMG", "CAB")
+				);
 
-			// Leitura das dimens›es da figura do arquivo
-			int numeroLinhas = arquivoCabecalho.getNumeroLinhas();
-			int numeroColunas = arquivoCabecalho.getNumeroColunas();
+				// Leitura das dimens›es da figura do arquivo
+				int numeroLinhas = arquivoCabecalho.getNumeroLinhas();
+				int numeroColunas = arquivoCabecalho.getNumeroColunas();
 
-			// Inicializando o descritor
-			this.descritor = new Descritor(
+				// Inicializando o descritor
+				this.descritor = new Descritor(
 					numeroLinhas,
 					numeroColunas
-			);
+				);
 
-			// Leitura dos tons de cinza do arquivo 
-			Short[][] tonsCinza = arquivoImagem.getTonsCinza(
+				// Leitura dos tons de cinza do arquivo 
+				Short[][] tonsCinza = arquivoImagem.getTonsCinza(
 					numeroLinhas, 
 					numeroColunas
-			);
+				);
 
-			/* 
-			 * Adicionando os tons de cinza presentes no arquivo
-			 */
-			for(int i = 0; i < numeroLinhas; i++) {
-				for(int j = 0; j < numeroColunas; j++) {
-					this.descritor.adicionar(i, j, tonsCinza[i][j]);
+				/* 
+				 * Adicionando os tons de cinza presentes no arquivo
+				 */
+				for(int i = 0; i < numeroLinhas; i++) {
+					for(int j = 0; j < numeroColunas; j++) {
+						this.descritor.adicionar(i, j, tonsCinza[i][j]);
+					}
 				}
-			}
+				
+				// Definindo o caminho do arquivo para aberturas posteriores
+				this.caminhoUltimoArquivo = arquivoImagem.getAbsolutePath();
 
-			/*
-			 * Finalizando os arquivos da imagem
-			 */
-			arquivoImagem.fecharArquivo();
-			arquivoCabecalho.fecharArquivo();
+				/*
+				 * Finalizando os arquivos da imagem
+				 */
+				arquivoImagem.fecharArquivo();
+				arquivoCabecalho.fecharArquivo();
+				
+				/*
+				 * Habilitando as acoes do menu 
+				 */
+				janela.getBtnHistograma().setEnabled(true);
+				janela.getBtnBinarizar().setEnabled(false);
+				janela.getBtnZoom().setEnabled(false);
+			}
 
 		} catch(Exception e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
-					janela, 
-					"Falha ao abrir o arquivo!"
-			);
-		} finally {
-			janela.getBtnHistograma().setEnabled(true);
-			janela.getBtnBinarizar().setEnabled(false);
-			janela.getBtnZoom().setEnabled(false);
-			Mensagem.mostraMensagem(
-					janela, 
-					"Arquivo lido com sucesso!"
+				janela, 
+				"Falha ao abrir o arquivo!"
 			);
 		}
 	}
@@ -138,11 +159,16 @@ public class ControladorPrincipal extends Controlador {
 	 */
 	public void histograma() {
 		try {
+			/*
+			 * Construcao do histograma da imagem, de acordo com o numero de faixas
+			 * especificado 
+			 */
 			this.histograma = descritor.controiHistograma(
 					Mensagem.entradaDeDados(
 							"Insira o numero de faixas do histograma: "
 					)
 			);
+			// Inicializando a janela que apresenta os dados do histograma
 			final JanelaHistograma jHistograma = new JanelaHistograma(this.histograma);
 			lancarFrame(jHistograma);
 
@@ -241,6 +267,10 @@ public class ControladorPrincipal extends Controlador {
 					// Declaracao de variaveis
 					int x, y = 0;
 
+					/* 
+					 * Caputrando os valores do posicionamento
+					 * da imagem
+					 */
 					x = e.getX();
 					y = e.getY();
 
@@ -276,6 +306,7 @@ public class ControladorPrincipal extends Controlador {
 			final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
 			lancarFrame(jParamZoom);
 
+			// Adicionando tratamento as acoes dos botoes da GUI
 			jParamZoom.getBtnCancelar().addActionListener(new MyActionListener());
 			jParamZoom.getBtnOk().addActionListener(new ActionListener(){
 
@@ -313,7 +344,9 @@ public class ControladorPrincipal extends Controlador {
 	public void sobre() {
 		Mensagem.mostraMensagemSobre(
 				janela,
-				"Processamento de Imagens \n" + 
+				"Universidade Federal de Itajuba\n" + 
+				"PDI - Processamento de Imagens \n" +
+				"Professor: Dr. Edison Oliveira de Jesus\n" +
 				"Aluno: Felipe Agostini Knappe - 12623"
 		);
 	}
@@ -356,6 +389,10 @@ public class ControladorPrincipal extends Controlador {
 				// Declaracao de variaveis
 				int x, y = 0;
 
+				/*
+				 * Capturando o posicionamento
+				 * da imagem
+				 */
 				x = e.getX();
 				y = e.getY();
 
