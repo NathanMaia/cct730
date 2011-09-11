@@ -52,6 +52,7 @@ public abstract class Controlador {
 	public void espelhamentoHorizontal(){}
 	public void espelhamentoVertical(){}
 	public void abrirPanel(){}
+	public void sobre(){}
 	public void sair(){}
 }
 
