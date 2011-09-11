@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho04.utils;
+package br.edu.unifei.cct730.trabalho04.utils.arquivo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,7 +32,7 @@ public class ArquivoImagem extends File {
 	 * @throws IOException
 	 */
 	public BufferedReader abrirArquivoImagem() throws IOException {
-		this.stream = new BufferedReader(new FileReader(this.getName()));
+		this.stream = new BufferedReader(new FileReader(this.getAbsolutePath()));
 		return this.stream;
 	}
 

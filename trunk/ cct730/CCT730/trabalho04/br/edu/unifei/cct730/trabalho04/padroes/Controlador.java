@@ -14,7 +14,7 @@ import br.unifei.edu.cct730.trabalho04.principal.gui.JanelaPrincipal;
  * @author fknappe
  *
  */
-public abstract class Mediator {
+public abstract class Controlador {
 	
 	//Declaracao das variaveis de instancia
 	protected JanelaPrincipal frame = null;
@@ -23,7 +23,7 @@ public abstract class Mediator {
 	 * Construtor
 	 * @param JFrame j
 	 */
-	public Mediator(JanelaPrincipal j) {
+	public Controlador(JanelaPrincipal j) {
 		this.frame = j;
 	}
 	
@@ -51,7 +51,9 @@ public abstract class Mediator {
 	public void abrirArquivo(){}
 	public void binarizar(){}
 	public void histograma(){}
+	public void equalizacao(){}
 	public void zoom(){}
+	public void sobre(){}
 	public void sair(){}
 }
 

@@ -11,7 +11,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import br.edu.unifei.cct730.trabalho04.eventos.BeanPanel;
-import br.edu.unifei.cct730.trabalho04.utils.Transformacao;
+import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
 
 /**
  * Classe responsavel por inicializar o painel com os parametros
@@ -20,7 +20,7 @@ import br.edu.unifei.cct730.trabalho04.utils.Transformacao;
  * @author fknappe
  *
  */
-public class PanelEscalamento extends javax.swing.JPanel implements BeanPanel {
+public class PainelEscalamento extends javax.swing.JPanel implements BeanPanel {
 
 	// Declaracao das variaveis de instancia
 	private Transformacao bean = null;
@@ -28,7 +28,7 @@ public class PanelEscalamento extends javax.swing.JPanel implements BeanPanel {
 	/**
 	 * Construtor
 	 */
-	public PanelEscalamento() {
+	public PainelEscalamento() {
 		initComponents();
 	}
 

@@ -5,12 +5,14 @@ import javax.swing.JDesktopPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonEqualizacao;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSair;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonAbrirArquivo;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonBinarizarImagem;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonHistograma;
+import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSobre;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonZoom;
-import br.edu.unifei.cct730.trabalho04.principal.mediator.MediatorPrincipal;
+import br.edu.unifei.cct730.trabalho04.principal.controlador.ControladorPrincipal;
 
 /**
  * Classe responsavel por instanciar a interface do aplicativo
@@ -21,7 +23,7 @@ import br.edu.unifei.cct730.trabalho04.principal.mediator.MediatorPrincipal;
 public class JanelaPrincipal extends javax.swing.JFrame {
 	
 	// Declaracao das variaveis de instancia
-	private MediatorPrincipal med = null;
+	private ControladorPrincipal med = null;
 	
 	/**
 	 * Construtor 
@@ -30,7 +32,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	 */
 	public JanelaPrincipal(String title) {
 		super(title);
-		med = new MediatorPrincipal(this);
+		med = new ControladorPrincipal(this);
 		this.initComponents();
 		med.registraEventos();
 	}
@@ -51,7 +53,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir Imagem...", this.med);
 		btnHistograma = new JButtonHistograma("Construir Histograma...", this.med);
 		btnBinarizar = new JButtonBinarizarImagem("Binarizar Imagem...", this.med);
+		btnEqualizar = new JButtonEqualizacao("Equalizar imagem..", this.med);
 		btnZoom = new JButtonZoom("Zoom...", this.med);
+		btnSobre = new JButtonSobre("Sobre...", this.med);
 		btnSair = new JButtonSair("Sair", this.med);
 		
 		this.setLayout(new java.awt.GridBagLayout());
@@ -74,8 +78,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		btnBinarizar.setEnabled(false);
 		panelFuncao.add(btnBinarizar);
 		
+		btnEqualizar.setEnabled(false);
+		panelFuncao.add(btnEqualizar);
+		
 		btnZoom.setEnabled(false);
 		panelFuncao.add(btnZoom);
+		panelFuncao.add(btnSobre);
 		panelFuncao.add(btnSair);
 		
 		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu de Funções", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
@@ -98,7 +106,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	private JButtonAbrirArquivo btnAbrirArquivo;
 	private JButtonBinarizarImagem btnBinarizar;
 	private JButtonHistograma btnHistograma;
+	private JButtonEqualizacao btnEqualizar;
 	private JButtonZoom btnZoom;
+	private JButtonSobre btnSobre;
 	private JButtonSair btnSair;
 
 	// Método getters e setters dos componentes da GUI
@@ -114,12 +124,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		return btnBinarizar;
 	}
 
+	public JButtonEqualizacao getBtnEqualizar() {
+		return btnEqualizar;
+	}
+
 	public JButtonHistograma getBtnHistograma() {
 		return btnHistograma;
 	}
 
 	public JButtonZoom getBtnZoom() {
 		return btnZoom;
+	}
+
+	public JButtonSobre getBtnSobre() {
+		return btnSobre;
 	}
 
 	public JButtonSair getBtnSair() {

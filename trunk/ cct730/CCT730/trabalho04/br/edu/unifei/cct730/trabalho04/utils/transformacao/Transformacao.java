@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho04.utils;
+package br.edu.unifei.cct730.trabalho04.utils.transformacao;
 
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
 

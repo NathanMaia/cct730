@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author fknappe
  *
  */
-public class Utils {
+public class Mensagem {
 
 	/**
 	 * Metodo responsavel por apresentar uma mensagem de confirmacao ao usuario
@@ -73,6 +73,34 @@ public class Utils {
 	
 	public static void mostraMensagem(final Component componente, String mensagem) {
 		JOptionPane j = new JOptionPane(mensagem, JOptionPane.INFORMATION_MESSAGE);
+		j.setComponentOrientation(((componente == null) ?
+				JOptionPane.getRootFrame() : componente).getComponentOrientation());
+
+		final Component componenteFoco = DefaultKeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+		JDialog dialog = j.createDialog(componente, "");
+		dialog.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				if(componenteFoco != null) {
+					componenteFoco.requestFocus();
+				}
+			}
+
+		});
+		dialog.setVisible(true);
+	}
+	
+	/**
+	 * Metodo responsavel por apresentar as informacoes sobre o(s) autor(es) deste projeto
+	 * 
+	 * @param Component componente
+	 * @param String mensagem
+	 * 
+	 * @return void
+	 */
+	public static void mostraMensagemSobre(final Component componente, String mensagem) {
+		JOptionPane j = new JOptionPane(mensagem, JOptionPane.PLAIN_MESSAGE);
 		j.setComponentOrientation(((componente == null) ?
 				JOptionPane.getRootFrame() : componente).getComponentOrientation());
 

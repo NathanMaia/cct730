@@ -1,9 +1,11 @@
-package br.edu.unifei.cct730.trabalho04.utils;
+package br.edu.unifei.cct730.trabalho04.utils.histograma;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import br.edu.unifei.cct730.trabalho04.utils.formas.PontoBinario;
 
 /**
  * Classe responsavel por armazenar todas as informacoes
@@ -72,6 +74,37 @@ public class Descritor {
 		return histograma;
 	}
 	
+	public Descritor getDescritorEqualizado(Histograma histograma) {
+		Descritor descritorEqualizado;
+		Map<Short, List<PontoBinario>> tabelaEqualizada;
+		List<PontoBinario> listaPontos;
+		short nivelCinza, faixa;
+		double[] porcentagensAcumuladas;
+		double amplitude;
+		int faixas;
+		
+		descritorEqualizado = new Descritor(this.numeroLinhas, this.numeroColunas);
+		tabelaEqualizada = descritorEqualizado.getTabelaPontos();
+		
+		faixas = histograma.getFaixas();
+		amplitude = 255.0/faixas;
+		porcentagensAcumuladas = histograma.getPorcentagensAcumuladas();
+		
+		for (Map.Entry<Short, List<PontoBinario>> entrada: tabelaPontos.entrySet()) {
+			faixa = (short)(entrada.getKey()/amplitude);
+			nivelCinza = (short) Math.round(faixaProxima(porcentagensAcumuladas[faixa], faixas)*amplitude);
+			
+			for (PontoBinario ponto: entrada.getValue()) {
+				if (tabelaEqualizada.containsKey(nivelCinza) == false)
+					tabelaEqualizada.put(nivelCinza, new ArrayList<PontoBinario>());
+				
+				listaPontos = tabelaEqualizada.get(nivelCinza);
+				listaPontos.add(ponto);
+			}
+		}
+		return descritorEqualizado;
+	}
+	
 	/**
 	 * Metodo responsavel por retorna uma faixa do histograma
 	 * da imagem proxima a faixa especificada
@@ -86,7 +119,6 @@ public class Descritor {
 	}
 	
 	// Metodos getters e setters
-	
 	public Map<Short, List<PontoBinario>> getTabelaPontos() {
 		return tabelaPontos;
 	}

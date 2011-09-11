@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho04.utils;
+package br.edu.unifei.cct730.trabalho04.utils.formas;
 
 import java.awt.Color;
 import java.awt.Graphics;

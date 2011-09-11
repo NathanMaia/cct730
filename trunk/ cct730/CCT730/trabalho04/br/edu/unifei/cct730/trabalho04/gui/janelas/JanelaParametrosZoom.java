@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSair;
-import br.edu.unifei.cct730.trabalho04.gui.painel.PanelEscalamento;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelEscalamento;
 
 /**
  * Classe responsavel por inicializar a interface que apresenta
@@ -36,7 +36,7 @@ public class JanelaParametrosZoom extends javax.swing.JInternalFrame {
 		
 		java.awt.GridBagConstraints gridBagConstraints;
 		
-		panelEscalamento = new PanelEscalamento();
+		panelEscalamento = new PainelEscalamento();
 		panelBotao = new javax.swing.JPanel();
 		btnCancelar = new JButtonSair("Cancelar", this);
 		btnOk = new javax.swing.JButton("Ok");
@@ -82,13 +82,13 @@ public class JanelaParametrosZoom extends javax.swing.JInternalFrame {
 	}
 	
 	// Declaracao dos componentes da GUI
-	private PanelEscalamento panelEscalamento;
+	private PainelEscalamento panelEscalamento;
 	private javax.swing.JPanel panelBotao;
 	private JButtonSair btnCancelar;
 	private javax.swing.JButton btnOk;
 	
 	// Metodos getters e setters
-	public PanelEscalamento getPanelEscalamento() {
+	public PainelEscalamento getPanelEscalamento() {
 		return panelEscalamento;
 	}
 
