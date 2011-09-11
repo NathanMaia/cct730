@@ -12,7 +12,7 @@ import br.edu.unifei.cct730.trabalho03.gui.painel.Celula;
  * @author fknappe
  *
  */
-public class PanelDesenhoListener extends MouseAdapter {
+public class PainelDesenhoListener extends MouseAdapter {
 	
 	public void mousePressed(MouseEvent e) {
 		Celula painel = (Celula) e.getSource();

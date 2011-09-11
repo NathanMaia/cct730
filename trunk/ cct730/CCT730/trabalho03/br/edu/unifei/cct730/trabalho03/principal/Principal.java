@@ -15,10 +15,10 @@ public class Principal {
 	
 	/**
 	 * Metodo responsavel pela execucao da aplicacao
-	 * @param args
+	 * @param String args
 	 */
 	public static void main(String args[]) {
-		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Transformações Geométricas");
+		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Transformacoes Geometricas");
 		//Tratamento da ação de fechar a janela do aplicativo
 		janela.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

@@ -3,17 +3,27 @@ package br.edu.unifei.cct730.trabalho03.gui.janelas;
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonSair;
-import br.edu.unifei.cct730.trabalho03.gui.painel.PanelDesenho;
+import br.edu.unifei.cct730.trabalho03.gui.painel.PainelDesenho;
 
+/**
+ * Classe responsavel por instanciar a janela que
+ * representa a imagem sintetica
+ * 
+ * @author fknappe
+ *
+ */
 public class JanelaImagemSintetica extends javax.swing.JInternalFrame {
 	
+	/**
+	 * Construtor
+	 */
 	public JanelaImagemSintetica() {
 		super("Editor de Imagem Sintética");
 		this.initComponents();
 	}
 	
 	/**
-	 * Método responsável pela inicialização e posicionamento dos 
+	 * Método responsavel pela inicializacao e posicionamento dos 
 	 * componentes da GUI
 	 * 
 	 * @param int altura
@@ -50,7 +60,7 @@ public class JanelaImagemSintetica extends javax.swing.JInternalFrame {
 	
 	// Declaracao dos componentes da GUI
 	private JButtonSair btnSair;
-	private PanelDesenho panelDesenho;
+	private PainelDesenho panelDesenho;
 	private javax.swing.JPanel panelBotao;
 	
 	//Metodos getters e setters dos componentes da GUI
@@ -58,11 +68,11 @@ public class JanelaImagemSintetica extends javax.swing.JInternalFrame {
 		return btnSair;
 	}
 
-	public PanelDesenho getPanelDesenho() {
+	public PainelDesenho getPanelDesenho() {
 		return panelDesenho;
 	}
 	
-	public void setPanelDesenho(PanelDesenho panel) {
+	public void setPanelDesenho(PainelDesenho panel) {
 		this.panelDesenho = panel;
 		
 		java.awt.GridBagConstraints gridBagConstraints;

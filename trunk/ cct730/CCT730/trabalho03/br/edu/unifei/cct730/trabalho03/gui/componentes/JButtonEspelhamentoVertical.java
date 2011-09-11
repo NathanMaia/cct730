@@ -1,10 +1,10 @@
 package br.edu.unifei.cct730.trabalho03.gui.componentes;
 
 import br.edu.unifei.cct730.trabalho03.padroes.Command;
-import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho03.padroes.Controlador;
 
 /**
- * Classe respons�vel por instanciar um botao encarregado das acoes da operacao de 
+ * Classe responsavel por instanciar um botao encarregado das acoes da operacao de 
  * espelhamento vertical
  * 
  * @author fknappe
@@ -13,15 +13,15 @@ import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
 public class JButtonEspelhamentoVertical extends javax.swing.JButton implements Command {
 	
 	//Declaracao das variaveis de instacia
-	private Mediator med;
+	private Controlador med;
 	
 	/**
 	 * Construtor
 	 * 
 	 * @param String title
-	 * @param Mediator m
+	 * @param Controlador m
 	 */
-	public JButtonEspelhamentoVertical(String title, Mediator m) {
+	public JButtonEspelhamentoVertical(String title, Controlador m) {
 		this.med = m;
 		this.setText(title);
 	}

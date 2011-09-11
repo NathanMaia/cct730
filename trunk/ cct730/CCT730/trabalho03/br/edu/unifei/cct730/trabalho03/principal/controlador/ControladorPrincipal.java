@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho03.principal.mediator;
+package br.edu.unifei.cct730.trabalho03.principal.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,23 +6,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import br.edu.unifei.cct730.trabalho03.eventos.MyActionListener;
-import br.edu.unifei.cct730.trabalho03.eventos.PanelDesenhoListener;
+import br.edu.unifei.cct730.trabalho03.eventos.PainelDesenhoListener;
 import br.edu.unifei.cct730.trabalho03.gui.janelas.JanelaImagemSintetica;
-import br.edu.unifei.cct730.trabalho03.gui.painel.PanelDesenho;
+import br.edu.unifei.cct730.trabalho03.gui.painel.PainelDesenho;
 import br.edu.unifei.cct730.trabalho03.principal.gui.JanelaPrincipal;
 import br.edu.unifei.cct730.trabalho03.utils.MatrizCelula;
 import br.edu.unifei.cct730.trabalho03.utils.Transformacao;
 import br.edu.unifei.cct730.trabalho03.utils.Utils;
-import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho03.padroes.Controlador;
 
 /**
- * Classe responsavel por intermediar as aï¿½ï¿½es
- * da JanelaPrincipal com o restante da aplicacao
+ * Classe responsavel por intermediar as acoes
+ * do usuario com o restante da aplicacao
  * 
  * @author fknappe
  *
  */
-public class MediatorPrincipal extends Mediator {
+public class ControladorPrincipal extends Controlador {
 	
 	//Declaracao das variaveis de instancia
 	private JanelaPrincipal janela = null;
@@ -32,7 +32,7 @@ public class MediatorPrincipal extends Mediator {
 	 * Construtor 
 	 * @param JanelaPrincipal j
 	 */
-	public MediatorPrincipal(JanelaPrincipal j) {
+	public ControladorPrincipal(JanelaPrincipal j) {
 		super(j);
 		this.janela = j;
 	}
@@ -48,9 +48,8 @@ public class MediatorPrincipal extends Mediator {
 		// Inicializando o listener para captar os eventos da janela
 		MyActionListener myListener = new MyActionListener();
 		
-		// Registrando as aï¿½ï¿½es dos botoï¿½es da GUI
+		// Registrando as acoes dos botoes da GUI
 		janela.getBtnAbrirPanel().addActionListener(myListener);
-		janela.getBtnEscalamento().addActionListener(myListener);
 		janela.getBtnEspelhamentoH().addActionListener(myListener);
 		janela.getBtnEspelhamentoV().addActionListener(myListener);
 		janela.getBtnRotacao().addActionListener(myListener);
@@ -59,7 +58,7 @@ public class MediatorPrincipal extends Mediator {
 	}
 	
 	/**
-	 * Metodo responsavel por criar um painel para criacao
+	 * Metodo responsavel por instanciar um painel para criacao
 	 * das imagens sinteticas
 	 * 
 	 * @param void
@@ -70,7 +69,7 @@ public class MediatorPrincipal extends Mediator {
 			janelaImagem.dispose();
 		}
 		janelaImagem = new JanelaImagemSintetica();
-		PanelDesenho panelDesenho = new PanelDesenho(
+		PainelDesenho panelDesenho = new PainelDesenho(
 				this.retornaValorAltura(), 
 				this.retornaValorLargura()
 		);
@@ -123,23 +122,6 @@ public class MediatorPrincipal extends Mediator {
 	}
 	
 	/**
-	 * Metodo responsavel por tratar as operacoes de escala
-	 * sobre a imagem sintetica
-	 * 
-	 * @param void
-	 * @return void
-	 */
-	public void escalamento() {
-		if(validaTransformacao()){
-			this.atualizaImagemSintetica(
-				this.getTransformacao(janelaImagem.getPanelDesenho().getMatriz()).escala(
-					this.retornaValorTransformacao("Determine o fator de escala: ")
-				)
-			);
-		}
-	}
-	
-	/**
 	 * Metodo responsavel por tratar as operacoes de
 	 * espelhamento horizontal
 	 * 
@@ -170,7 +152,7 @@ public class MediatorPrincipal extends Mediator {
 	}
 	
 	/**
-	 * Mï¿½todo respons‡vel por finalizar o aplicativo
+	 * Metodo responsavel por finalizar o aplicativo
 	 * 
 	 * @param  void
 	 * @return void
@@ -255,7 +237,7 @@ public class MediatorPrincipal extends Mediator {
 	private void atualizaImagemSintetica(int[][] matrizTransformacao) {
 		int altura = janelaImagem.getPanelDesenho().getMatriz().getNumLinhas();
 		int largura = janelaImagem.getPanelDesenho().getMatriz().getNumColunas();
-		PanelDesenho panelDesenho = new PanelDesenho(
+		PainelDesenho panelDesenho = new PainelDesenho(
 				altura, 
 				largura,
 				matrizTransformacao

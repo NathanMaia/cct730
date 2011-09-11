@@ -6,7 +6,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
- * Classe celula: responsável por criar as células para a imagem sintética
+ * Classe celula: responsavel por criar as celulas para a imagem sintetica
  * @author fknappe
  *
  */
@@ -19,6 +19,7 @@ public class Celula extends javax.swing.JPanel {
 
 	/**
 	 * Construtor
+	 * 
 	 * @param linha
 	 * @param coluna
 	 * 
@@ -32,7 +33,7 @@ public class Celula extends javax.swing.JPanel {
 	}
 	
 	/**
-	 * Método responsável pela inicialização dos componentes da GUI
+	 * Método responsavel pela inicializacao dos componentes da GUI
 	 *
 	 * @return void
 	 */
@@ -48,8 +49,8 @@ public class Celula extends javax.swing.JPanel {
 	}
 
 	/**
-	 * Método responsável por definir a cor do painel 
-	 * (BRANCO: célula não selecionado, PRETO: célula selecionada)
+	 * Método responsavel por definir a cor do painel 
+	 * (BRANCO: celula nao selecionado, PRETO: celula selecionada)
 	 * 
 	 * @return void
 	 */
