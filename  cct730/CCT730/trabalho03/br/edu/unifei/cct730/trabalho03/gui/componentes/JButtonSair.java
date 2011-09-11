@@ -6,17 +6,17 @@ import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho03.principal.gui.JanelaPrincipal;
 import br.edu.unifei.cct730.trabalho03.padroes.Command;
-import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho03.padroes.Controlador;
 
 /**
- * Classe responsavel por instanciar um bot�o encarregado de finalizar a aplicacao
+ * Classe responsavel por instanciar um botao encarregado de finalizar a aplicacao
  * @author fknappe
  *
  */
 public class JButtonSair extends javax.swing.JButton implements Command {
 	
 	//Declaracao das variaveis de inst�ncia
-	private Mediator med = null;
+	private Controlador med = null;
 	private JInternalFrame internalFrame = null;
 	
 	/**
@@ -24,7 +24,7 @@ public class JButtonSair extends javax.swing.JButton implements Command {
 	 * @param String title
 	 * @param JFrame j
 	 */
-	public JButtonSair(String title, Mediator m) {
+	public JButtonSair(String title, Controlador m) {
 		this.med = m;
 		this.setText(title);
 	}

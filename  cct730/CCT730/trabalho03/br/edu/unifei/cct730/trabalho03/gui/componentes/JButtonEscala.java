@@ -1,7 +1,7 @@
 package br.edu.unifei.cct730.trabalho03.gui.componentes;
 
 import br.edu.unifei.cct730.trabalho03.padroes.Command;
-import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho03.padroes.Controlador;
 
 /**
  * Classe responsavel por instanciar um botao encarregado pela operacao de escalamento
@@ -11,14 +11,15 @@ import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
 public class JButtonEscala extends javax.swing.JButton implements Command {
 
 	//Declaracao das variaveis de instancia
-	private Mediator med;
+	private Controlador med;
 	
 	/**
 	 * Construtor
 	 * @param String title
-	 * @param Mediator m
+	 * @param Controlador m
+	 * 
 	 */
-	public JButtonEscala(String title, Mediator m) {
+	public JButtonEscala(String title, Controlador m) {
 		this.med = m;
 		this.setText(title);
 	}

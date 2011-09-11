@@ -1,17 +1,17 @@
 package br.edu.unifei.cct730.trabalho03.gui.painel;
 
 import java.awt.GridLayout;
-import br.edu.unifei.cct730.trabalho03.eventos.PanelDesenhoListener;
+import br.edu.unifei.cct730.trabalho03.eventos.PainelDesenhoListener;
 import br.edu.unifei.cct730.trabalho03.utils.MatrizCelula;
 
 /**
- * Classe responsável por criar o painel da imagem sintética
+ * Classe responsavel por criar o painel da imagem sintética
  * @author fknappe
  *
  */
-public class PanelDesenho extends javax.swing.JPanel {
+public class PainelDesenho extends javax.swing.JPanel {
 	
-	//Declaração das variáveis de instância
+	//Declaração das variaveis de instancia
 	private MatrizCelula matriz = null;
 	private int altura, largura = 0;
 
@@ -21,7 +21,7 @@ public class PanelDesenho extends javax.swing.JPanel {
 	 * @param int altura  
 	 * @param int largura
 	 */
-	public PanelDesenho(int altura, int largura) {
+	public PainelDesenho(int altura, int largura) {
 		matriz = new MatrizCelula(altura, largura);
 		this.altura = altura;
 		this.largura = largura;
@@ -29,7 +29,7 @@ public class PanelDesenho extends javax.swing.JPanel {
 		for (int i = 0; i < this.altura; i++) {
 			for (int j = 0; j < this.largura; j++) {
 				matriz.add(i, j);
-				matriz.getCelula(i, j).addMouseListener(new PanelDesenhoListener());
+				matriz.getCelula(i, j).addMouseListener(new PainelDesenhoListener());
 				this.add(matriz.getCelula(i, j));
 			}
 		}
@@ -42,7 +42,7 @@ public class PanelDesenho extends javax.swing.JPanel {
 	 * @param int largura
 	 * @param int matrizEntrada
 	 */
-	public PanelDesenho(int altura, int largura, int matrizEntrada[][]) {
+	public PainelDesenho(int altura, int largura, int matrizEntrada[][]) {
 		matriz = new MatrizCelula(altura, largura);
 		this.altura = altura;
 		this.largura = largura;
@@ -50,13 +50,13 @@ public class PanelDesenho extends javax.swing.JPanel {
 		for (int i = 0; i < altura; i++) {
 			for (int j = 0; j < largura; j++) {
 				matriz.add(matrizEntrada[i][j], i, j);	
-				matriz.getCelula(i, j).addMouseListener(new PanelDesenhoListener());
+				matriz.getCelula(i, j).addMouseListener(new PainelDesenhoListener());
 				this.add(matriz.getCelula(i, j));
 			}
 		}
 	}
 	
-	//Métodos getters e setters 
+	//Metodos getters e setters 
 	public Celula[][] getPixels() {
 		return matriz.getMatrizCelulas();
 	}

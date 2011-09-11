@@ -6,13 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
- * Classe abstrata responsavel por intermediar as ações
- * da GUI com o restante da aplicacao
+ * Classe abstrata que implementa o comportamento
+ * do pattern Mediator
  * 
  * @author fknappe
  *
  */
-public abstract class Mediator {
+public abstract class Controlador {
 	
 	//Declaracao das variaveis de instancia
 	private javax.swing.JFrame frame = null;
@@ -21,7 +21,7 @@ public abstract class Mediator {
 	 * Construtor
 	 * @param JFrame j
 	 */
-	public Mediator(JFrame j) {
+	public Controlador(JFrame j) {
 		this.frame = j;
 	}
 	

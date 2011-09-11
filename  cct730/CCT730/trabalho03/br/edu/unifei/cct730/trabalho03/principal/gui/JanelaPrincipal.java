@@ -18,7 +18,7 @@ import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonEspelhamentoVertic
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonRotacao;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonSair;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonTranslacao;
-import br.edu.unifei.cct730.trabalho03.principal.mediator.MediatorPrincipal;
+import br.edu.unifei.cct730.trabalho03.principal.controlador.ControladorPrincipal;
 
 
 /**
@@ -29,7 +29,7 @@ import br.edu.unifei.cct730.trabalho03.principal.mediator.MediatorPrincipal;
 public class JanelaPrincipal extends javax.swing.JFrame {
 	
 	//Declaracao das variaveis de instacia
-	private MediatorPrincipal med;
+	private ControladorPrincipal med = null;
 	
 	/**
 	 * Construtor
@@ -37,13 +37,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	 */
 	public JanelaPrincipal(String title) {
 		super(title);
-		med = new MediatorPrincipal(this);
+		med = new ControladorPrincipal(this);
 		this.initComponents();
 		med.registraEventos();
 	}
 	
 	/**
-	 * Método responsavel por inicializar e posicionar os componentes da GUI
+	 * Metodo responsavel por inicializar e posicionar os componentes da GUI
 	 * 
 	 * @return void
 	 */
@@ -57,12 +57,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		desktop = new JDesktopPane();
 		panelFuncao = new javax.swing.JPanel();
 		btnFinalizar = new JButtonSair("Finalizar...", this.med);
-		btnAbrirPanel = new JButtonAbrirPanel("Nova Imagem Sintética...", this.med);
+		btnAbrirPanel = new JButtonAbrirPanel("Nova Imagem Sintetica...", this.med);
 		btnEspelhamentoH = new JButtonEspelhamentoHorizontal("Espelhamento Horizontal", this.med);
 		btnEspelhamentoV = new JButtonEspelhamentoVertical("Espelhamento Vertical", this.med);
-		btnEscalamento = new JButtonEscala("Escalamento", this.med);
-		btnRotacao = new JButtonRotacao("Rotação", this.med);
-		btnTranslacao = new JButtonTranslacao("Translação", this.med);
+		btnRotacao = new JButtonRotacao("Rotacao", this.med);
+		btnTranslacao = new JButtonTranslacao("Translacao", this.med);
 		
 		//Posicionando os componentes da GUI
 		gridBagConstraints = new java.awt.GridBagConstraints();
@@ -76,7 +75,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		getContentPane().add(desktop, gridBagConstraints);
 		
 		panelFuncao.add(btnAbrirPanel);
-		panelFuncao.add(btnEscalamento);
 		panelFuncao.add(btnEspelhamentoH);
 		panelFuncao.add(btnEspelhamentoV);
 		panelFuncao.add(btnRotacao);
@@ -104,7 +102,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	private JButtonAbrirPanel btnAbrirPanel;
 	private JButtonEspelhamentoHorizontal btnEspelhamentoH;
 	private JButtonEspelhamentoVertical btnEspelhamentoV;
-	private JButtonEscala btnEscalamento;
 	private JButtonRotacao btnRotacao;
 	private JButtonTranslacao btnTranslacao;
 
@@ -127,10 +124,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
 	public JButtonEspelhamentoVertical getBtnEspelhamentoV() {
 		return btnEspelhamentoV;
-	}
-
-	public JButtonEscala getBtnEscalamento() {
-		return btnEscalamento;
 	}
 
 	public JButtonRotacao getBtnRotacao() {

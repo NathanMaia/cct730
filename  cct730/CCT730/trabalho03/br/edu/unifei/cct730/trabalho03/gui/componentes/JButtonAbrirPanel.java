@@ -1,11 +1,11 @@
 package br.edu.unifei.cct730.trabalho03.gui.componentes;
 
 import br.edu.unifei.cct730.trabalho03.padroes.Command;
-import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
+import br.edu.unifei.cct730.trabalho03.padroes.Controlador;
 
 /**
- * Classe responsavel por instanciar um botao encarregado pelas a��es do editor
- * de imagens sint�ticas
+ * Classe responsavel por instanciar um botao encarregado pelas acoes do editor
+ * de imagens sinteticas
  * 
  * @author fknappe
  *
@@ -13,7 +13,7 @@ import br.edu.unifei.cct730.trabalho03.padroes.Mediator;
 public class JButtonAbrirPanel extends javax.swing.JButton implements Command {
 
 	//Declaracao das variaveis de instancia
-	private Mediator med = null;
+	private Controlador med = null;
 	
 	/**
 	 * Construtor
@@ -21,7 +21,7 @@ public class JButtonAbrirPanel extends javax.swing.JButton implements Command {
 	 * @param String title
 	 * @param Meditor m
 	 */
-	public JButtonAbrirPanel(String title, Mediator m) {
+	public JButtonAbrirPanel(String title, Controlador m) {
 		this.med = m;
 		this.setText(title);
 	}

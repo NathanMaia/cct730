@@ -2,11 +2,11 @@ package br.edu.unifei.cct730.trabalho03.eventos;
 
 import java.awt.event.ActionEvent;
 
-import br.edu.unifei.cct730.trabalho04.padroes.Command;
+import br.edu.unifei.cct730.trabalho03.padroes.Command;
 
 /**
- * Classe respons�vel por definir a forma de resposta das a��es
- * de intera��o da GUI com o restante do sistema
+ * Classe responsavel por definir a forma de resposta das acoes
+ * de interacao da GUI com o restante do sistema
  * 
  * @author fknappe
  *
