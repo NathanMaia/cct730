@@ -12,11 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonAbrirPanel;
-import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonEscala;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonEspelhamentoHorizontal;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonEspelhamentoVertical;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonRotacao;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonSair;
+import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonSobre;
 import br.edu.unifei.cct730.trabalho03.gui.componentes.JButtonTranslacao;
 import br.edu.unifei.cct730.trabalho03.principal.controlador.ControladorPrincipal;
 
@@ -57,6 +57,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		desktop = new JDesktopPane();
 		panelFuncao = new javax.swing.JPanel();
 		btnFinalizar = new JButtonSair("Finalizar...", this.med);
+		btnSobre = new JButtonSobre("Sobre...", this.med);
 		btnAbrirPanel = new JButtonAbrirPanel("Nova Imagem Sintetica...", this.med);
 		btnEspelhamentoH = new JButtonEspelhamentoHorizontal("Espelhamento Horizontal", this.med);
 		btnEspelhamentoV = new JButtonEspelhamentoVertical("Espelhamento Vertical", this.med);
@@ -75,13 +76,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		getContentPane().add(desktop, gridBagConstraints);
 		
 		panelFuncao.add(btnAbrirPanel);
+		btnEspelhamentoH.setEnabled(false);
 		panelFuncao.add(btnEspelhamentoH);
+		btnEspelhamentoV.setEnabled(false);
 		panelFuncao.add(btnEspelhamentoV);
+		btnRotacao.setEnabled(false);
 		panelFuncao.add(btnRotacao);
+		btnTranslacao.setEnabled(false);
 		panelFuncao.add(btnTranslacao);
+		panelFuncao.add(btnSobre);
 		panelFuncao.add(btnFinalizar);
 		
-		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu de Funções", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
@@ -99,11 +105,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	private JDesktopPane desktop;
 	private javax.swing.JPanel panelFuncao;
 	private JButtonSair btnFinalizar;
+	private JButtonSobre btnSobre;
 	private JButtonAbrirPanel btnAbrirPanel;
 	private JButtonEspelhamentoHorizontal btnEspelhamentoH;
 	private JButtonEspelhamentoVertical btnEspelhamentoV;
 	private JButtonRotacao btnRotacao;
 	private JButtonTranslacao btnTranslacao;
+	
+	/**
+	 * Metodo responsavel por habilitar as acoes do menu
+	 * 
+	 * @return void
+	 */
+	public void habilitaFuncoesMenu() {
+		this.getBtnEspelhamentoH().setEnabled(true);
+		this.getBtnEspelhamentoV().setEnabled(true);
+		this.getBtnRotacao().setEnabled(true);
+		this.getBtnTranslacao().setEnabled(true);
+	}
+	
+	/**
+	 * Metodo responsavel por desabilitar as acoes do menu
+	 * 
+	 * @return void
+	 */
+	public void desabilitaFuncoesMenu() {
+		this.getBtnEspelhamentoH().setEnabled(false);
+		this.getBtnEspelhamentoV().setEnabled(false);
+		this.getBtnRotacao().setEnabled(false);
+		this.getBtnTranslacao().setEnabled(false);
+	}
 
 	//Metodos getters e setters dos componentes da GUI
 	public JDesktopPane getDesktop() {
@@ -112,6 +143,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
 	public JButtonSair getBtnFinalizar() {
 		return btnFinalizar;
+	}
+
+	public JButtonSobre getBtnSobre() {
+		return btnSobre;
 	}
 
 	public JButtonAbrirPanel getBtnAbrirPanel() {
