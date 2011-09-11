@@ -44,7 +44,7 @@ public class Mensagem {
 	}
 	
 	/**
-	 * Metodo responsavel por apresentar as mensagens ao usuario
+	 * Metodo responsavel por apresentar as mensagens de erro ao usuario
 	 * 
 	 * @param Component componente
 	 * @param String erro
@@ -71,6 +71,14 @@ public class Mensagem {
 		dialog.setVisible(true);
 	}
 	
+	/**
+	 * Metodo responsavel por apresentar as mensagens informativas ao usuario
+	 * 
+	 * @param Component componente
+	 * @param String mensagem
+	 * 
+	 * @return void
+	 */
 	public static void mostraMensagem(final Component componente, String mensagem) {
 		JOptionPane j = new JOptionPane(mensagem, JOptionPane.INFORMATION_MESSAGE);
 		j.setComponentOrientation(((componente == null) ?
