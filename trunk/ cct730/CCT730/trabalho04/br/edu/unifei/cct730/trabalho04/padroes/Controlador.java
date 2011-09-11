@@ -8,8 +8,7 @@ import javax.swing.JInternalFrame;
 import br.unifei.edu.cct730.trabalho04.principal.gui.JanelaPrincipal;
 
 /**
- * Classe abstrata responsavel por intermediar as ações
- * da GUI com o restante da aplicacao
+ * Classe abstrata que implementa o pattern Mediator
  * 
  * @author fknappe
  *

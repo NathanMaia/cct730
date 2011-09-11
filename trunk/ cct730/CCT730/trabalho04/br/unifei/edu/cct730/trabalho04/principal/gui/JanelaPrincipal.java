@@ -86,7 +86,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		panelFuncao.add(btnSobre);
 		panelFuncao.add(btnSair);
 		
-		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu de Funções", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
