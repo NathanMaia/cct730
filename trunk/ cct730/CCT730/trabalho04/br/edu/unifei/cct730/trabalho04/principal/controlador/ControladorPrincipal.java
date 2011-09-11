@@ -11,6 +11,7 @@ import javax.swing.plaf.FileChooserUI;
 import br.edu.unifei.cct730.trabalho04.utils.Mensagem;
 import br.edu.unifei.cct730.trabalho04.eventos.MyActionListener;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.MyFileChooser;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaEqualizacao;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaHistograma;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemBinaria;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
@@ -202,16 +203,16 @@ public class ControladorPrincipal extends Controlador {
 			}
 			
 			// Inicializando a janela com a imagem equalizada
-			final JanelaImagemBinaria janelaImagemBinaria = new JanelaImagemBinaria(
+			final JanelaEqualizacao janelaEqualizacao = new JanelaEqualizacao(
 					new PainelImagemBinaria(
 							this.descritor.getDescritorEqualizado(this.histograma),
 							imagem.getLimiar()
 				    )
 			);
-			lancarFrame(janelaImagemBinaria);
+			lancarFrame(janelaEqualizacao);
 			
 			// Tratamento da ação de movimento da janela 
-			janelaImagemBinaria.getPainelImagem().addMouseListener(new MouseAdapter() {
+			janelaEqualizacao.getPainelImagem().addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent e) {
 
 					// Declaracao de variaveis
@@ -220,10 +221,10 @@ public class ControladorPrincipal extends Controlador {
 					x = e.getX();
 					y = e.getY();
 
-					if (x < janelaImagemBinaria.getPainelImagem().getNumeroColunas() && 
-							y < janelaImagemBinaria.getPainelImagem().getNumeroLinhas()) {
-						janelaImagemBinaria.getPainelImagem().trocaEstadoPosicao(x, y);
-						janelaImagemBinaria.getPainelImagem().repaint();
+					if (x < janelaEqualizacao.getPainelImagem().getNumeroColunas() && 
+							y < janelaEqualizacao.getPainelImagem().getNumeroLinhas()) {
+						janelaEqualizacao.getPainelImagem().trocaEstadoPosicao(x, y);
+						janelaEqualizacao.getPainelImagem().repaint();
 					}
 				}
 			});	
