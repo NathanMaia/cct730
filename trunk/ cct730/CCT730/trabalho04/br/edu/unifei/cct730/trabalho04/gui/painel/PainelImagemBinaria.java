@@ -8,66 +8,52 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.utils.formas.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho04.ponto.PontoBinario;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
+import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 
 /**
  * Classe responsavel por criar a imagem binarizada
  * @author fknappe
  *
  */
-public class PainelImagemBinaria extends javax.swing.JPanel {
+public class PainelImagemBinaria extends PainelImagem {
 	
-	// Declaração das variáveis de instância
-	private PontoBinario[][] pontos = null;
-	private Descritor descritor = null;
-	private int numeroLinhas, numeroColunas = 0;
+	// Declaracao das variaveis de instacia
 	private short limiar = 0;
+	
+	public PainelImagemBinaria() {
+		super();
+	}
 	
 	/**
 	 * Construtor 
 	 * 
 	 * @param Descritor d
-	 * @param Histograma h
-	 * @param short limiar
-	 */
-	public PainelImagemBinaria(
-			Descritor d,
-			short limiar
-	) {
-		this(d.getNumeroLinhas(), d.getNumeroColunas(), limiar);
-		this.descritor = d;
-		
-		// Realiza a construção da imagem
-		constroiImagem(descritor.getTabelaPontos());
-	}
-	/**
-	 * Construtor 
 	 * 
-	 * @param int numeroLinhas
-	 * @param int numeroColunas
 	 */
-	public PainelImagemBinaria(
-			int numeroLinhas, 
-			int numeroColunas, 
-			short l
-	) {
-		super();
+	public PainelImagemBinaria(ImagemBinarizada im) {
+		super(im);
+	}
+	
+	/**
+	 * Metodo responsavel por construir a imagem binaria
+	 * 
+	 * @param tabelaPontos
+	 * 
+	 * @return void
+	 */
+	protected void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
+		short nivelCinza;
 		
-		this.numeroLinhas = numeroLinhas;
-		this.numeroColunas = numeroColunas;
-		this.limiar = l;
-		
-		// Inicializa o vetor de pontos do painel
-		this.constroiVetorPontos();
-		
-		this.setPreferredSize(
-				new Dimension(
-						this.numeroLinhas, 
-						this.numeroColunas
-				)
-		);
+		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {
+			nivelCinza = entrada.getKey();
+			for (Ponto ponto: entrada.getValue()) {
+				setPosicao(ponto.getX(), ponto.getY(), binarizar(nivelCinza));
+			}
+		}
 	}
 	
 	/**
@@ -75,33 +61,28 @@ public class PainelImagemBinaria extends javax.swing.JPanel {
 	 * 
 	 * @return void
 	 */
-	private void constroiVetorPontos() {
-		this.pontos = new PontoBinario[numeroLinhas][numeroColunas];
-		for (int i = 0; i < this.numeroLinhas; i++) {
-			for (int j = 0; j < this.numeroColunas; j++) {
-				pontos[i][j] = new PontoBinario(i, j);
+	protected void constroiVetorPontos() {
+		this.setPontos(new Ponto[this.getNumeroLinhas()][this.getNumeroColunas()]);
+		for (int i = 0; i < this.getNumeroLinhas(); i++) {
+			for (int j = 0; j < this.getNumeroColunas(); j++) {
+				this.getPontos()[i][j] = new PontoBinario(i, j);
 			}
 		}
 	}
 	
 	/**
-	 * Metodo responsavel pela construcao da imagem binaria
+	 * Metodo responsavel por retornar o estado do ponto binario (retorna
+	 * 0 ou 1)
 	 * 
-	 * @param Map tabelaPontos
+	 * @param int posLinha
+	 * @param int posColuna
 	 * 
-	 * @return void
+	 * @return boolean
 	 */
-	private void constroiImagem(Map<Short, List<PontoBinario>> tabelaPontos) {
-		short nivelCinza;
-		
-		for (Map.Entry<Short, List<PontoBinario>> entrada: tabelaPontos.entrySet()) {
-			nivelCinza = entrada.getKey();
-			for (PontoBinario ponto: entrada.getValue()) {
-				setPosicao(ponto.getX(), ponto.getY(), binarizar(nivelCinza));
-			}
-		}
+	public boolean getPosicao(int posLinha, int posColuna) {
+		return ((PontoBinario)this.getPontos()[posLinha][posColuna]).getEstado();
 	}
-
+	
 	/**
 	 * Metodo responsavel por alterar o estado do ponto binario (0 ou 1)
 	 * 
@@ -111,8 +92,8 @@ public class PainelImagemBinaria extends javax.swing.JPanel {
 	 * 
 	 * @return void
 	 */
-	public void setPosicao(int posLinha, int posColuna, boolean estado) {
-		pontos[posLinha][posColuna].setEstado(estado);
+	protected void setPosicao(int posLinha, int posColuna, boolean estado) {
+		((PontoBinario)this.getPontos()[posLinha][posColuna]).setEstado(estado);
 	}
 	
 	/**
@@ -125,21 +106,7 @@ public class PainelImagemBinaria extends javax.swing.JPanel {
 	 * @return void
 	 */
 	public void trocaEstadoPosicao(int posLinha, int posColuna) {
-		pontos[posLinha][posColuna].trocaEstado();
-	}
-
-	/**
-	 * Metodo responsavel por colorir o ponto especificado
-	 * 
-	 * @param int posLinha
-	 * @param int posColuna
-	 * @param Color cor
-	 * 
-	 * @return void
-	 */
-	public void pintarPosicao(int posLinha, int posColuna, Color cor) {
-		pontos[posLinha][posColuna].setCor(cor);
-		repaint();
+		((PontoBinario)this.getPontos()[posLinha][posColuna]).trocaEstado();
 	}
 	
 	/**
@@ -154,41 +121,13 @@ public class PainelImagemBinaria extends javax.swing.JPanel {
 		if (readShort < this.limiar) return true;
 		return false;
 	}
-	
-	/**
-	 * Metodo responsavel por plotar os pontos da imagem
-	 * 
-	 * @param Graphics g
-	 * 
-	 * @return void
-	 */
-	public void paint(Graphics g) {
-		super.paint(g);
-		for (int i = 0; i < this.numeroLinhas; i++) {
-			for (int j = 0; j < this.numeroColunas; j++) {
-				this.pontos[i][j].plotar(g);
-			}
-		}
-	}
 
 	// Metodos getters e setters
-	public boolean getPosicao(int posLinha, int posColuna) {
-		return pontos[posLinha][posColuna].getEstado();
-	}
-	
-	public int getNumeroColunas() {
-		return this.numeroColunas;
-	}
-
-	public int getNumeroLinhas() {
-		return this.numeroLinhas;
-	}
-	
 	public short getLimiar() {
 		return limiar;
 	}
 
-	PontoBinario[][] getPontos() {
-		return this.pontos;
+	public void setLimiar(short limiar) {
+		this.limiar = limiar;
 	}
 }

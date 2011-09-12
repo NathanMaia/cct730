@@ -1,15 +1,8 @@
 package br.edu.unifei.cct730.trabalho04.gui.janelas;
 
-import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 
-/**
- * Classe responsavel por inicializar a janela que apresenta 
- * a imagem equalizada
- * 
- * @author fknappe
- *
- */
-public class JanelaEqualizacao extends javax.swing.JInternalFrame {
+public class JanelaImagemDigitalizada extends javax.swing.JInternalFrame {
 	
 	// Declaracao das variaveis de instacia
 	private static int openFrameCount = 0;
@@ -18,29 +11,29 @@ public class JanelaEqualizacao extends javax.swing.JInternalFrame {
 	/**
 	 * Construtor
 	 * 
-	 * @param String title
+	 * @param PainelImagem p
 	 * 
 	 */
-	public JanelaEqualizacao(PainelImagemBinaria p) {
-		super("[Equalizacao#" + (++openFrameCount) + "]", 
+	public JanelaImagemDigitalizada(PainelImagem p) {
+		super("[Imagem#" + (++openFrameCount) + "]", 
 				true, 
 				true, 
 				true,
 				false
 		);
 		
-		this.painelImagem = p;
+		this.painelImagemDigitalizada = p;
 		this.initComponents();
 	}
 	
 	/**
-	 * Metodo responsavel pela inicializacao e disposicao 
+	 * Metodo responsavel pela instanciacao e inicializacao
 	 * dos componentes da GUI
 	 * 
 	 * @return void
 	 */
 	public void initComponents() {
-		getContentPane().add(painelImagem);
+		getContentPane().add(painelImagemDigitalizada);
 		
 		// Define o dimensionamento do painel
 		this.setVisible(true);
@@ -52,10 +45,10 @@ public class JanelaEqualizacao extends javax.swing.JInternalFrame {
 	}
 	
 	// Declaracao das componentes da GUI
-	private PainelImagemBinaria painelImagem;
+	private PainelImagem painelImagemDigitalizada;
 
 	// Metodos getters e setters
-	public PainelImagemBinaria getPainelImagem() {
-		return painelImagem;
+	public PainelImagem getPainelImagemDigitalizada() {
+		return painelImagemDigitalizada;
 	}
 }

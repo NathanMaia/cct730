@@ -44,6 +44,7 @@ public class ArquivoImagem extends File {
 	 */
 	public void fecharArquivo() throws IOException, NullPointerException {
 		this.stream.close();
+		this.stream = null;
 	}
 
 	/**
@@ -60,16 +61,27 @@ public class ArquivoImagem extends File {
 		Short[][] tonsDeCinza = new Short[nl][nc];
 		String linha = "";
 		String linhaRepartida[] = null;
-		if(this.stream == null || !this.stream.ready())
-			this.abrirArquivoImagem();
-		
-		for (int i = 0; ((linha = this.stream.readLine()) != null) && (i < nl); i++) {
-			linhaRepartida = linha.split(" ");
-			for (int j = 0; j < (linhaRepartida.length) && (j < nc); j++) {
-				tonsDeCinza[i][j] = Short.parseShort(linhaRepartida[j]);	
+		if(this.isReady()) {
+			for (int i = 0; ((linha = this.stream.readLine()) != null) && (i < nl); i++) {
+				linhaRepartida = linha.split(" ");
+				for (int j = 0; j < (linhaRepartida.length) && (j < nc); j++) {
+					tonsDeCinza[i][j] = Short.parseShort(linhaRepartida[j]);	
+				}
 			}
 		}
-		
 		return tonsDeCinza;
+	}
+
+	/**
+	 * Metodo responsavel por verificar se o arquivo esta
+	 * pronto para leitura
+	 * 
+	 * @return boolean
+	 * @throws IOException
+	 */
+	private boolean isReady() throws IOException {
+		if(this.stream == null || !this.stream.ready())
+			this.abrirArquivoImagem();
+		return true;	
 	}
 }

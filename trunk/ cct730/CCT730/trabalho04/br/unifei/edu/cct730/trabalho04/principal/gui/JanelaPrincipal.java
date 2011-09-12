@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonEqualizacao;
+import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonRecarregarArquivo;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSair;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonAbrirArquivo;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonBinarizarImagem;
-import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonHistograma;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSobre;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonZoom;
 import br.edu.unifei.cct730.trabalho04.principal.controlador.ControladorPrincipal;
@@ -50,9 +50,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		// Inicializacao dos componentes da GUI
 		panelFuncao = new javax.swing.JPanel();
 		desktop = new javax.swing.JDesktopPane();
-		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir Imagem...", this.med);
-		btnHistograma = new JButtonHistograma("Construir Histograma...", this.med);
-		btnBinarizar = new JButtonBinarizarImagem("Binarizar Imagem...", this.med);
+		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir imagem...", this.med);
+		btnRecarregarArquivo = new JButtonRecarregarArquivo("Recarregar imagem", this.med);
+		btnBinarizar = new JButtonBinarizarImagem("Binarizar imagem...", this.med);
 		btnEqualizar = new JButtonEqualizacao("Equalizar imagem..", this.med);
 		btnZoom = new JButtonZoom("Zoom...", this.med);
 		btnSobre = new JButtonSobre("Sobre...", this.med);
@@ -70,10 +70,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
 		getContentPane().add(desktop, gridBagConstraints);
 		
+		// Opcoes menu
 		panelFuncao.add(btnAbrirArquivo);
 		
-		btnHistograma.setEnabled(false);
-		panelFuncao.add(btnHistograma);
+		btnRecarregarArquivo.setEnabled(false);
+		panelFuncao.add(btnRecarregarArquivo);
 		
 		btnBinarizar.setEnabled(false);
 		panelFuncao.add(btnBinarizar);
@@ -104,12 +105,38 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	private javax.swing.JDesktopPane desktop;
 	private javax.swing.JPanel panelFuncao;
 	private JButtonAbrirArquivo btnAbrirArquivo;
+	private JButtonRecarregarArquivo btnRecarregarArquivo;
 	private JButtonBinarizarImagem btnBinarizar;
-	private JButtonHistograma btnHistograma;
 	private JButtonEqualizacao btnEqualizar;
 	private JButtonZoom btnZoom;
 	private JButtonSobre btnSobre;
 	private JButtonSair btnSair;
+	
+	/**
+	 * Metodo responsavel por habilitar as acoes do
+	 * menu de funcoes
+	 * 
+	 * @return void
+	 */
+	public void habilitarMenu() {
+		this.getBtnRecarregarArquivo().setEnabled(true);
+		this.getBtnBinarizar().setEnabled(true);
+		this.getBtnEqualizar().setEnabled(true);
+		this.getBtnZoom().setEnabled(true);
+	}
+	
+	/**
+	 * Metodo responsavel por desabilitar as acoes do menu
+	 * de funcoes
+	 * 
+	 * @return void
+	 */
+	public void desabilitarMenu() {
+		this.getBtnRecarregarArquivo().setEnabled(false);
+		this.getBtnBinarizar().setEnabled(false);
+		this.getBtnEqualizar().setEnabled(false);
+		this.getBtnZoom().setEnabled(false);
+	}
 
 	// MŽtodo getters e setters dos componentes da GUI
 	public javax.swing.JDesktopPane getDesktop() {
@@ -120,16 +147,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		return btnAbrirArquivo;
 	}
 
+	public JButtonRecarregarArquivo getBtnRecarregarArquivo() {
+		return btnRecarregarArquivo;
+	}
+
 	public JButtonBinarizarImagem getBtnBinarizar() {
 		return btnBinarizar;
 	}
 
 	public JButtonEqualizacao getBtnEqualizar() {
 		return btnEqualizar;
-	}
-
-	public JButtonHistograma getBtnHistograma() {
-		return btnHistograma;
 	}
 
 	public JButtonZoom getBtnZoom() {

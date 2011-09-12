@@ -16,6 +16,7 @@ public class ArquivoCabecalho extends File {
 	
 	//Declaracao de variaveis de instancia
 	private BufferedReader stream = null;
+	private String[] linha = null;
 	
 	/**
 	 * Construtor
@@ -49,12 +50,10 @@ public class ArquivoCabecalho extends File {
 	 * @throws IOException
 	 */
 	public Integer getNumeroLinhas() throws IOException {
-		String[] linhaSplit = null;
-		if(this.stream == null || !this.stream.ready())
-			this.abrirArquivoCabecalho();
-		
-		linhaSplit = this.stream.readLine().split(" ");
-		return Integer.parseInt(linhaSplit[0]);
+		if(this.isReady() && linha == null) {
+			linha = this.stream.readLine().split(" ");
+		}
+		return Integer.parseInt(linha[0]);
 	}
 	
 	/**
@@ -64,12 +63,10 @@ public class ArquivoCabecalho extends File {
 	 * @throws IOException
 	 */
 	public Integer getNumeroColunas() throws IOException {
-		String[] linhaSplit = null;
-		if(this.stream == null || !this.stream.ready())
-		  this.abrirArquivoCabecalho();
-		
-		linhaSplit = this.stream.readLine().split(" ");
-		return Integer.parseInt(linhaSplit[1]);
+		if(this.isReady() && linha == null) {
+			linha = this.stream.readLine().split(" ");
+		}
+		return Integer.parseInt(linha[1]);
 	}
 	
 	/**
@@ -80,5 +77,19 @@ public class ArquivoCabecalho extends File {
 	 */
 	public void fecharArquivo() throws IOException, NullPointerException {
 		this.stream.close();
+	}
+	
+	/**
+	 * Metodo responsavel por verificar se o arquivo
+	 * esta pronto para leitura
+	 * 
+	 * @return boolean
+	 * @throws IOException
+	 */
+	private boolean isReady() throws IOException {
+		if(this.stream == null) {
+			  this.abrirArquivoCabecalho();
+		} 
+		return true;
 	}
 }

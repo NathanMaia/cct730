@@ -12,15 +12,12 @@ public class Histograma {
 	
 	// Declaração das variaveis de instância
 	private int[] histograma;
-	private int faixas;
-
+	
 	/**
 	 * Construtor
 	 * 
-	 * @param int faixas
 	 */
-	public Histograma(int faixas) {
-		this.faixas = faixas;
+	public Histograma() {
 		this.histograma = new int[255];
 	}
 
@@ -37,6 +34,37 @@ public class Histograma {
 	}
 	
 	/**
+	 * Metodo que retorna o nivel de cinza armazendo no indice
+	 * especificado
+	 * 
+	 * @param int indice
+	 * 
+	 * @return int
+	 */
+	public int getNivelCinza(int indice) {
+		return histograma[indice];
+	}
+	
+	/**
+	 * Metodo que retorna o tom de cinza que mais
+	 * aparece no histograma
+	 * 
+	 * @return int
+	 */
+	public int getMaiorValor() {
+		// Declaracao das variaveis locais
+		int maiorValor = 0;
+		
+		for (int i = 0; i < histograma.length; i++) {
+			if (histograma[i] > maiorValor) {
+				maiorValor = histograma[i];
+			}
+		}
+		
+		return maiorValor;
+	}
+	
+	/**
 	 * Metodo que retorna as porcentagens dos
 	 * tons de cinza do imagem
 	 * 
@@ -47,16 +75,8 @@ public class Histograma {
 		double[] porcentagens;
 		double amplitude;
 		
-		porcentagens = new double[faixas];
-		amplitude = 255.0/faixas;
+		porcentagens = new double[255];
 		
-		for (i = 0; i < 255; i++) {
-			porcentagens[(int)(i/amplitude)] += histograma[i];
-		}
-		
-		for (i = 0; i < faixas; i++) {
-			porcentagens[i] /= 255;
-		}
 		return porcentagens;		
 	}
 
@@ -78,14 +98,6 @@ public class Histograma {
 	}
 	
 	// Métodos getters e setters
-	public int getFaixas() {
-		return faixas;
-	}
-
-	public void setFaixas(int faixas) {
-		this.faixas = faixas;
-	}
-
 	public int[] getHistograma() {
 		return histograma;
 	}

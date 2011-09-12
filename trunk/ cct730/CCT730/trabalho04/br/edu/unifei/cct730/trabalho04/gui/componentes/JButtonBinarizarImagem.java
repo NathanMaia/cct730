@@ -33,6 +33,6 @@ public class JButtonBinarizarImagem extends javax.swing.JButton implements Comma
 	 */
 	@Override
 	public void executar() {
-		this.med.binarizar();
+		this.med.binarizacao();
 	}
 }
