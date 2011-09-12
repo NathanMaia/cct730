@@ -48,9 +48,11 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 		panelHistograma = new PainelHistograma(this.bean, true);
 		panelLimiar = new javax.swing.JPanel();
 		panelBotao = new javax.swing.JPanel();
+		panelValorLimiar = new javax.swing.JPanel();
 		btnReiniciar = new javax.swing.JButton();
 		btnOk = new javax.swing.JButton();
 		sliderLimiar = new javax.swing.JSlider();
+		lblValorLimiar = new javax.swing.JLabel();
 		
 		getContentPane().setLayout(new java.awt.GridBagLayout());
 		
@@ -92,6 +94,29 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
 		getContentPane().add(panelLimiar, gridBagConstraints);
 		
+		lblValorLimiar.setText("128");
+		panelValorLimiar.setLayout(new java.awt.GridBagLayout());
+		
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.weightx = 100.0;
+		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+		panelValorLimiar.add(lblValorLimiar, gridBagConstraints);
+		
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.weightx = 100.0;
+		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+		getContentPane().add(panelLimiar, gridBagConstraints);
+		
 		btnReiniciar.setText("Reiniciar");
 		panelBotao.add(btnReiniciar);
 		
@@ -101,7 +126,7 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridy = 3;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.weightx = 100.0;
@@ -119,6 +144,8 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 	// Declaracao dos componentes da GUI
 	private PainelHistograma panelHistograma;
 	private javax.swing.JPanel panelLimiar;
+	private javax.swing.JPanel panelValorLimiar;
+	private javax.swing.JLabel lblValorLimiar;
 	private javax.swing.JPanel panelBotao;
 	private javax.swing.JButton btnOk;
 	private javax.swing.JButton btnReiniciar;
@@ -145,5 +172,9 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 
 	public javax.swing.JSlider getSliderLimiar() {
 		return sliderLimiar;
+	}
+
+	public javax.swing.JLabel getLblValorLimiar() {
+		return lblValorLimiar;
 	}
 }
