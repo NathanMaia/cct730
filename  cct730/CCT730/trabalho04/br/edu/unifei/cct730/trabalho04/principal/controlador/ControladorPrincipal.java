@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FileChooserUI;
@@ -146,23 +147,81 @@ public class ControladorPrincipal extends Controlador {
 	public void binarizacao() {
 		try {
 			// Construir imagem binarizada
-			ImagemBinarizada imagem = this.criarImagemBinarizada();
-			
+			final ImagemBinarizada imagem = this.criarImagemBinarizada();
+
 			// Apresenta a imagem binarizada
-			this.constroiJanelaImagemBinarizada(imagem);
+			final JanelaImagemBinaria jImagemBinaria = this.constroiJanelaImagemBinarizada(imagem);
 
 			// Apresenta o histograma para ajustes na imagem
-			this.constroiJanelaHistograma(imagem);
-			
+			final JanelaHistograma jHistograma = this.constroiJanelaHistograma(imagem);
+
+			/*
+			 *  Tratamento do slider que define o valor do limiar para binarizacao da imagem
+			 */
+			jHistograma.getSliderLimiar().addChangeListener(new ChangeListener() {
+
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					// Capturando o evento do slider
+					JSlider slider = (JSlider)e.getSource();
+
+					// Definindo os novos valores do limiar do histograma
+					jHistograma.getLblValorLimiar().setText("" + slider.getValue());
+					jImagemBinaria.getPainelImagemBinaria().setLimiar(
+							new Integer(slider.getValue()).shortValue()
+					);
+
+					// Definindo os novos valores do limiar na imagem binaria
+					jImagemBinaria.getPainelImagemBinaria().constroiImagem(
+							imagem.getTabelaPontos()
+					);
+					jImagemBinaria.getPainelImagemBinaria().repaint();
+				}
+			});
+
+			/*
+			 *  Tratamento de eventos do botao ok
+			 */
+			jHistograma.getBtnOk().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Finalizando a ação de binarização
+					jImagemBinaria.dispose();
+					jHistograma.dispose();
+				}
+			});
+
+			/*
+			 *  Tratamento de eventos do bota reiniciar
+			 */
+			jHistograma.getBtnReiniciar().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Restaurando o valor padrão do limiar do histograma
+					jHistograma.getLblValorLimiar().setText("" + 128);
+					jHistograma.getSliderLimiar().setValue(128);
+
+					// Restaurando o valor padrão do limiar na imagem
+					jImagemBinaria.getPainelImagemBinaria().setLimiar(
+							new Integer(128).shortValue()
+					);
+
+					// Reconstruindo a nova imagem
+					jImagemBinaria.getPainelImagemBinaria().constroiImagem(
+							imagem.getTabelaPontos() 
+					);
+					jImagemBinaria.getPainelImagemBinaria().repaint();
+				}
+			});
+
 		} catch(Exception e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
 			"Falha na leitura do arquivo!");
-		} finally {
-			janela.getBtnEqualizar().setEnabled(true);
-			janela.getBtnZoom().setEnabled(true);
-		}
+		} 
 	}
 
 	/**
@@ -200,37 +259,30 @@ public class ControladorPrincipal extends Controlador {
 	public void zoom() {
 
 		// Verificando se a imagem binarizada existe
-		if(existeImagem()) {
-			final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
-			lancarFrame(jParamZoom);
+		final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
+		lancarFrame(jParamZoom);
 
-			// Adicionando tratamento as acoes dos botoes da GUI
-			jParamZoom.getBtnCancelar().addActionListener(new MyActionListener());
-			jParamZoom.getBtnOk().addActionListener(new ActionListener(){
+		// Adicionando tratamento as acoes dos botoes da GUI
+		jParamZoom.getBtnCancelar().addActionListener(new MyActionListener());
+		jParamZoom.getBtnOk().addActionListener(new ActionListener(){
 
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 
-					//Tratamento que realiza o escalamento da imagem
-					for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-						if(j instanceof JanelaImagemBinaria) {
-							PainelImagem imagem = ((JanelaImagemDigitalizada)j).getPainelImagemDigitalizada();
-							Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
+				//Tratamento que realiza o escalamento da imagem
+				for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
+					if(j instanceof JanelaImagemBinaria) {
+						PainelImagem imagem = ((JanelaImagemDigitalizada)j).getPainelImagemDigitalizada();
+						Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
 
-							imagem = transformacao.realizarTransformacao(imagem);
-							//constroiJanelaImagemDigitalizada(imagem);
-							jParamZoom.dispose();
-							return;
-						}
-					}	
-				}
-			});
-		} else {
-			Mensagem.mostraErro(
-					this.frame, 
-					"Imagem binaria inexistente!"
-			);
-		}
+						imagem = transformacao.realizarTransformacao(imagem);
+						//constroiJanelaImagemDigitalizada(imagem);
+						jParamZoom.dispose();
+						return;
+					}
+				}	
+			}
+		});
 	}
 
 	/**
@@ -287,54 +339,36 @@ public class ControladorPrincipal extends Controlador {
 
 		return jImagemDigitalizada;
 	}
-	
+
 	/**
+	 * Metodo responsavel por construir o histograma da imagem digitalizada
 	 * 
 	 * @param ImagemBinarizada im
+	 * 
+	 * @return JanelaHistograma
 	 */
-	private void constroiJanelaHistograma(ImagemBinarizada im) {
+	private JanelaHistograma constroiJanelaHistograma(ImagemBinarizada im) {
 		JanelaHistograma jHistograma = 
 			new JanelaHistograma(
-				Descritor.controiHistograma(im)
-		);
+					Descritor.controiHistograma(im)
+			);
 		janela.getDesktop().add(jHistograma);
 		try {
 			jHistograma.setSelected(true);
 		} catch (java.beans.PropertyVetoException e){}
-		
-		// Tratamento dos eventos do slider
-		jHistograma.getSliderLimiar().addChangeListener(new ChangeListener(){
 
-			@Override
-			public void stateChanged(ChangeEvent arg0) {}
-		});
-		
-		// Tratamento dos eventos do botao reiniciar
-		jHistograma.getBtnReiniciar().addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {}
-			
-		});
-		
-		// Tratamento do botão ok
-		jHistograma.getBtnOk().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		return jHistograma;
 	}
 
 	/**
 	 * Metodo responsavel por inicializar a janela que
 	 * contem a imagem binarizada
 	 * 
-	 * @return void
+	 * @param ImagemBinarizada im
+	 * 
+	 * @return JanelaImagemBinaria
 	 */
-	private void constroiJanelaImagemBinarizada(ImagemBinarizada im) throws IOException {
+	private JanelaImagemBinaria constroiJanelaImagemBinarizada(ImagemBinarizada im) throws IOException {
 		JanelaImagemBinaria jImagemBinaria = 
 			new JanelaImagemBinaria(
 					new PainelImagemBinaria(im)
@@ -343,6 +377,8 @@ public class ControladorPrincipal extends Controlador {
 		try {
 			jImagemBinaria.setSelected(true);
 		} catch (java.beans.PropertyVetoException e){}
+
+		return jImagemBinaria;
 	}
 
 	/**
@@ -410,7 +446,7 @@ public class ControladorPrincipal extends Controlador {
 		 * Finalizando os arquivos da imagem
 		 */
 		this.fecharArquivoImagem();
-		
+
 		return imagem;
 	}
 
@@ -425,11 +461,11 @@ public class ControladorPrincipal extends Controlador {
 
 		// Abertura do arquivo da imagem
 		this.abrirArquivoImagem();
-		
+
 		// Leitura das dimensoes da figura da imagem
 		int numeroLinhas = this.getNumeroLinhasImagem();
 		int numeroColunas = this.getNumeroColunasImagem();
-		
+
 		// Inicializando a imagem binarizada
 		ImagemBinarizada imagem = new ImagemBinarizada(
 				numeroLinhas, 
@@ -457,7 +493,7 @@ public class ControladorPrincipal extends Controlador {
 		 * Finalizando os arquivos da imagem 
 		 */
 		this.fecharArquivoImagem();
-		
+
 		return imagem;
 	}
 

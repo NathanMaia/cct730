@@ -74,7 +74,7 @@ public class PainelImagem extends javax.swing.JPanel {
 	 * 
 	 * @return void
 	 */
-	protected void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
+	public void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
 		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {
 			for (Ponto ponto: entrada.getValue()) {
 				this.setPosicao(ponto.getX(), ponto.getY(), ponto.getCor());

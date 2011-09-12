@@ -22,7 +22,7 @@ import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 public class PainelImagemBinaria extends PainelImagem {
 	
 	// Declaracao das variaveis de instacia
-	private short limiar = 0;
+	private short limiar = 128;
 	
 	public PainelImagemBinaria() {
 		super();
@@ -45,8 +45,9 @@ public class PainelImagemBinaria extends PainelImagem {
 	 * 
 	 * @return void
 	 */
-	protected void constroiImagem(Map<Short, List<Ponto>> tabelaPontos, short limiar) {
-		short nivelCinza;
+	public void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
+		// Declaracao das variaveis locais
+		short nivelCinza = 0;
 		
 		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {
 			nivelCinza = entrada.getKey();
