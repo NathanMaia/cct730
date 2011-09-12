@@ -11,7 +11,8 @@ package br.edu.unifei.cct730.trabalho04.utils.histograma;
 public class Histograma {
 	
 	// Declaração das variaveis de instância
-	private int[] histograma;
+	private int[] histograma = null;
+	private double[] porcentagens = null;
 	
 	/**
 	 * Construtor
@@ -19,6 +20,7 @@ public class Histograma {
 	 */
 	public Histograma() {
 		this.histograma = new int[255];
+		this.porcentagens = new double[255];
 	}
 
 	/**
@@ -53,52 +55,22 @@ public class Histograma {
 	 */
 	public int getMaiorValor() {
 		// Declaracao das variaveis locais
-		int maiorValor = 0;
+		int maiorValor = histograma[0];
 		
-		for (int i = 0; i < histograma.length; i++) {
+		for (int i = 1; i < histograma.length; i++) {
 			if (histograma[i] > maiorValor) {
 				maiorValor = histograma[i];
 			}
 		}
-		
 		return maiorValor;
 	}
-	
-	/**
-	 * Metodo que retorna as porcentagens dos
-	 * tons de cinza do imagem
-	 * 
-	 * @return double[]
-	 */
-	public double[] getPorcentagens() {
-		int i;
-		double[] porcentagens;
-		double amplitude;
-		
-		porcentagens = new double[255];
-		
-		return porcentagens;		
-	}
 
-	/**
-	 * Metodo que retorna o valor das porcentagens acumuladas
-	 * do histograma
-	 * 
-	 * @return double[]
-	 */
-	public double[] getPorcentagensAcumuladas() {
-		double[] porcentagensAcumuladas = new double[histograma.length];
-		double acumulador = 0;
-		
-		for (int i = 0; i < histograma.length; i++) {
-			acumulador =+ histograma[i];
-			porcentagensAcumuladas[i] = acumulador;
-		}
-		return porcentagensAcumuladas;
-	}
-	
 	// Métodos getters e setters
 	public int[] getHistograma() {
 		return histograma;
+	}
+	
+	public double[] getPorcentagens() {
+		return this.porcentagens;		
 	}
 }

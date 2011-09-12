@@ -27,7 +27,7 @@ public class Reta {
 		this.cor = c;
 		pontos = new Pontos();
 
-		if (pInicio.getX() == p2.getY()) {
+		if (pInicio.getX() == pFinal.getX()) {
 			retaVertical();
 		} else if (pInicio.getY() == pFinal.getY()) {
 			retaHorizontal();

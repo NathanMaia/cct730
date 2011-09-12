@@ -6,11 +6,11 @@ import java.awt.event.MouseListener;
 
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 
-public class PanelImagemListener extends MouseAdapter {
+public class PainelImagemListener extends MouseAdapter {
 
 	private PainelImagem panel = null;
 	
-	public PanelImagemListener(PainelImagem p) {
+	public PainelImagemListener(PainelImagem p) {
 		this.panel = p;
 	}
 	

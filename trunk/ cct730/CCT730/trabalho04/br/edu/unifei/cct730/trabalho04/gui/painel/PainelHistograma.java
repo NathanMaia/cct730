@@ -1,6 +1,7 @@
 package br.edu.unifei.cct730.trabalho04.gui.painel;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
@@ -32,6 +33,7 @@ public class PainelHistograma extends javax.swing.JPanel {
 	public PainelHistograma(Histograma histograma, boolean limiar) {
 		this.histograma = histograma;
 		this.origem = new Ponto(18, 210);
+		this.retas = new ArrayList<Reta>();
 		desenharHistograma();
 		if (limiar) {
 			retaLimiar = new Reta(
@@ -68,11 +70,11 @@ public class PainelHistograma extends javax.swing.JPanel {
 		for (int i = 0; i < histograma.getHistograma().length; i++) {
 			altura = (int) Math.round((double) (200 * (double) histograma.getNivelCinza(i) / (double) histograma.getMaiorValor()));
 			this.retas.add(
-					new Reta(
-							new Ponto(origem.getX() + i, origem.getY()), 
-							new Ponto(origem.getX() + i, origem.getY() - altura), 
-							Constantes.COR_HISTOGRAMA
-					)
+				new Reta(
+					new Ponto(origem.getX() + i, origem.getY(), Constantes.COR_HISTOGRAMA), 
+					new Ponto(origem.getX() + i, origem.getY() - altura, Constantes.COR_HISTOGRAMA), 
+					Constantes.COR_HISTOGRAMA
+				)
 			);
 		}
 	}
@@ -87,15 +89,15 @@ public class PainelHistograma extends javax.swing.JPanel {
 
 		for (Reta reta : retas) {
 			for (Ponto p : reta.getPontos()) {
-				p.setCor(reta.getCor());
-				p.plota(g);
+				g.setColor(p.getCor());
+				g.drawLine(p.getX(), p.getY(), p.getX(), p.getY());
 			}
 		}
 
 		if (retaLimiar != null) {
 			for (Ponto p : retaLimiar.getPontos()) {
-				p.setCor(Constantes.COR_LIMIAR);
-				p.plota(g);
+				g.setColor(p.getCor()); 
+				g.drawLine(p.getX(), p.getY(), p.getX(), p.getY());
 			}
 		}
 	}

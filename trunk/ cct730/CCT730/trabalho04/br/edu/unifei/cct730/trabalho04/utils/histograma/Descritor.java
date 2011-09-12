@@ -21,10 +21,13 @@ import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 public class Descritor {
 	
 	/**
+	 * Metodo responsavel por instanciar uma nova
+	 * imagem digitalizada
 	 * 
-	 * @param numeroLinhas
-	 * @param numeroColunas
-	 * @return
+	 * @param int numeroLinhas
+	 * @param int numeroColunas
+	 * 
+	 * @return ImagemDigitalizada
 	 */
 	public static ImagemDigitalizada constroiImagemDigitalizada(
 			int numeroLinhas,
@@ -38,10 +41,13 @@ public class Descritor {
 	}
 	
 	/**
+	 * Metodo responsavel por instanciar uma nova
+	 * imagem binarizada
 	 * 
-	 * @param numeroLinhas
-	 * @param numeroColunas
-	 * @return
+	 * @param int numeroLinhas
+	 * @param int numeroColunas
+	 * 
+	 * @return ImagemBinarizada
 	 */
 	public static ImagemBinarizada constroiImagemBinarizada(
 			int numeroLinhas,
