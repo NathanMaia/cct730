@@ -48,8 +48,8 @@ public abstract class Controlador {
 	
 	public abstract void registraEventos();
 	public void abrirArquivo(){}
-	public void binarizar(){}
-	public void histograma(){}
+	public void recarregarArquivo(){}
+	public void binarizacao(){}
 	public void equalizacao(){}
 	public void zoom(){}
 	public void sobre(){}

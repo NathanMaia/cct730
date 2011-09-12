@@ -20,35 +20,19 @@ public class JanelaImagemBinaria extends javax.swing.JInternalFrame {
 	private static final int xOffset = 15, yOffset = 30;
 	
 	/**
-	 * Construtor
+	 * Construtor 
 	 * 
-	 * @param int numeroLinhas
-	 * @param int numeroColunas
-	 * @param short l
-	 * 
+	 * @param PainelImagemBinaria p
 	 */
-	public JanelaImagemBinaria(
-			Descritor d, 
-			short l
-		) {
+	public JanelaImagemBinaria(PainelImagemBinaria p) {
 		super("[Imagem#" + (++openFrameCount) + "]", 
 				true, 
 				true, 
 				true,
 				false
 		);
-
-		initComponents(d, l);
-	}
-	
-	/**
-	 * Construtor 
-	 * 
-	 * @param PainelImagemBinaria p
-	 */
-	public JanelaImagemBinaria(PainelImagemBinaria p) {
-		this.panelImagem = p;
-		initComponents(null, new Integer(0).shortValue());
+		this.panelImagemBinaria = p;
+		initComponents();
 	}
 	
 	/**
@@ -60,10 +44,10 @@ public class JanelaImagemBinaria extends javax.swing.JInternalFrame {
 	 * 
 	 * @return void
 	 */
-	public void initComponents(Descritor d, short l) {
-		if (panelImagem == null)
-			panelImagem = new PainelImagemBinaria(d, l);
-		getContentPane().add(panelImagem);
+	public void initComponents() {
+		if (panelImagemBinaria == null)
+			panelImagemBinaria = new PainelImagemBinaria();
+		getContentPane().add(panelImagemBinaria);
 		
 		// Define o dimensionamento do painel
 		this.setVisible(true);
@@ -75,10 +59,10 @@ public class JanelaImagemBinaria extends javax.swing.JInternalFrame {
 	}
 	
 	// Declaracao dos componentes da GUI
-	private PainelImagemBinaria panelImagem;
+	private PainelImagemBinaria panelImagemBinaria;
 
 	// Metodos getters e setters
-	public PainelImagemBinaria getPainelImagem() {
-		return panelImagem;
+	public PainelImagemBinaria getPainelImagemBinaria() {
+		return panelImagemBinaria;
 	}
 }

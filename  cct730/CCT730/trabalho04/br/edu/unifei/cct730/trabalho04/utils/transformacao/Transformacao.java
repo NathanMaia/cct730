@@ -1,6 +1,6 @@
 package br.edu.unifei.cct730.trabalho04.utils.transformacao;
 
-import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 
 public class Transformacao {
 	
@@ -29,8 +29,8 @@ public class Transformacao {
 	 * 
 	 * @return PainelImagemBinaria
 	 */
-	public PainelImagemBinaria realizarTransformacao(
-			PainelImagemBinaria imagemOriginal
+	public PainelImagem realizarTransformacao(
+			PainelImagem imagemOriginal
 	) {
 		
 		// Declaracao de variaveis
@@ -46,7 +46,7 @@ public class Transformacao {
 		
 		novoNl = (int) Math.round(numeroLinhas * fatorCalculo);
 		novoNc = (int) Math.round(numeroColunas * fatorCalculo);
-		PainelImagemBinaria imagemNova = new PainelImagemBinaria(novoNl, novoNc, imagemOriginal.getLimiar());
+		PainelImagem imagemNova = new PainelImagem(novoNl, novoNc);
 
 		for (int i = 0; i < numeroLinhas; i++) {
 			for (int j = 0; j < numeroColunas; j++) {
@@ -55,8 +55,7 @@ public class Transformacao {
 				for (novoI = escalaI; novoI < (i + 1) * fatorCalculo; novoI++) {
 					for (novoJ = escalaJ; novoJ < (j + 1) * fatorCalculo; novoJ++) {
 						if (novoI >= 0 && novoI < novoNl && novoJ >= 0 && novoJ < novoNc) {
-							imagemNova.setPosicao(novoI, novoJ, imagemOriginal
-									.getPosicao(i, j));
+							imagemNova.setPosicao(novoI, novoJ, imagemOriginal.getPontos()[i][j].getCor());
 						}
 					}
 				}
