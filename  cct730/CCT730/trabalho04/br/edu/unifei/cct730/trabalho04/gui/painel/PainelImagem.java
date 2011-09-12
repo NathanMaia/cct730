@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.eventos.PanelImagemListener;
+import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
 import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho04.ponto.PontoBinario;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
@@ -64,7 +64,7 @@ public class PainelImagem extends javax.swing.JPanel {
 		/*
 		 * Adicionando o listener para capturar o posicioanamento do painel
 		 */
-		this.addMouseListener(new PanelImagemListener(this));
+		this.addMouseListener(new PainelImagemListener(this));
 	}
 	
 	/**

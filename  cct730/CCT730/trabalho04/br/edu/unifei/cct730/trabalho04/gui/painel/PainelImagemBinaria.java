@@ -31,7 +31,7 @@ public class PainelImagemBinaria extends PainelImagem {
 	/**
 	 * Construtor 
 	 * 
-	 * @param Descritor d
+	 * @param ImagemBinarizada im
 	 * 
 	 */
 	public PainelImagemBinaria(ImagemBinarizada im) {
@@ -45,7 +45,7 @@ public class PainelImagemBinaria extends PainelImagem {
 	 * 
 	 * @return void
 	 */
-	protected void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
+	protected void constroiImagem(Map<Short, List<Ponto>> tabelaPontos, short limiar) {
 		short nivelCinza;
 		
 		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {

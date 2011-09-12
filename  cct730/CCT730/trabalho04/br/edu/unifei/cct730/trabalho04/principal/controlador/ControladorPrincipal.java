@@ -7,11 +7,13 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JInternalFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FileChooserUI;
 
 import br.edu.unifei.cct730.trabalho04.utils.Mensagem;
 import br.edu.unifei.cct730.trabalho04.eventos.MyActionListener;
-import br.edu.unifei.cct730.trabalho04.eventos.PanelImagemListener;
+import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.MyFileChooser;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEqualizada;
@@ -143,11 +145,15 @@ public class ControladorPrincipal extends Controlador {
 	 */
 	public void binarizacao() {
 		try {
+			// Construir imagem binarizada
+			ImagemBinarizada imagem = this.criarImagemBinarizada();
+			
 			// Apresenta a imagem binarizada
-			constroiJanelaImagemBinarizada();
+			this.constroiJanelaImagemBinarizada(imagem);
 
 			// Apresenta o histograma para ajustes na imagem
-
+			this.constroiJanelaHistograma(imagem);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
@@ -281,6 +287,46 @@ public class ControladorPrincipal extends Controlador {
 
 		return jImagemDigitalizada;
 	}
+	
+	/**
+	 * 
+	 * @param ImagemBinarizada im
+	 */
+	private void constroiJanelaHistograma(ImagemBinarizada im) {
+		JanelaHistograma jHistograma = 
+			new JanelaHistograma(
+				Descritor.controiHistograma(im)
+		);
+		janela.getDesktop().add(jHistograma);
+		try {
+			jHistograma.setSelected(true);
+		} catch (java.beans.PropertyVetoException e){}
+		
+		// Tratamento dos eventos do slider
+		jHistograma.getSliderLimiar().addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {}
+		});
+		
+		// Tratamento dos eventos do botao reiniciar
+		jHistograma.getBtnReiniciar().addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {}
+			
+		});
+		
+		// Tratamento do bot‹o ok
+		jHistograma.getBtnOk().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 
 	/**
 	 * Metodo responsavel por inicializar a janela que
@@ -288,12 +334,10 @@ public class ControladorPrincipal extends Controlador {
 	 * 
 	 * @return void
 	 */
-	private void constroiJanelaImagemBinarizada() throws IOException {
+	private void constroiJanelaImagemBinarizada(ImagemBinarizada im) throws IOException {
 		JanelaImagemBinaria jImagemBinaria = 
 			new JanelaImagemBinaria(
-					new PainelImagemBinaria(
-							criarImagemBinarizada()
-					)
+					new PainelImagemBinaria(im)
 			);
 		janela.getDesktop().add(jImagemBinaria);
 		try {
