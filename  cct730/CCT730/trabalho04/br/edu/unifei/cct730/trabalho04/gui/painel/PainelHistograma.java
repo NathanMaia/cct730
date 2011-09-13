@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho04.utils.Constantes;
 import br.edu.unifei.cct730.trabalho04.utils.formas.Reta;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
 
 /**
  * Classe responsavel por implementar a inteface que apresenta
@@ -22,26 +22,17 @@ public class PainelHistograma extends javax.swing.JPanel {
 	private Histograma histograma = null;
 	private Ponto origem = null;
 	private List<Reta> retas = null;
-	private Reta retaLimiar = null;
-
+	
 	/**
 	 * Construtor
 	 * 
 	 * @param Histograma histograma
 	 * @param boolean limiar
 	 */
-	public PainelHistograma(Histograma histograma, boolean limiar) {
+	public PainelHistograma(Histograma histograma) {
 		this.histograma = histograma;
 		this.origem = new Ponto(18, 210);
-		this.retas = new ArrayList<Reta>();
 		desenharHistograma();
-		if (limiar) {
-			retaLimiar = new Reta(
-					new Ponto(origem.getX() + 128, origem.getY()), 
-					new Ponto(origem.getX() + 128, origem.getY() - 200), 
-					Constantes.COR_LIMIAR
-			);
-		}
 	}
 
 	/**
@@ -50,9 +41,11 @@ public class PainelHistograma extends javax.swing.JPanel {
 	 * 
 	 * @return void
 	 */
-	private void desenharHistograma() {
+	public void desenharHistograma() {
 		// Declaracao das variaveis locais
 		int altura = 0;
+		
+		this.retas = new ArrayList<Reta>();
 		
 		// Eixo horizontal
 		this.retas.add(new Reta(new Ponto(18, 210), new Ponto(273, 210), Constantes.COR_EIXO));
@@ -93,28 +86,14 @@ public class PainelHistograma extends javax.swing.JPanel {
 				g.drawLine(p.getX(), p.getY(), p.getX(), p.getY());
 			}
 		}
-
-		if (retaLimiar != null) {
-			for (Ponto p : retaLimiar.getPontos()) {
-				g.setColor(p.getCor()); 
-				g.drawLine(p.getX(), p.getY(), p.getX(), p.getY());
-			}
-		}
 	}
 
-	/**
-	 * Metodo que atualiza a posicao do limiar da imagem
-	 * 
-	 * @param int limiar
-	 * 
-	 * @return void
-	 */
-	public void atualizarLimiar(int limiar) {
-		retaLimiar = new Reta(
-				new Ponto(origem.getX() + limiar, origem.getY()), 
-				new Ponto(origem.getX() + limiar, origem.getY() - 200), 
-				Constantes.COR_LIMIAR
-		);
-		this.repaint();
+	// Metodos getters e setters
+	public Histograma getHistograma() {
+		return histograma;
+	}
+
+	public void setHistograma(Histograma histograma) {
+		this.histograma = histograma;
 	}
 }

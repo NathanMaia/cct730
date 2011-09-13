@@ -2,8 +2,10 @@ package br.edu.unifei.cct730.trabalho04.gui.janelas;
 
 import java.awt.Dimension;
 
+import javax.swing.JInternalFrame;
+
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 
 /**
@@ -17,21 +19,22 @@ public class JanelaImagemBinaria extends javax.swing.JInternalFrame {
 	
 	// Declaracao das variaveis de instacia
 	private static int openFrameCount = 0;
-	private static final int xOffset = 15, yOffset = 30;
+	private static final int xOffset = 175, yOffset = 5;
 	
 	/**
 	 * Construtor 
 	 * 
 	 * @param PainelImagemBinaria p
 	 */
-	public JanelaImagemBinaria(PainelImagemBinaria p) {
-		super("[Imagem#" + (++openFrameCount) + "]", 
+	public JanelaImagemBinaria(PainelImagemBinaria p, short limiar) {
+		super("[Binarizacao#" + (++openFrameCount) + "]", 
 				true, 
 				true, 
 				true,
 				false
 		);
 		this.panelImagemBinaria = p;
+		this.panelImagemBinaria.setLimiar(limiar);
 		initComponents();
 	}
 	
@@ -45,14 +48,13 @@ public class JanelaImagemBinaria extends javax.swing.JInternalFrame {
 	 * @return void
 	 */
 	public void initComponents() {
-		if (panelImagemBinaria == null)
-			panelImagemBinaria = new PainelImagemBinaria();
 		getContentPane().add(panelImagemBinaria);
 		
 		// Define o dimensionamento do painel
 		this.setVisible(true);
 		setResizable(false);
 		setMaximizable(false);
+		setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
 		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
 		
 		pack();

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
-import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
-import br.edu.unifei.cct730.trabalho04.ponto.PontoBinario;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
 
 /**
  * Classe responsavel por implementar 
@@ -25,14 +25,10 @@ public class PainelImagem extends javax.swing.JPanel {
 	private ImagemDigitalizada imagem = null;
 	private int numeroLinhas, numeroColunas = 0;
 	
-	public PainelImagem() {
-		super();
-	}
-	
 	/**
 	 * Construtor
 	 * 
-	 * @param Descritor d
+	 * @param OperacoesImagem d
 	 */
 	public PainelImagem(ImagemDigitalizada im) {
 		this(im.getNumeroLinhas(), im.getNumeroColunas());

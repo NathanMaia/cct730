@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
 
 /**
  * Classe que representa a imagem digitalizada
@@ -16,7 +16,7 @@ import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
  */
 public class ImagemDigitalizada {
 
-	// Declaração das variáveis de instância
+	// Declaração das variaveis de instancia
 	private Map<Short, List<Ponto>> tabelaPontos = null;
 	private int numeroLinhas, numeroColunas = 0;
 

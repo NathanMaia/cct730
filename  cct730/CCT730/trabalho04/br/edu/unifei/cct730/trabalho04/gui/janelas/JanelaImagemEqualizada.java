@@ -13,7 +13,7 @@ public class JanelaImagemEqualizada extends javax.swing.JInternalFrame {
 	
 	// Declaracao das variaveis de instacia
 	private static int openFrameCount = 0;
-	private static final int xOffset = 15, yOffset = 50;
+	private static final int xOffset = 175, yOffset = 5;
 	
 	/**
 	 * Construtor

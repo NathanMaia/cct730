@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
-import br.edu.unifei.cct730.trabalho04.ponto.Pontos;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Pontos;
 
 public class Reta {
 
