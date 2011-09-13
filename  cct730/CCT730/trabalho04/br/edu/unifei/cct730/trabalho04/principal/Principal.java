@@ -1,11 +1,11 @@
-package br.unifei.edu.cct730.trabalho04.principal;
+package br.edu.unifei.cct730.trabalho04.principal;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.UIManager;
 
-import br.unifei.edu.cct730.trabalho04.principal.gui.JanelaPrincipal;
+import br.edu.unifei.cct730.trabalho04.principal.gui.JanelaPrincipal;
 
 /**
  * Classe principal do sistema, responsavel por sua execucao
@@ -26,7 +26,7 @@ public class Principal {
 		 */
 		UIManager.put("OptionPane.yesButtonText", "Sim");  
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
-        UIManager.put("OptionPane.noButtonText", "Não");  
+        UIManager.put("OptionPane.noButtonText", "NÔøΩo");  
         UIManager.put("OptionPane.okButtonText", "OK");
         
         UIManager.put("FileChooser.cancelButtonText", "Cancelar");
@@ -37,14 +37,14 @@ public class Principal {
 		UIManager.put("FileChooser.newFolderAccessibleNam", "Arquivo novo");
 		UIManager.put("FileChooser.fileNameLabelText", "Arquivo:");
 		UIManager.put("FileChooser.upFolderAccessibleName", "Acima");
-		UIManager.put("FileChooser.upFolderToolTipText", "Acima um nível"); 
+		UIManager.put("FileChooser.upFolderToolTipText", "Acima um nÔøΩvel"); 
 		UIManager.put("FileChooser.homeFolderAccessibleName", "Inicio");
 		UIManager.put("FileChooser.filesOfTypeLabelText", "Formato de arquivo:");
 		UIManager.put("FileChooser.acceptAllFileFilterText", "*.*");
 		UIManager.put("FileChooser.lookInLabelText", "Visualizar");
 		
 		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Equalizacao de Imagens");
-		//Tratamento da ação de fechar a janela do aplicativo
+		//Tratamento da aÔøΩÔøΩo de fechar a janela do aplicativo
 		janela.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				janela.dispose();

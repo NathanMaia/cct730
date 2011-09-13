@@ -25,6 +25,7 @@ import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
 import br.edu.unifei.cct730.trabalho04.padroes.Controlador;
+import br.edu.unifei.cct730.trabalho04.principal.gui.JanelaPrincipal;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoImagem;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
@@ -33,7 +34,6 @@ import br.edu.unifei.cct730.trabalho04.utils.histograma.HistogramaEqualizado;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
-import br.unifei.edu.cct730.trabalho04.principal.gui.JanelaPrincipal;
 
 /**
  * Classe responsavel por responder a todas as solicitacoes do usuario
@@ -43,7 +43,7 @@ import br.unifei.edu.cct730.trabalho04.principal.gui.JanelaPrincipal;
  */
 public class ControladorPrincipal extends Controlador {
 
-	// Declaração das variáveis de instância
+	// DeclaraÔøΩÔøΩo das variÔøΩveis de instÔøΩncia
 	private JanelaPrincipal janela = null;
 	private ArquivoImagem arquivoImagem = null;
 	private ArquivoCabecalho arquivoCabecalho = null;
@@ -193,7 +193,7 @@ public class ControladorPrincipal extends Controlador {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// Finalizando a ação de binarização
+					// Finalizando a aÔøΩÔøΩo de binarizaÔøΩÔøΩo
 					jImagemBinaria.dispose();
 					jHistograma.dispose();
 				}
@@ -206,11 +206,11 @@ public class ControladorPrincipal extends Controlador {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// Restaurando o valor padrão do limiar do histograma
+					// Restaurando o valor padrÔøΩo do limiar do histograma
 					jHistograma.getLblValorLimiar().setText("" + 128);
 					jHistograma.getSliderLimiar().setValue(128);
 
-					// Restaurando o valor padrão do limiar na imagem
+					// Restaurando o valor padrÔøΩo do limiar na imagem
 					jImagemBinaria.getPainelImagemBinaria().setLimiar(
 							new Integer(128).shortValue()
 					);

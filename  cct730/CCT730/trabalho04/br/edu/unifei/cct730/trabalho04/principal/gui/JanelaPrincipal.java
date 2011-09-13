@@ -1,4 +1,4 @@
-package br.unifei.edu.cct730.trabalho04.principal.gui;
+package br.edu.unifei.cct730.trabalho04.principal.gui;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDesktopPane;
@@ -138,7 +138,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		this.getBtnZoom().setEnabled(false);
 	}
 
-	// MŽtodo getters e setters dos componentes da GUI
+	// Mï¿½todo getters e setters dos componentes da GUI
 	public javax.swing.JDesktopPane getDesktop() {
 		return desktop;
 	}
