@@ -20,6 +20,7 @@ import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEqualizada;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaHistograma;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemBinaria;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEscalamento;
 import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
@@ -326,9 +327,6 @@ public class ControladorPrincipal extends Controlador {
 	 */
 	public void zoom() {
 		try {
-			JanelaImagemDigitalizada jImagemEscalonada = constroiJanelaImagemDigitalizada();
-			jImagemEscalonada.setVisible(false);
-			
 			// Verificando se a imagem binarizada existe
 			final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
 			lancarFrame(jParamZoom);
@@ -347,14 +345,14 @@ public class ControladorPrincipal extends Controlador {
 							Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
 							imagem = transformacao.realizarTransformacao(imagem);
 							jParamZoom.dispose();
-							JanelaImagemDigitalizada jImagemEscalonada = new JanelaImagemDigitalizada(imagem);
+							JanelaImagemEscalamento jImagemEscalonada = new JanelaImagemEscalamento(imagem);
 							lancarJanelaImagem(jImagemEscalonada);
 							return;
 						}
 					}	
 				}
 			});
-		} catch(IOException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
@@ -490,6 +488,29 @@ public class ControladorPrincipal extends Controlador {
 		);
 		lancarJanelaImagem(jImagemEqualizada);
 		return jImagemEqualizada;
+	}
+	
+	/**
+	 * Metodo responsavel por inicializar a janela que 
+	 * contem a imagem escalonada
+	 * 
+	 * @param PanelImagem panel
+	 * 
+	 * @return void
+	 */
+	private JanelaImagemEscalamento constroiJanelaImagemEscalonada() throws IOException {
+		/*
+		 * Inicializando a janela que contem a
+		 * imagem digitalizada 
+		 */
+		JanelaImagemEscalamento jImagemEscalonada = 
+			new JanelaImagemEscalamento(
+					new PainelImagem(
+							this.criarImagemDigitalizada()
+					)
+			);
+		lancarJanelaImagem(jImagemEscalonada);
+		return jImagemEscalonada;
 	}
 
 	/**
