@@ -140,7 +140,8 @@ public class JanelaHistograma extends javax.swing.JInternalFrame implements Bean
 		setResizable(false);
 		setMaximizable(false);
 		setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		setSize(new Dimension(315, 400));
+		if(equalizacao) setSize(new Dimension(345, 325)); 
+		else setSize(new Dimension(345, 400));
 		this.setLocation(325, 10);
 	}
 	
