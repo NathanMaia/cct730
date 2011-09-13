@@ -342,11 +342,13 @@ public class ControladorPrincipal extends Controlador {
 
 					//Tratamento que realiza o escalamento da imagem
 					for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-						if(j instanceof JanelaImagemBinaria) {
+						if(j instanceof JanelaImagemDigitalizada) {
 							PainelImagem imagem = ((JanelaImagemDigitalizada)j).getPainelImagemDigitalizada();
 							Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
 							imagem = transformacao.realizarTransformacao(imagem);
 							jParamZoom.dispose();
+							JanelaImagemDigitalizada jImagemEscalonada = new JanelaImagemDigitalizada(imagem);
+							lancarJanelaImagem(jImagemEscalonada);
 							return;
 						}
 					}	
