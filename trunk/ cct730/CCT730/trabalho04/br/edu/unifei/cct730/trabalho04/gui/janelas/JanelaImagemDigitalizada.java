@@ -1,12 +1,14 @@
 package br.edu.unifei.cct730.trabalho04.gui.janelas;
 
+import javax.swing.JInternalFrame;
+
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 
 public class JanelaImagemDigitalizada extends javax.swing.JInternalFrame {
 	
 	// Declaracao das variaveis de instacia
 	private static int openFrameCount = 0;
-	private static final int xOffset = 15, yOffset = 50;
+	private static final int xOffset = 0, yOffset = 5;
 	
 	/**
 	 * Construtor
@@ -39,6 +41,7 @@ public class JanelaImagemDigitalizada extends javax.swing.JInternalFrame {
 		this.setVisible(true);
 		setResizable(false);
 		setMaximizable(false);
+		setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
 		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
 		
 		pack();

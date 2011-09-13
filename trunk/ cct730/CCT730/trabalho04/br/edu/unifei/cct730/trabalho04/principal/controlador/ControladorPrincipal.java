@@ -26,8 +26,9 @@ import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
 import br.edu.unifei.cct730.trabalho04.padroes.Controlador;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoImagem;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.HistogramaEqualizado;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
@@ -45,7 +46,6 @@ public class ControladorPrincipal extends Controlador {
 	private JanelaPrincipal janela = null;
 	private ArquivoImagem arquivoImagem = null;
 	private ArquivoCabecalho arquivoCabecalho = null;
-	private Histograma histograma = null;
 	private String caminhoUltimoArquivo = "";
 
 	/**
@@ -68,6 +68,7 @@ public class ControladorPrincipal extends Controlador {
 	public void registraEventos() {
 		MyActionListener listener = new MyActionListener();
 
+		// Adicionando as acoes a todos os botoes do menu
 		janela.getBtnAbrirArquivo().addActionListener(listener);
 		janela.getBtnRecarregarArquivo().addActionListener(listener);
 		janela.getBtnBinarizar().addActionListener(listener);
@@ -153,7 +154,12 @@ public class ControladorPrincipal extends Controlador {
 			final JanelaImagemBinaria jImagemBinaria = this.constroiJanelaImagemBinarizada(imagem);
 
 			// Apresenta o histograma para ajustes na imagem
-			final JanelaHistograma jHistograma = this.constroiJanelaHistograma(imagem);
+			final JanelaHistograma jHistograma = 
+				this.constroiJanelaHistograma(
+						"Binarizacao",
+						imagem,
+						false
+				);
 
 			/*
 			 *  Tratamento do slider que define o valor do limiar para binarizacao da imagem
@@ -229,26 +235,88 @@ public class ControladorPrincipal extends Controlador {
 	 * 
 	 * @return void
 	 */
-	/*public void equalizacao() {
+	public void equalizacao() {
 
-		// Verificando se a imagem binarizada existe
-		if(existeImagem()) {
-
-			// Inicializando a janela com a imagem equalizada
-			final JanelaImagemEqualizada janelaEqualizacao = new JanelaImagemEqualizada(
-					new PainelImagem(
-							this.descritor.criarImagemEqualizada(this.histograma)
-				    )
+		try {
+			// Construir imagem equalizada
+			final ImagemDigitalizada imagemOriginal = this.criarImagemDigitalizada();
+			final ImagemDigitalizada imEqualizada = criarImagemEqualizada(
+					imagemOriginal
 			);
-			lancarFrame(janelaEqualizacao);
 
-		} else {
+			// Apresenta a imagem original
+			final JanelaImagemEqualizada jImagemEqualizada = 
+				this.constroiJanelaImagemEqualizada(
+						imagemOriginal
+				);
+
+			// Apresenta o histograma para ajustes na imagem
+			final JanelaHistograma jHistograma = 
+				this.constroiJanelaHistograma(
+						"Equalizacao",
+						imagemOriginal,
+						true
+				);
+
+			// Tratamento das acoes do botao ok
+			jHistograma.getBtnOk().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// Finalizando as janelas
+					jHistograma.dispose();
+					jImagemEqualizada.dispose();
+				}
+			});
+
+			// Tratamento das acoes do botao reiniciar
+			jHistograma.getBtnReiniciar().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Reiniciando o estado da transformacao para o original
+					jImagemEqualizada.getPainelImagemEqualizada().constroiImagem(
+							imagemOriginal.getTabelaPontos()
+					);
+					// Reconstruindo o histograma da imagem original
+					jHistograma.getPanelHistograma().setHistograma(
+							OperacoesImagem.constroiHistograma(imagemOriginal)
+					);
+					// Atualizando a interface
+					jHistograma.getPanelHistograma().desenharHistograma();
+					jHistograma.getPanelHistograma().repaint();
+					jImagemEqualizada.getPainelImagemEqualizada().repaint();
+				}
+			});
+
+			// Tratamento das acoes do botao equalizar
+			jHistograma.getBtnEqualizar().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Construindo a nova imagem equalizada
+					jImagemEqualizada.getPainelImagemEqualizada().constroiImagem(
+							imEqualizada.getTabelaPontos()
+					);
+					// Construindo o histograma da imagem equalizada
+					jHistograma.getPanelHistograma().setHistograma(
+							OperacoesImagem.constroiHistograma(imEqualizada)
+					);
+					// Atualizando a interface
+					jHistograma.getPanelHistograma().desenharHistograma();
+					jHistograma.getPanelHistograma().repaint();
+					jImagemEqualizada.getPainelImagemEqualizada().repaint();
+				}
+			});
+
+		} catch(IOException e) {
+			e.printStackTrace();
 			Mensagem.mostraErro(
-					janela, 
-					"Imagem binaria inexistente!"
+					janela,
+					"Erro na leitura do arquivo!"
 			);
 		}
-	}*/
+	}
 
 	/**
 	 * Metodo responsavel por tratar as acoes do botao de dimensionamento do
@@ -257,32 +325,40 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void zoom() {
+		try {
+			JanelaImagemDigitalizada jImagemEscalonada = constroiJanelaImagemDigitalizada();
+			jImagemEscalonada.setVisible(false);
+			
+			// Verificando se a imagem binarizada existe
+			final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
+			lancarFrame(jParamZoom);
 
-		// Verificando se a imagem binarizada existe
-		final JanelaParametrosZoom jParamZoom = new JanelaParametrosZoom();
-		lancarFrame(jParamZoom);
+			// Adicionando tratamento as acoes dos botoes da GUI
+			jParamZoom.getBtnCancelar().addActionListener(new MyActionListener());
+			jParamZoom.getBtnOk().addActionListener(new ActionListener(){
 
-		// Adicionando tratamento as acoes dos botoes da GUI
-		jParamZoom.getBtnCancelar().addActionListener(new MyActionListener());
-		jParamZoom.getBtnOk().addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				//Tratamento que realiza o escalamento da imagem
-				for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-					if(j instanceof JanelaImagemBinaria) {
-						PainelImagem imagem = ((JanelaImagemDigitalizada)j).getPainelImagemDigitalizada();
-						Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
-
-						imagem = transformacao.realizarTransformacao(imagem);
-						//constroiJanelaImagemDigitalizada(imagem);
-						jParamZoom.dispose();
-						return;
-					}
-				}	
-			}
-		});
+					//Tratamento que realiza o escalamento da imagem
+					for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
+						if(j instanceof JanelaImagemBinaria) {
+							PainelImagem imagem = ((JanelaImagemDigitalizada)j).getPainelImagemDigitalizada();
+							Transformacao transformacao = (Transformacao)jParamZoom.getPanelEscalamento().getBean();
+							imagem = transformacao.realizarTransformacao(imagem);
+							jParamZoom.dispose();
+							return;
+						}
+					}	
+				}
+			});
+		} catch(IOException e) {
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					"Erro na leitura do arquivo!"
+			);
+		}
 	}
 
 	/**
@@ -317,6 +393,36 @@ public class ControladorPrincipal extends Controlador {
 		}
 	}
 
+/* ****************************************************************************************************************************************************************** 
+* 															Inicio dos metodos auxiliares (todos privados)
+*********************************************************************************************************************************************************************/
+
+	/**
+	 * Metodo responsavel por construir o histograma da imagem digitalizada
+	 * 
+	 * @param ImagemBinarizada im
+	 * 
+	 * @return JanelaHistograma
+	 */
+	private JanelaHistograma constroiJanelaHistograma(
+			String titulo, 
+			ImagemDigitalizada im,
+			boolean equalizacao
+	) {
+		/*
+		 * Inicializando a janela que contem
+		 * o histograma da imagem 
+		 */
+		JanelaHistograma jHistograma = 
+			new JanelaHistograma(
+					titulo,
+					OperacoesImagem.constroiHistograma(im),
+					equalizacao
+			);
+		lancarFrame(jHistograma);
+		return jHistograma;
+	}
+
 	/**
 	 * Metodo responsavel por inicializar a janela que 
 	 * contem a imagem digitalizada
@@ -326,38 +432,18 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	private JanelaImagemDigitalizada constroiJanelaImagemDigitalizada() throws IOException {
+		/*
+		 * Inicializando a janela que contem a
+		 * imagem digitalizada 
+		 */
 		JanelaImagemDigitalizada jImagemDigitalizada = 
 			new JanelaImagemDigitalizada(
 					new PainelImagem(
 							this.criarImagemDigitalizada()
 					)
 			);
-		janela.getDesktop().add(jImagemDigitalizada);
-		try {
-			jImagemDigitalizada.setSelected(true);
-		} catch (java.beans.PropertyVetoException e){}
-
+		lancarJanelaImagem(jImagemDigitalizada);
 		return jImagemDigitalizada;
-	}
-
-	/**
-	 * Metodo responsavel por construir o histograma da imagem digitalizada
-	 * 
-	 * @param ImagemBinarizada im
-	 * 
-	 * @return JanelaHistograma
-	 */
-	private JanelaHistograma constroiJanelaHistograma(ImagemBinarizada im) {
-		JanelaHistograma jHistograma = 
-			new JanelaHistograma(
-					Descritor.controiHistograma(im)
-			);
-		janela.getDesktop().add(jHistograma);
-		try {
-			jHistograma.setSelected(true);
-		} catch (java.beans.PropertyVetoException e){}
-
-		return jHistograma;
 	}
 
 	/**
@@ -369,15 +455,20 @@ public class ControladorPrincipal extends Controlador {
 	 * @return JanelaImagemBinaria
 	 */
 	private JanelaImagemBinaria constroiJanelaImagemBinarizada(ImagemBinarizada im) throws IOException {
+
+		/*
+		 * Inicializando a janela que contem a
+		 * imagem binaria
+		 */
 		JanelaImagemBinaria jImagemBinaria = 
 			new JanelaImagemBinaria(
-					new PainelImagemBinaria(im)
+					new PainelImagemBinaria(im),
+					new Integer(128).shortValue()
 			);
-		janela.getDesktop().add(jImagemBinaria);
-		try {
-			jImagemBinaria.setSelected(true);
-		} catch (java.beans.PropertyVetoException e){}
+		lancarJanelaImagem(jImagemBinaria);
 
+		// Atualizando a imagem 
+		jImagemBinaria.getPainelImagemBinaria().constroiImagem(im.getTabelaPontos());
 		return jImagemBinaria;
 	}
 
@@ -387,8 +478,16 @@ public class ControladorPrincipal extends Controlador {
 	 *
 	 * @return void
 	 */
-	private JanelaImagemEqualizada constroiJanelaImagemEscalonada() {
-		return null;
+	private JanelaImagemEqualizada constroiJanelaImagemEqualizada(ImagemDigitalizada im) throws IOException {
+
+		/*
+		 *  Inicializando a janela com a imagem equalizada
+		 */
+		JanelaImagemEqualizada jImagemEqualizada = new JanelaImagemEqualizada(
+				new PainelImagem(im)
+		);
+		lancarJanelaImagem(jImagemEqualizada);
+		return jImagemEqualizada;
 	}
 
 	/**
@@ -399,7 +498,12 @@ public class ControladorPrincipal extends Controlador {
 	 */
 	private MyFileChooser abrirFileChooser() {
 		MyFileChooser fileChooser = new MyFileChooser("Selecione a imagem");
+		// Setando o diretorio local como inicial
 		fileChooser.defineDiretorioInicial(caminhoUltimoArquivo);
+		/*
+		 *  Filtrando os arquivos a serem abertos somente para 
+		 *  imagens em nivel de cinza
+		 */
 		fileChooser.filtro(".img", "Arquivos em nivel de cinza");
 		return fileChooser;
 	}
@@ -498,6 +602,52 @@ public class ControladorPrincipal extends Controlador {
 	}
 
 	/**
+	 * Metodo responsavel por inicializar uma instancia
+	 * da imagem equalizada
+	 * 
+	 * @param ImagemDigitalizada imagemOriginal
+	 * 
+	 * @return ImagemDigitalizada
+	 * @throws IOException
+	 */
+	private ImagemDigitalizada criarImagemEqualizada(ImagemDigitalizada imagemOriginal) throws IOException {
+
+		// Inicializando a imagem digitalizada
+		int numeroLinhas = imagemOriginal.getNumeroLinhas();
+		int numeroColunas = imagemOriginal.getNumeroColunas();
+
+		ImagemDigitalizada imagemEqualizada = new ImagemDigitalizada(
+				numeroLinhas,
+				numeroColunas
+		);
+
+		// Obtem todos os tons de cinza presentes na imagem
+		Short[][] tonsCinza = 
+			this.getTonsCinzaImagem(
+					numeroLinhas,
+					numeroColunas
+			);
+
+		int[] mapeamento = OperacoesImagem.constroiMapeamentoEqualizacao(
+				OperacoesImagem.constroiHistograma(imagemOriginal)
+		);
+
+		/* 
+		 * Adicionando os tons de cinza presentes no arquivo
+		 * a imagem digitalizada
+		 */
+		for(int i = 0; i < numeroLinhas; i++) {
+			for(int j = 0; j < numeroColunas; j++) {
+				imagemEqualizada.criarImagem(
+						i, j, 
+						new Integer(mapeamento[tonsCinza[i][j]]).shortValue()
+				);
+			}
+		}
+		return imagemEqualizada;
+	}
+
+	/**
 	 * Metodo responsavel por desfazer as acoes anteriores
 	 * na reabertura do arquivo
 	 * 
@@ -534,6 +684,7 @@ public class ControladorPrincipal extends Controlador {
 	 * @throws NullPointerException
 	 */
 	private void fecharArquivoImagem() throws IOException, NullPointerException {
+		// Finalizando o stream com os arquivos
 		arquivoImagem.fecharArquivo();
 		arquivoCabecalho.fecharArquivo();
 	}
@@ -574,22 +725,5 @@ public class ControladorPrincipal extends Controlador {
 				numLinhas, 
 				numColunas
 		);
-	}
-
-	/**
-	 * Metodo responsavel por verificar a existencia da imagem binaria
-	 * 
-	 * @return boolean
-	 */
-	private boolean existeImagem() {
-		boolean achei = false;
-
-		// Verificando se existe a instancia imagem binaria
-		for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-			if(j instanceof JanelaImagemBinaria) {
-				achei = true;
-			}
-		}
-		return achei;
 	}
 }

@@ -8,11 +8,11 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.ponto.Ponto;
-import br.edu.unifei.cct730.trabalho04.ponto.PontoBinario;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Descritor;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
 import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
 
 /**
  * Classe responsavel por criar a imagem binarizada
@@ -22,11 +22,7 @@ import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 public class PainelImagemBinaria extends PainelImagem {
 	
 	// Declaracao das variaveis de instacia
-	private short limiar = 128;
-	
-	public PainelImagemBinaria() {
-		super();
-	}
+	private short limiar;
 	
 	/**
 	 * Construtor 
@@ -119,7 +115,7 @@ public class PainelImagemBinaria extends PainelImagem {
 	 * @return boolean
 	 */
 	private boolean binarizar(short readShort) {
-		if (readShort < this.limiar) return true;
+		if(readShort < this.limiar) return true;
 		return false;
 	}
 

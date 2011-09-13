@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho04.ponto;
+package br.edu.unifei.cct730.trabalho04.utils.ponto;
 
 import java.util.ArrayList;
 
