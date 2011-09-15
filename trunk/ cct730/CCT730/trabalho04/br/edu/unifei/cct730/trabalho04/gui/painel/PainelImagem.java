@@ -6,11 +6,9 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
-import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
-import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
+import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 
 /**
  * Classe responsavel por implementar 

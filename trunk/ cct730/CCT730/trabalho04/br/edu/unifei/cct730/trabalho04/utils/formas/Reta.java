@@ -1,8 +1,6 @@
 package br.edu.unifei.cct730.trabalho04.utils.formas;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Pontos;

@@ -1,7 +1,6 @@
 package br.edu.unifei.cct730.trabalho04.utils.ponto;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 /**
  * Classe responsavel por criar o ponto representativo

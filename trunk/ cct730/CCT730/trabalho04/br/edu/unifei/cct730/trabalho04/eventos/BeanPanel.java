@@ -1,8 +1,5 @@
 package br.edu.unifei.cct730.trabalho04.eventos;
 
-import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
-
-
 /**
  * Interface que implementa o bean das GUIs
  * 

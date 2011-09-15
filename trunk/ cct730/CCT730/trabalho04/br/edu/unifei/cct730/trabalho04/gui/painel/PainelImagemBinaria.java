@@ -1,18 +1,12 @@
 package br.edu.unifei.cct730.trabalho04.gui.painel;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
-import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 
 /**
  * Classe responsavel por criar a imagem binarizada

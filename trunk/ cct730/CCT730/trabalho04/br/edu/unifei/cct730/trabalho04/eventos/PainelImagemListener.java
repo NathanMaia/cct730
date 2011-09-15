@@ -2,7 +2,6 @@ package br.edu.unifei.cct730.trabalho04.eventos;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
 

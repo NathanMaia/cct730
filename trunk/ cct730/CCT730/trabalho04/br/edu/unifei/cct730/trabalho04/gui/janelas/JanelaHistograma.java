@@ -8,10 +8,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 
-import br.edu.unifei.cct730.trabalho04.gui.componentes.JButtonSair;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 import br.edu.unifei.cct730.trabalho04.eventos.BeanPanel;
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelHistograma;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 
 /**
  * Classe responsavel por instaciar a interface que apresenta os dados

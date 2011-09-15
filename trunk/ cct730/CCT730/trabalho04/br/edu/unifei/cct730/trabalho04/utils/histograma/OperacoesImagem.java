@@ -1,15 +1,10 @@
 package br.edu.unifei.cct730.trabalho04.utils.histograma;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
-import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
-import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 
 /**
  * Classe responsavel por realizar operacoes

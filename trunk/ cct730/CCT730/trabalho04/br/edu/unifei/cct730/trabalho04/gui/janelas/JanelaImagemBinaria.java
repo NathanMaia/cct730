@@ -1,12 +1,8 @@
 package br.edu.unifei.cct730.trabalho04.gui.janelas;
 
-import java.awt.Dimension;
-
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
 
 /**
  * Classe responsavel por instanciar a interface que apresenta
