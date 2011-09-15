@@ -3,11 +3,13 @@ package br.edu.unifei.cct730.trabalho05.principal.gui;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 
+import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonFiltrar;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonRecarregarArquivo;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonSair;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonAbrirArquivo;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonSobre;
 import br.edu.unifei.cct730.trabalho05.principal.controlador.ControladorPrincipal;
+import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 
 /**
  * Classe responsavel por instanciar a interface do aplicativo
@@ -43,8 +45,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		java.awt.GridBagConstraints gridBagConstraints;
 		
 		// Inicializacao dos componentes da GUI
-		panelFuncao = new javax.swing.JPanel();
+		panelMenuSuperior = new javax.swing.JPanel();
+		panelMenuInferior = new javax.swing.JPanel();
 		desktop = new javax.swing.JDesktopPane();
+		cmbFiltros = new javax.swing.JComboBox(Constantes.RUIDOS);
+		btnFiltrar = new JButtonFiltrar("Filtrar", this.med);
 		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir imagem...", this.med);
 		btnRecarregarArquivo = new JButtonRecarregarArquivo("Recarregar imagem", this.med);
 		btnSobre = new JButtonSobre("Sobre...", this.med);
@@ -52,9 +57,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		
 		this.setLayout(new java.awt.GridBagLayout());
 		
+		panelMenuSuperior.add(cmbFiltros);
+		panelMenuSuperior.add(btnFiltrar);
+		
+		panelMenuSuperior.setBorder(BorderFactory.createTitledBorder(null, "Filtros", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
+		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.weightx = 100.0;
+		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+		getContentPane().add(panelMenuSuperior, gridBagConstraints);
+		
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
 		gridBagConstraints.weightx = 100.0;
@@ -63,23 +81,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		getContentPane().add(desktop, gridBagConstraints);
 		
 		// Opcoes menu
-		panelFuncao.add(btnAbrirArquivo);
+		panelMenuInferior.add(btnAbrirArquivo);
 		
 		btnRecarregarArquivo.setEnabled(false);
-		panelFuncao.add(btnRecarregarArquivo);
+		panelMenuInferior.add(btnRecarregarArquivo);
 		
-		panelFuncao.add(btnSobre);
-		panelFuncao.add(btnSair);
+		panelMenuInferior.add(btnSobre);
+		panelMenuInferior.add(btnSair);
 		
-		panelFuncao.setBorder(BorderFactory.createTitledBorder(null, "Menu", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+		panelMenuInferior.setBorder(BorderFactory.createTitledBorder(null, "Menu", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridy = 2;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.weightx = 100.0;
 		gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-		getContentPane().add(panelFuncao, gridBagConstraints);
+		getContentPane().add(panelMenuInferior, gridBagConstraints);
+		
+		this.desabilitarMenu();
 		
 		this.setExtendedState(MAXIMIZED_BOTH);	
 		this.setVisible(true);
@@ -87,7 +107,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	
 	// Declaracao dos componentes da GUI
 	private javax.swing.JDesktopPane desktop;
-	private javax.swing.JPanel panelFuncao;
+	private javax.swing.JPanel panelMenuSuperior;
+	private javax.swing.JPanel panelMenuInferior;
+	private JButtonFiltrar btnFiltrar;
+	private javax.swing.JComboBox cmbFiltros;
 	private JButtonAbrirArquivo btnAbrirArquivo;
 	private JButtonRecarregarArquivo btnRecarregarArquivo;
 	private JButtonSobre btnSobre;
@@ -101,6 +124,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	 */
 	public void habilitarMenu() {
 		this.getBtnRecarregarArquivo().setEnabled(true);
+		this.getBtnFiltrar().setEnabled(true);
+		this.getCmbFiltros().setEnabled(true);
 	}
 	
 	/**
@@ -111,6 +136,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	 */
 	public void desabilitarMenu() {
 		this.getBtnRecarregarArquivo().setEnabled(false);
+		this.getCmbFiltros().setSelectedIndex(-1);
+		this.getBtnFiltrar().setEnabled(false);
+		this.getCmbFiltros().setEnabled(false);
 	}
 
 	// MŽtodo getters e setters dos componentes da GUI
@@ -118,6 +146,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		return desktop;
 	}
 	
+	public JButtonFiltrar getBtnFiltrar() {
+		return btnFiltrar;
+	}
+
+	public javax.swing.JComboBox getCmbFiltros() {
+		return cmbFiltros;
+	}
+
 	public JButtonAbrirArquivo getBtnAbrirArquivo() {
 		return btnAbrirArquivo;
 	}
