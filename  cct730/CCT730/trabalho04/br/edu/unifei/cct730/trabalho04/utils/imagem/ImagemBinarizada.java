@@ -1,10 +1,10 @@
 package br.edu.unifei.cct730.trabalho04.utils.imagem;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import br.edu.unifei.cct730.trabalho04.utils.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho04.utils.ponto.PontoBinario;
+import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
 
 /**
  * Classe que representa a imagem binarizada

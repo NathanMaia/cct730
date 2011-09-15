@@ -1,17 +1,11 @@
 package br.edu.unifei.cct730.trabalho04.gui.painel;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 
-import br.edu.unifei.cct730.trabalho04.eventos.BeanPanel;
 import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
+import br.edu.unifei.cct730.trabalho04.eventos.BeanPanel;
 
 /**
  * Classe responsavel por inicializar o painel com os parametros

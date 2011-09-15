@@ -2,38 +2,32 @@ package br.edu.unifei.cct730.trabalho04.principal.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.FileChooserUI;
 
 import br.edu.unifei.cct730.trabalho04.utils.Mensagem;
-import br.edu.unifei.cct730.trabalho04.eventos.MyActionListener;
-import br.edu.unifei.cct730.trabalho04.eventos.PainelImagemListener;
 import br.edu.unifei.cct730.trabalho04.gui.componentes.MyFileChooser;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemDigitalizada;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEqualizada;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaHistograma;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemBinaria;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEscalamento;
-import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
-import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
-import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
+import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
+import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
+import br.edu.unifei.cct730.trabalho04.eventos.MyActionListener;
 import br.edu.unifei.cct730.trabalho04.padroes.Controlador;
 import br.edu.unifei.cct730.trabalho04.principal.gui.JanelaPrincipal;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho04.utils.arquivo.ArquivoImagem;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.OperacoesImagem;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.Histograma;
-import br.edu.unifei.cct730.trabalho04.utils.histograma.HistogramaEqualizado;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemBinarizada;
 import br.edu.unifei.cct730.trabalho04.utils.imagem.ImagemDigitalizada;
-import br.edu.unifei.cct730.trabalho04.utils.transformacao.Transformacao;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaHistograma;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemBinaria;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEqualizada;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaImagemEscalamento;
+import br.edu.unifei.cct730.trabalho04.gui.janelas.JanelaParametrosZoom;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagem;
+import br.edu.unifei.cct730.trabalho04.gui.painel.PainelImagemBinaria;
 
 /**
  * Classe responsavel por responder a todas as solicitacoes do usuario

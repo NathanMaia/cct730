@@ -2,7 +2,6 @@ package br.edu.unifei.cct730.trabalho04.padroes;
 
 import java.beans.PropertyVetoException;
 
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho04.principal.gui.JanelaPrincipal;

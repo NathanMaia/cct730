@@ -1,7 +1,5 @@
 package br.edu.unifei.cct730.trabalho04.gui.componentes;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho04.padroes.Command;
