@@ -1,8 +1,13 @@
 package br.edu.unifei.cct730.trabalho05.principal.controlador;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 import br.edu.unifei.cct730.trabalho05.gui.componentes.MyFileChooser;
 import br.edu.unifei.cct730.trabalho05.eventos.MyActionListener;
@@ -10,9 +15,11 @@ import br.edu.unifei.cct730.trabalho05.padroes.Controlador;
 import br.edu.unifei.cct730.trabalho05.principal.gui.JanelaPrincipal;
 import br.edu.unifei.cct730.trabalho05.utils.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho05.utils.arquivo.ArquivoImagem;
+import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Mensagem;
 import br.edu.unifei.cct730.trabalho05.utils.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemFiltrada;
 import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 
 /**
@@ -23,11 +30,12 @@ import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
  */
 public class ControladorPrincipal extends Controlador {
 
-	// Declara��o das vari�veis de inst�ncia
+	// Declaracao das variaveis de instancia
 	private JanelaPrincipal janela = null;
 	private ArquivoImagem arquivoImagem = null;
 	private ArquivoCabecalho arquivoCabecalho = null;
 	private String caminhoUltimoArquivo = "";
+	private String ruido = "";
 
 	/**
 	 * Construtor
@@ -47,6 +55,7 @@ public class ControladorPrincipal extends Controlador {
 	 */
 	@Override
 	public void registraEventos() {
+
 		MyActionListener listener = new MyActionListener();
 
 		// Adicionando as acoes a todos os botoes do menu
@@ -54,6 +63,15 @@ public class ControladorPrincipal extends Controlador {
 		janela.getBtnRecarregarArquivo().addActionListener(listener);
 		janela.getBtnSobre().addActionListener(listener);
 		janela.getBtnSair().addActionListener(listener);
+		janela.getBtnFiltrar().addActionListener(listener);
+
+		janela.getCmbFiltros().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ruido = (String)janela.getCmbFiltros().getSelectedItem();
+			}
+		});
 	}
 
 	/**
@@ -79,7 +97,7 @@ public class ControladorPrincipal extends Controlador {
 				this.caminhoUltimoArquivo = fileChooser.getSelectedFile().getAbsolutePath();
 
 				// Apresentando a imagem ao usuario
-				constroiJanelaImagemDigitalizada();
+				this.constroiJanelaImagemDigitalizada();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -94,6 +112,38 @@ public class ControladorPrincipal extends Controlador {
 	}
 
 	/**
+	 * Metodo responsavel por aplicar o filtro
+	 * selecionado no combo sobre a imagem
+	 * digitalizada
+	 * 
+	 * @return void
+	 */
+	public void filtrar() {
+		try {
+			this.constroiJanelaImagemFiltrada(
+					this.filtrarRuido(
+							ruido, 
+							this.constroiPainelImagem()
+					)
+			);
+			return;
+
+		} catch(IOException e) {
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					"Falha na abertura do arquivo!"
+			);
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					"Numero deve ser inteiro"
+			);
+		} 
+	}
+
+	/**
 	 * Metodo responsavel por reabrir o arquivo
 	 * de imagem
 	 * 
@@ -105,7 +155,11 @@ public class ControladorPrincipal extends Controlador {
 			this.desfazerAcoesAnteriores();
 
 			// Apresentando a imagem ao usuario
-			constroiJanelaImagemDigitalizada();
+			this.constroiJanelaImagemDigitalizada(
+					new PainelImagem(
+							this.criarImagemDigitalizada()
+					)
+			);
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -150,15 +204,96 @@ public class ControladorPrincipal extends Controlador {
 		}
 	}
 
-/* ****************************************************************************************************************************************************************** 
-* 															Inicio dos metodos auxiliares (todos privados)
-*********************************************************************************************************************************************************************/
+	/* ****************************************************************************************************************************************************************** 
+	 * 															Inicio dos metodos auxiliares (todos privados)
+	 *********************************************************************************************************************************************************************/
+
+	/**
+	 * Metodo responsavel por selecionar o tipo
+	 * da filtragem da imagem digitalizada
+	 * 
+	 * @param PainelImagem pImagem
+	 * 
+	 * @return PainelImagem
+	 */
+	private PainelImagem filtrarRuido(String tipo, PainelImagem pImagem) throws NumberFormatException {
+
+		if(tipo == Constantes.SAL) {
+			pImagem = filtroSal(pImagem);
+		} else if(tipo == Constantes.PIMENTA) {
+			pImagem = filtroPimenta(pImagem);
+		} else {
+			pImagem = filtroSalComPimenta(pImagem);
+		}
+
+		return pImagem;
+	}
+
+	/**
+	 * Metodo responsavel por aplicar o filtro 
+	 * com ruido de sal sobre a imagem digitalizada
+	 *
+	 * @param PainelImagem pImagem
+	 * 
+	 * @return PainelImagem
+	 */
+	private PainelImagem filtroSal(PainelImagem pImagem) throws NumberFormatException {
+		// Declaracao de variaveis locais
+		int porcentagem = 0;
+
+		porcentagem = Mensagem.entradaDeDados(
+				"Determine a porcentagem de ruido: "
+		);
+
+		if (porcentagem <= 100 && porcentagem >= 0) {
+			// Calcula a quantidade de sal
+			int quantidade = (pImagem.getNumeroLinhas() * pImagem.getNumeroColunas() * porcentagem) / 100;
+
+			Random r = new Random();
+
+			// Troca randomicamente os pontos
+			for (int i = 0; i < quantidade; i++) {
+				pImagem.setPosicao(
+						r.nextInt(pImagem.getNumeroLinhas() - 1), 
+						r.nextInt(pImagem.getNumeroColunas() - 1), 
+						Color.BLACK
+				);
+			}
+		} else {
+			throw new NumberFormatException("Entre com um valor entre 0 - 100.");
+		}
+
+		return pImagem;
+	}
+
+	/**
+	 * Metodo responsavel por aplicar o filtro 
+	 * com ruido de pimenta sobre a imagem digitalizada
+	 * 
+	 * @param PainelImagem pImagem
+	 * 
+	 * @return PainelImagem
+	 */
+	private PainelImagem filtroPimenta(PainelImagem pImagem) throws NumberFormatException {
+		return pImagem; 
+	}
+
+	/**
+	 * Metodo responsavel por aplicar o filtro 
+	 * com ruido de sal juntamente com o filtro 
+	 * de pimenta sobre a imagem digitalizada
+	 * 
+	 * @param PainelImagem pImagem
+	 *
+	 * @return PainelImagem
+	 */
+	private PainelImagem filtroSalComPimenta(PainelImagem pImagem) throws NumberFormatException {
+		return pImagem;
+	}
 
 	/**
 	 * Metodo responsavel por inicializar a janela que 
 	 * contem a imagem digitalizada
-	 * 
-	 * @param PanelImagem panel
 	 * 
 	 * @return void
 	 */
@@ -178,21 +313,54 @@ public class ControladorPrincipal extends Controlador {
 	}
 
 	/**
-	 * Metodo responsavel pela abertura da janela para escolha
-	 * do arquivo de imagem
+	 * Metodo responsavel por inicializar a janela que 
+	 * contem a imagem digitalizada
 	 * 
-	 * @return MyFileChooser
+	 * @return void
 	 */
-	private MyFileChooser abrirFileChooser() {
-		MyFileChooser fileChooser = new MyFileChooser("Selecione a imagem");
-		// Setando o diretorio local como inicial
-		fileChooser.defineDiretorioInicial(caminhoUltimoArquivo);
+	private JanelaImagemDigitalizada constroiJanelaImagemDigitalizada(PainelImagem pImagem) throws IOException {
 		/*
-		 *  Filtrando os arquivos a serem abertos somente para 
-		 *  imagens em nivel de cinza
+		 * Inicializando a janela que contem a
+		 * imagem digitalizada 
 		 */
-		fileChooser.filtro(".img", "Arquivos em nivel de cinza");
-		return fileChooser;
+		JanelaImagemDigitalizada jImagemDigitalizada = 
+			new JanelaImagemDigitalizada(
+					pImagem
+			);
+		lancarJanelaImagem(jImagemDigitalizada);
+		return jImagemDigitalizada;
+	}
+
+	/**
+	 * Metodo responsavel por inicializar a janela que 
+	 * contem a imagem digitalizada
+	 * 
+	 * @return void
+	 */
+	private JanelaImagemFiltrada constroiJanelaImagemFiltrada(PainelImagem pImagem) throws IOException {
+		/*
+		 * Inicializando a janela que contem a
+		 * imagem digitalizada 
+		 */
+		JanelaImagemFiltrada jImagemFiltrada = 
+			new JanelaImagemFiltrada(
+					pImagem
+			);
+		lancarJanelaImagem(jImagemFiltrada);
+		return jImagemFiltrada;
+	}
+
+	/**
+	 * Metodo responsavel por inicializar uma novo
+	 * painel imagem
+	 * 
+	 * @return PainelImagem
+	 * @throws IOException
+	 */
+	private PainelImagem constroiPainelImagem() throws IOException { 
+		return new PainelImagem(
+				this.criarImagemDigitalizada()
+		);
 	}
 
 	/**
@@ -250,9 +418,26 @@ public class ControladorPrincipal extends Controlador {
 	private void desfazerAcoesAnteriores() {
 		// Finalizando todas as acoes anteriores
 		for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-			if(j instanceof JanelaImagemDigitalizada)
-				j.dispose();
+			j.dispose();
 		}
+	}
+
+	/**
+	 * Metodo responsavel pela abertura da janela para escolha
+	 * do arquivo de imagem
+	 * 
+	 * @return MyFileChooser
+	 */
+	private MyFileChooser abrirFileChooser() {
+		MyFileChooser fileChooser = new MyFileChooser("Selecione a imagem");
+		// Setando o diretorio local como inicial
+		fileChooser.defineDiretorioInicial(caminhoUltimoArquivo);
+		/*
+		 *  Filtrando os arquivos a serem abertos somente para 
+		 *  imagens em nivel de cinza
+		 */
+		fileChooser.filtro(".img", "Arquivos em nivel de cinza");
+		return fileChooser;
 	}
 
 	/**

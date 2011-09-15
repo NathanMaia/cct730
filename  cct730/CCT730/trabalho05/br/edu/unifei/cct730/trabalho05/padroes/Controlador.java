@@ -71,9 +71,7 @@ public abstract class Controlador {
 	public abstract void registraEventos();
 	public void abrirArquivo(){}
 	public void recarregarArquivo(){}
-	public void binarizacao(){}
-	public void equalizacao(){}
-	public void zoom(){}
+	public void filtrar(){}
 	public void sobre(){}
 	public void sair(){}
 }
