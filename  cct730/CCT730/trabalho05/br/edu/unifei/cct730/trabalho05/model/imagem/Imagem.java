@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho05.utils.imagem;
+package br.edu.unifei.cct730.trabalho05.model.imagem;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -6,32 +6,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho05.utils.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho05.model.ponto.Ponto;
 
 /**
- * Classe que representa a imagem digitalizada
  * 
  * @author fknappe
  *
  */
-public class ImagemDigitalizada {
+public abstract class Imagem {
 
+	// Constantes
+	public static final int IMAGEM_DIGITALIZADA = 1;
+	public static final int IMAGEM_FILTRADA = 2;
+	
 	// Declaração das variaveis de instancia
-	private Map<Short, List<Ponto>> tabelaPontos = null;
-	private int numeroLinhas, numeroColunas = 0;
+	protected Map<Short, List<Ponto>> tabelaPontos = null;
+	protected int numeroLinhas, numeroColunas = 0;
 
 	/**
-	 * Construtor
+	 * Construtor 
 	 * 
 	 * @param int numLinhas
 	 * @param int numColunas
 	 */
-	public ImagemDigitalizada(int numLinhas, int numColunas) {
+	public Imagem(int numLinhas, int numColunas) {
 		this.numeroLinhas = numLinhas;
 		this.numeroColunas = numColunas;
 		tabelaPontos = new HashMap<Short, List<Ponto>>();
 	}
-	
+
 	/**
 	 * Metodo responsavel por adicionar um novo tom de cinza a 
 	 * imagem
@@ -42,8 +45,17 @@ public class ImagemDigitalizada {
 	 * 
 	 * @return void
 	 */
-	public void criarImagem(int i, int j, short nivelCinza) {
+	public Imagem constroiImagem(Short[][] tonsDeCinza) {
+		for(int i = 0; i < this.numeroLinhas; i++) {
+			for(int j = 0; j < this.numeroColunas; j++) {
+				this.criarImagem(i, j, tonsDeCinza[i][j]);
+			}
+		}
 		
+		return this;
+	}
+	
+	protected void criarImagem(int i, int j, Short nivelCinza) {
 		// Verifica se o tom de cinza ainda não existe
 		if (this.tabelaPontos.containsKey(nivelCinza) == false) {
 			this.tabelaPontos.put(nivelCinza, new ArrayList<Ponto>());
@@ -52,11 +64,15 @@ public class ImagemDigitalizada {
 		this.tabelaPontos.get(nivelCinza).add(
 				new Ponto(
 						i, j, 
-						new Color(nivelCinza, nivelCinza, nivelCinza)
+						new Color(
+								nivelCinza, 
+								nivelCinza, 
+								nivelCinza
+						)
 				)
 		);
 	}
-	
+
 	// Metodos getters e setters
 	public Map<Short, List<Ponto>> getTabelaPontos() {
 		return tabelaPontos;

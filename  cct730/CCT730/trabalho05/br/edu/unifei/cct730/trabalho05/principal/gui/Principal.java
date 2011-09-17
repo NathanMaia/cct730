@@ -43,7 +43,7 @@ public class Principal {
 		UIManager.put("FileChooser.acceptAllFileFilterText", "*.*");
 		UIManager.put("FileChooser.lookInLabelText", "Visualizar");
 		
-		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Equalizacao de Imagens");
+		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Filtros");
 		//Tratamento da ação de fechar a janela do aplicativo
 		janela.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
