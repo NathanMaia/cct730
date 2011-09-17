@@ -1,11 +1,16 @@
 package br.edu.unifei.cct730.trabalho05.model.filtro;
 
-import java.io.IOException;
 import java.util.Random;
 
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
-import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 
+/**
+ * Classe responsavel pelas acoes dos filtro
+ * do tipo ruido
+ * 
+ * @author fknappe
+ *
+ */
 public class FiltroRuido extends Filtro {
 
 	// Constantes
@@ -13,36 +18,57 @@ public class FiltroRuido extends Filtro {
 	private static final int RUIDO_PIMENTA = 1;
 	private static final int RUIDO_SAL_PIMENTA = 2;
 	
+	// Declaracao das variaveis locais
+	private int porcentagemSal;
+	private int porcentagemPimenta;
+	
 	/**
 	 * Construtor
 	 * 
 	 * @param ImagemFiltrada im
+	 * @param int ps
+	 * @param int pp
+	 *
 	 */
 	public FiltroRuido(ImagemFiltrada im) {
 		super(im);
 	}
 	
+	/**
+	 * Metodo responsavel por selecionar o tipo de filtro
+	 * que sera aplicado sobre a imagem
+	 * 
+	 * @return ImagemFiltrada
+	 */
 	@Override
 	public ImagemFiltrada filtrar(int tipoFiltro) {
-		// TODO Auto-generated method stub
-		return null;
+		switch(tipoFiltro) {
+			case FiltroRuido.RUIDO_SAL:
+				return filtroSal();
+			case FiltroRuido.RUIDO_PIMENTA:
+				return filtroPimenta();
+			case FiltroRuido.RUIDO_SAL_PIMENTA:
+				return filtroSalComPimenta();
+			default:
+				throw new NullPointerException("Filtro inexistente!");
+		}	
 	}
 
 	/**
 	 * Metodo responsavel por aplicar o filtro 
 	 * com ruido de sal sobre a imagem digitalizada
 	 *
-	 * @param PainelImagem pImagem
-	 * 
-	 * @return PainelImagem
+	 * @return ImagemFiltrada
 	 */
-	private ImagemFiltrada filtroSal(int porcentagem, Short[][] tonsDeCinza) {
+	private ImagemFiltrada filtroSal() {
 
 		// Declaracao das variaveis locais
 		int quantidade = 0;
+		
+		Short[][] tonsDeCinza = this.imagem.getTonsDeCinzaImagem();
 
 		// Calcula a porcentagem de incidencia do ruido
-		quantidade = (imagem.getNumeroLinhas() * imagem.getNumeroColunas() * porcentagem) / 100;
+		quantidade = (imagem.getNumeroLinhas() * imagem.getNumeroColunas() * porcentagemSal) / 100;
 
 		/* 
 		 * Calculo de um valor aleatorio para 
@@ -65,17 +91,17 @@ public class FiltroRuido extends Filtro {
 	 * Metodo responsavel por aplicar o filtro 
 	 * com ruido de pimenta sobre a imagem digitalizada
 	 * 
-	 * @param PainelImagem pImagem
-	 * 
-	 * @return PainelImagem
+	 * @return ImagemFiltrada
 	 */
-	private ImagemFiltrada filtroPimenta(int porcentagem, Short[][] tonsDeCinza) {
+	private ImagemFiltrada filtroPimenta() {
 
 		// Declaracao das variaveis locais
 		int quantidade = 0;
+		
+		Short[][] tonsDeCinza = this.imagem.getTonsDeCinzaImagem();
 
 		// Calcula a porcentagem de incidencia do ruido
-		quantidade = (this.imagem.getNumeroLinhas() * this.imagem.getNumeroColunas() * porcentagem) / 100;
+		quantidade = (this.imagem.getNumeroLinhas() * this.imagem.getNumeroColunas() * porcentagemPimenta) / 100;
 
 		/* 
 		 * Calculo de um valor aleatorio para 
@@ -99,15 +125,28 @@ public class FiltroRuido extends Filtro {
 	 * com ruido de sal juntamente com o filtro 
 	 * de pimenta sobre a imagem digitalizada
 	 * 
-	 * @param int porcentagemSal
-	 * @param int orcentagemPimenta
-	 * @param Short[][] tonsDeCinza
-	 * 
 	 * @return ImagemFiltrada
 	 */
-	private ImagemFiltrada filtroSalComPimenta(int porcentagemSal, int porcentagemPimenta, Short[][] tonsDeCinza) {
-		this.imagem = this.filtroSal(porcentagemSal, tonsDeCinza);
-		this.imagem = this.filtroPimenta(porcentagemPimenta, this.imagem.getTonsDeCinzaImagem());
+	private ImagemFiltrada filtroSalComPimenta() {
+		this.imagem = this.filtroSal();
+		this.imagem = this.filtroPimenta();
 		return this.imagem;
+	}
+
+	// Metodos getters e setters
+	public int getPorcentagemSal() {
+		return porcentagemSal;
+	}
+
+	public void setPorcentagemSal(int porcentagemSal) {
+		this.porcentagemSal = porcentagemSal;
+	}
+
+	public int getPorcentagemPimenta() {
+		return porcentagemPimenta;
+	}
+
+	public void setPorcentagemPimenta(int porcentagemPimenta) {
+		this.porcentagemPimenta = porcentagemPimenta;
 	}
 }

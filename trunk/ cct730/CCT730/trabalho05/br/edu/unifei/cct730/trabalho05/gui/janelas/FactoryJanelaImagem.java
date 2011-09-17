@@ -10,7 +10,7 @@ import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
  * @author fknappe
  *
  */
-public class JanelaImagemFactory {
+public class FactoryJanelaImagem {
 	
 	/**
 	 * Metodo resposavel pela inicializacao
@@ -31,7 +31,7 @@ public class JanelaImagemFactory {
 				return new JanelaImagemFiltrada(p);
 				
 			default:
-				throw new NullPointerException("");
+				throw new IllegalArgumentException("Tipo da janela invalido!");
 		}
 	}
 }

@@ -6,8 +6,10 @@ import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho05.gui.componentes.MyFileChooser;
 import br.edu.unifei.cct730.trabalho05.eventos.MyActionListener;
+import br.edu.unifei.cct730.trabalho05.model.arquivo.Arquivo;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoImagem;
+import br.edu.unifei.cct730.trabalho05.model.arquivo.FactoryArquivo;
 import br.edu.unifei.cct730.trabalho05.padroes.Controlador;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Mensagem;
 import br.edu.unifei.cct730.trabalho05.gui.principal.JanelaPrincipal;
@@ -298,8 +300,13 @@ public class ControladorPrincipal extends Controlador {
 	private void abrirArquivoImagem() throws IOException {
 		// Abertura do arquivo
 		if(this.arquivoImagem == null) {
-			arquivoImagem = new ArquivoImagem(caminhoUltimoArquivo);
-			arquivoCabecalho = new ArquivoCabecalho(
+			arquivoImagem = (ArquivoImagem)FactoryArquivo.create(
+					Arquivo.ARQUIVO_IMAGEM,
+					caminhoUltimoArquivo
+			);
+			
+			arquivoCabecalho = (ArquivoCabecalho)FactoryArquivo.create(
+					Arquivo.ARQUIVO_CABECALHO,
 					arquivoImagem.getAbsolutePath().replace("IMG", "CAB")
 			);
 		}
@@ -319,43 +326,5 @@ public class ControladorPrincipal extends Controlador {
 			arquivoImagem.fecharArquivo();
 			arquivoCabecalho.fecharArquivo();
 		}
-	}
-
-	/**
-	 * Metodo que retorna o numero de linhas presentes
-	 * no arquivo da imagem
-	 * 
-	 * @return int
-	 * @throws IOException
-	 * @throws NullPointerException
-	 */
-	private int getNumeroLinhasImagem() throws IOException, NullPointerException {
-		return arquivoCabecalho.getNumeroLinhas();
-	}
-
-	/**
-	 * Metodo que retorna o numero de colunas presentes
-	 * no arquivo da imagem
-	 * 
-	 * @return int
-	 * @throws IOException
-	 * @throws NullPointerException
-	 */
-	private int getNumeroColunasImagem() throws IOException, NullPointerException {
-		return arquivoCabecalho.getNumeroColunas();
-	}
-
-	/**
-	 * Metodo que retorna todos os tons de cinza presentes
-	 * no arquivo da imagem
-	 * 
-	 * @return Short[][]
-	 * @throws IOException
-	 */
-	private Short[][] getTonsCinzaArquivo() throws IOException, NullPointerException {
-		return arquivoImagem.getTonsCinza(
-				this.getNumeroLinhasImagem(), 
-				this.getNumeroColunasImagem()
-		);
 	}
 }

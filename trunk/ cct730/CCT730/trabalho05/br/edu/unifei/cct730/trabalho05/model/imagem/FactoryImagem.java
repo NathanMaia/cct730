@@ -7,10 +7,11 @@ package br.edu.unifei.cct730.trabalho05.model.imagem;
  * @author fknappe
  *
  */
-public class ImagemFactory {
+public class FactoryImagem {
 
 	/**
-	 * Metodo responsavel pela inicializacao de uma imagem
+	 * Metodo responsavel pela inicializacao de um 
+	 * objeto do tipo Imagem
 	 * 
 	 * @param int tipoImagem
 	 * @param int numLinhas
@@ -23,7 +24,6 @@ public class ImagemFactory {
 			int numLinhas, 
 			int numColunas
 	) {
-
 		switch(tipoImagem) {
 			case Imagem.IMAGEM_DIGITALIZADA:
 				return new ImagemDigitalizada(numLinhas, numColunas);
@@ -32,7 +32,7 @@ public class ImagemFactory {
 				return new ImagemFiltrada(numLinhas, numColunas);
 				
 			default:
-				throw new NullPointerException("Tipo de imagem invalido!");
+				throw new IllegalArgumentException("Tipo de imagem invalido!");
 		}
 	}
 }

@@ -26,9 +26,8 @@ public abstract class Arquivo extends File {
 	 * Construtor 
 	 * 
 	 * @param String pathname
-	 * @throws IllegalArgumentException
 	 */
-	public Arquivo(String nomeArquivo) throws IllegalArgumentException {
+	public Arquivo(String nomeArquivo) {
 		super(nomeArquivo);
 	}
 	
@@ -48,7 +47,8 @@ public abstract class Arquivo extends File {
 	}
 	
 	/**
-	 * Metodo responsavel por fechar o arquivo
+	 * Metodo responsavel por fechar o 
+	 * stream do arquivo
 	 * 
 	 * @return void
 	 * @throws IOException, NullPointerException
