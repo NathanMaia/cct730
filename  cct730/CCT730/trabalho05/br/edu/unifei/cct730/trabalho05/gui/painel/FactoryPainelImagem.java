@@ -4,8 +4,26 @@ import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 
-public class PainelImagemFactory {
+/**
+ * Classe responsavel por implementar o 
+ * pattern Factory para instanciacao
+ * de objetos do tipo PainelImagem
+ * 
+ * @author fknappe
+ *
+ */
+public class FactoryPainelImagem {
 
+	/**
+	 * Metodo responsavel por 
+	 * instanciar um objeto do tipo
+	 * PainelImagem
+	 * 
+	 * @param int tipoPainel
+	 * @param Imagem im
+	 * 
+	 * @return 
+	 */
 	public PainelImagem create(int tipoPainel, Imagem im) {
 
 		switch(tipoPainel) {
@@ -16,7 +34,7 @@ public class PainelImagemFactory {
 				return new PainelImagemFiltrada((ImagemFiltrada)im);
 
 			default:
-				throw new NullPointerException("Tipo de painel invalido!");
+				throw new IllegalArgumentException("Tipo de painel invalido!");
 		}
 	}
 }
