@@ -1,14 +1,14 @@
-package br.edu.unifei.cct730.trabalho05.principal.gui;
+package br.edu.unifei.cct730.trabalho05.gui.principal;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 
+import br.edu.unifei.cct730.trabalho05.controlador.principal.ControladorPrincipal;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonFiltrar;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonRecarregarArquivo;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonSair;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonAbrirArquivo;
 import br.edu.unifei.cct730.trabalho05.gui.componentes.JButtonSobre;
-import br.edu.unifei.cct730.trabalho05.principal.controlador.ControladorPrincipal;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 
 /**

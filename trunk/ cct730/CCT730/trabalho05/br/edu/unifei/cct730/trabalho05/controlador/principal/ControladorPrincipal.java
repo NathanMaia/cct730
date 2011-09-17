@@ -1,27 +1,16 @@
-package br.edu.unifei.cct730.trabalho05.principal.controlador;
+package br.edu.unifei.cct730.trabalho05.controlador.principal;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 
 import br.edu.unifei.cct730.trabalho05.gui.componentes.MyFileChooser;
 import br.edu.unifei.cct730.trabalho05.eventos.MyActionListener;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoImagem;
 import br.edu.unifei.cct730.trabalho05.padroes.Controlador;
-import br.edu.unifei.cct730.trabalho05.principal.gui.JanelaPrincipal;
-import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Mensagem;
-import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemDigitalizada;
-import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemFiltrada;
-import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
+import br.edu.unifei.cct730.trabalho05.gui.principal.JanelaPrincipal;
 
 /**
  * Classe responsavel por responder a todas as solicitacoes do usuario

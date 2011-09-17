@@ -4,7 +4,7 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 
-import br.edu.unifei.cct730.trabalho05.principal.gui.JanelaPrincipal;
+import br.edu.unifei.cct730.trabalho05.gui.principal.JanelaPrincipal;
 
 /**
  * Classe abstrata que implementa o pattern Mediator
