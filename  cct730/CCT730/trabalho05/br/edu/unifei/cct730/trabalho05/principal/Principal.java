@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho05.gui.principal;
+package br.edu.unifei.cct730.trabalho05.principal;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
