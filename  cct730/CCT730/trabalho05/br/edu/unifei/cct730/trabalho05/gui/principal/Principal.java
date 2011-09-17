@@ -1,11 +1,11 @@
-package br.edu.unifei.cct730.trabalho05.principal.gui;
+package br.edu.unifei.cct730.trabalho05.gui.principal;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.UIManager;
 
-import br.edu.unifei.cct730.trabalho05.principal.gui.JanelaPrincipal;
+import br.edu.unifei.cct730.trabalho05.gui.principal.JanelaPrincipal;
 
 /**
  * Classe principal do sistema, responsavel por sua execucao
