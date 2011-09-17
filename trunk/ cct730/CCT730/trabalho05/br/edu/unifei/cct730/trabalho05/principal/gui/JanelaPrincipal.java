@@ -48,7 +48,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		panelMenuSuperior = new javax.swing.JPanel();
 		panelMenuInferior = new javax.swing.JPanel();
 		desktop = new javax.swing.JDesktopPane();
-		cmbFiltros = new javax.swing.JComboBox(Constantes.RUIDOS);
+		cmbFiltros = new javax.swing.JComboBox(Constantes.FILTROS_PASSABAIXA);
 		btnFiltrar = new JButtonFiltrar("Filtrar", this.med);
 		btnAbrirArquivo = new JButtonAbrirArquivo("Abrir imagem...", this.med);
 		btnRecarregarArquivo = new JButtonRecarregarArquivo("Recarregar imagem", this.med);

@@ -4,12 +4,13 @@ import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 
-public class JanelaImagemDigitalizada extends javax.swing.JInternalFrame {
-	
-	// Declaracao das variaveis de instacia
-	private static int openFrameCount = 0;
-	private static final int xOffset = 0, yOffset = 5;
-	
+/**
+ * 
+ * @author fknappe
+ *
+ */
+public class JanelaImagemDigitalizada extends JanelaImagem {
+
 	/**
 	 * Construtor
 	 * 
@@ -17,41 +18,13 @@ public class JanelaImagemDigitalizada extends javax.swing.JInternalFrame {
 	 * 
 	 */
 	public JanelaImagemDigitalizada(PainelImagem p) {
-		super("[Imagem#" + (++openFrameCount) + "]", 
-				true, 
-				true, 
-				true,
-				false
+		super(
+			"[Ruido#" + (++openFrameCount) + "]", 
+			true, 
+			true, 
+			true,
+			false,
+			p
 		);
-		
-		this.painelImagemDigitalizada = p;
-		this.initComponents();
-	}
-	
-	/**
-	 * Metodo responsavel pela instanciacao e inicializacao
-	 * dos componentes da GUI
-	 * 
-	 * @return void
-	 */
-	public void initComponents() {
-		getContentPane().add(painelImagemDigitalizada);
-		
-		// Define o dimensionamento do painel
-		this.setVisible(true);
-		setResizable(false);
-		setMaximizable(false);
-		setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
-		
-		pack();
-	}
-	
-	// Declaracao das componentes da GUI
-	private PainelImagem painelImagemDigitalizada;
-
-	// Metodos getters e setters
-	public PainelImagem getPainelImagemDigitalizada() {
-		return painelImagemDigitalizada;
 	}
 }

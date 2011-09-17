@@ -6,29 +6,35 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.Map;
 
-import br.edu.unifei.cct730.trabalho05.utils.ponto.Ponto;
+import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho05.model.ponto.Ponto;
 import br.edu.unifei.cct730.trabalho05.eventos.PainelImagemListener;
-import br.edu.unifei.cct730.trabalho05.utils.imagem.ImagemDigitalizada;
 
 /**
- * Classe responsavel por implementar 
+ * Classe responsavel por implementar um painel
+ * que contem uma imagem
  * 
  * @author fknappe
  *
  */
-public class PainelImagem extends javax.swing.JPanel {
+public abstract class PainelImagem extends javax.swing.JPanel {
 
+	// Constantes
+	public static final int IMAGEM_DIGITALIZADA = 1;
+	public static final int IMAGEM_FILTRADA = 2;
+	
 	// Declaracao das variaveis de instancia
-	private Ponto[][] pontos = null;
-	private ImagemDigitalizada imagem = null;
-	private int numeroLinhas, numeroColunas = 0;
+	protected Ponto[][] pontos = null;
+	protected Imagem imagem = null;
+	protected int numeroLinhas, numeroColunas = 0;
 	
 	/**
 	 * Construtor
 	 * 
-	 * @param OperacoesImagem d
+	 * @param Imagem im
 	 */
-	public PainelImagem(ImagemDigitalizada im) {
+	public PainelImagem(Imagem im) {
 		this(im.getNumeroLinhas(), im.getNumeroColunas());
 		this.imagem = im;
 		this.constroiImagem(imagem.getTabelaPontos());	
@@ -62,19 +68,13 @@ public class PainelImagem extends javax.swing.JPanel {
 	}
 	
 	/**
-	 * Metodo responsavel por construir a imagem digitalizada
+	 * Metodo responsavel por construir a imagem
 	 * 
 	 * @param Map<Short, List<Ponto>> tabelaPontos
 	 * 
 	 * @return void
 	 */
-	public void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
-		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {
-			for (Ponto ponto: entrada.getValue()) {
-				this.setPosicao(ponto.getX(), ponto.getY(), ponto.getCor());
-			}
-		}
-	}
+	public abstract void constroiImagem(Map<Short, List<Ponto>> tabelaPontos);
 	
 	/**
 	 * Metodo responsavel por inicializar o vetor de pontos do painel
@@ -107,11 +107,11 @@ public class PainelImagem extends javax.swing.JPanel {
 	}
 	
 	/**
-	 * Metodo responsavel por alterar o estado do ponto binario (0 ou 1)
+	 * Metodo responsavel por alterar o estado do ponto
 	 * 
 	 * @param int posLinha
 	 * @param int posColuna
-	 * @param boolean estado
+	 * @param Color c
 	 * 
 	 * @return void
 	 */
@@ -119,7 +119,6 @@ public class PainelImagem extends javax.swing.JPanel {
 		this.getPontos()[posLinha][posColuna].setCor(c);
 	}
 
-	
 	// Metodos getters e setters
 	public Ponto[][] getPontos() {
 		return pontos;
@@ -129,7 +128,7 @@ public class PainelImagem extends javax.swing.JPanel {
 		this.pontos = pontos;
 	}
 	
-	public ImagemDigitalizada getImagem() {
+	public Imagem getImagem() {
 		return imagem;
 	}
 
