@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho05.model.filtros;
+package br.edu.unifei.cct730.trabalho05.model.filtro;
 
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 
