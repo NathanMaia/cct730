@@ -68,6 +68,10 @@ public abstract class Controlador {
 		}
 	}
 	
+	/*
+	 * Metodos que representam acoes dos botoes
+	 * que implementam a interface MyActionListener
+	 */
 	public abstract void registraEventos();
 	public void abrirArquivo(){}
 	public void recarregarArquivo(){}

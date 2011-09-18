@@ -24,6 +24,12 @@ public class PainelImagemFiltrada extends PainelImagem {
 		super(im);
 	}
 
+	/**
+	 * Metodo responsavel por definir os valores dos pontos
+	 * da imagem no painel
+	 * 
+	 * @return void
+	 */
 	@Override
 	public void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
 		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {

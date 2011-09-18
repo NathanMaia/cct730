@@ -9,6 +9,8 @@ import java.util.Map;
 import br.edu.unifei.cct730.trabalho05.model.ponto.Ponto;
 
 /**
+ * Classe abstrata que contem todos os comportamentos
+ * comuns de uma imagem
  * 
  * @author fknappe
  *
@@ -55,6 +57,16 @@ public abstract class Imagem {
 		return this;
 	}
 	
+	/**
+	 * Metodo responsavel por construir a lista de niveis de cinza
+	 * e seus respectivos pontos na imagem
+	 * 
+	 * @param int i
+	 * @param int j
+	 * @param short nivelCinza
+	 * 
+	 * @return void
+	 */
 	protected void criarImagem(int i, int j, Short nivelCinza) {
 		// Verifica se o tom de cinza ainda n‹o existe
 		if (this.tabelaPontos.containsKey(nivelCinza) == false) {

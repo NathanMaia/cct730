@@ -134,6 +134,14 @@ public class FiltroRuido extends Filtro {
 		return (ImagemFiltrada)imFiltrada.constroiImagem(tonsDeCinza); 
 	}
 	
+	/**
+	 * Metodo responsavel por aplicar o filtro com ruido
+	 * de pimenta sobre a imagem digitalizada
+	 * 
+	 * @param Short[][] tonsDeCinza
+	 * 
+	 * @return ImagemFiltrada
+	 */
 	private ImagemFiltrada filtroPimenta(Short[][] tonsDeCinza) {
 		// Declaracao das variaveis locais
 		int quantidade = 0;

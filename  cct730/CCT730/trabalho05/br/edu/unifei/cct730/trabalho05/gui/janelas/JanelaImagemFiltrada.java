@@ -4,6 +4,13 @@ import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 
+/**
+ * Classe responsavel por instanciar uma janela
+ * que contem a imagem filtrada
+ * 
+ * @author fknappe
+ *
+ */
 public class JanelaImagemFiltrada extends JanelaImagem {
 	
 	// Declaracao das variaveis de instacia
