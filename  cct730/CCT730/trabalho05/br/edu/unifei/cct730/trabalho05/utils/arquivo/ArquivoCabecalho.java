@@ -1,4 +1,4 @@
-package br.edu.unifei.cct730.trabalho05.model.arquivo;
+package br.edu.unifei.cct730.trabalho05.utils.arquivo;
 
 import java.io.BufferedReader;
 import java.io.File;
