@@ -1,6 +1,8 @@
 package br.edu.unifei.cct730.trabalho05.controlador.principal;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 
@@ -10,8 +12,24 @@ import br.edu.unifei.cct730.trabalho05.model.arquivo.Arquivo;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoCabecalho;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.ArquivoImagem;
 import br.edu.unifei.cct730.trabalho05.model.arquivo.FactoryArquivo;
+import br.edu.unifei.cct730.trabalho05.model.filtro.FactoryFiltro;
+import br.edu.unifei.cct730.trabalho05.model.filtro.Filtro;
+import br.edu.unifei.cct730.trabalho05.model.filtro.FiltroPassaBaixa;
+import br.edu.unifei.cct730.trabalho05.model.filtro.FiltroRuido;
+import br.edu.unifei.cct730.trabalho05.model.imagem.FactoryImagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 import br.edu.unifei.cct730.trabalho05.padroes.Controlador;
+import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Mensagem;
+import br.edu.unifei.cct730.trabalho05.gui.janelas.FactoryJanelaImagem;
+import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagem;
+import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemDigitalizada;
+import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagemFiltrada;
+import br.edu.unifei.cct730.trabalho05.gui.painel.FactoryPainelImagem;
+import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
+import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagemFiltrada;
 import br.edu.unifei.cct730.trabalho05.gui.principal.JanelaPrincipal;
 
 /**
@@ -64,14 +82,20 @@ public class ControladorPrincipal extends Controlador {
 	 * @return void
 	 */
 	public void abrirArquivo() {
+		
+		// Declaracao de variaveis locais
+		MyFileChooser fileChooser = null;
+		String retorno = "";
+		int op = 0;
+		
 		try {
 			// Desabilitando todas as acoes ja existentes
 			this.desfazerAcoesAnteriores();
 
 			// Escolha do arquivo
-			MyFileChooser fileChooser = this.abrirFileChooser();
-			int op = fileChooser.lancarOpenDialog(janela);
-			String retorno = fileChooser.getArquivoSelecionado(op);
+			fileChooser = this.abrirFileChooser();
+			op = fileChooser.lancarOpenDialog(janela);
+			retorno = fileChooser.getArquivoSelecionado(op);
 
 			if(!(retorno.equals(MyFileChooser.OPERACAO_CANCELADA) || 
 					retorno.equals(MyFileChooser.OPERACAO_ERRO))
@@ -85,6 +109,38 @@ public class ControladorPrincipal extends Controlador {
 				 */
 				this.abrirArquivoImagem();
 
+				/*
+				 * Inicializando as imagens 
+				 */
+				this.inicializarImagemDigitalizada();
+				
+				/*
+				 * Incializando a imagem com o filtro de 
+				 * ruido de sal 
+				 */
+				this.inicializarImagemFiltradaPorRuido(
+					FiltroRuido.RUIDO_SAL, 
+					this.getImagemDigitalizada()
+				);
+				
+				/*
+				 * Inicializando a imagem com o filtro de
+				 * ruido de pimenta 
+				 */
+				this.inicializarImagemFiltradaPorRuido(
+					FiltroRuido.RUIDO_PIMENTA,
+					this.getImagemDigitalizada()
+				);
+				
+				/*
+				 * Incializando a imagem com os filtros de
+				 * ruido de sal e pimenta simultaneamente
+				 */
+				this.inicializarImagemFiltradaPorRuido(
+					FiltroRuido.RUIDO_SAL_PIMENTA, 
+					this.getImagemDigitalizada()	
+				);
+				
 				/*
 				 *  Garantindo que o arquivo da imagem foi finalizado
 				 */
@@ -109,7 +165,14 @@ public class ControladorPrincipal extends Controlador {
 					"Selecione o tipo de ruido antes de filtra-lo"
 			);
 
-		} finally { 
+		} catch(IllegalArgumentException e) {  
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					e.getMessage()
+			);
+			
+		} finally {
 			//Habilitando as acoes do menu 
 			janela.habilitarMenu();
 		}
@@ -121,35 +184,30 @@ public class ControladorPrincipal extends Controlador {
 	 * 
 	 * @return void
 	 */
-	/*public void recarregarArquivo() {
+	public void recarregarArquivo() {
 		try {
 			// Desfazendo todas as acoes previas do usuario
 			this.desfazerAcoesAnteriores();
 
-		} catch(IOException e) {
-			e.printStackTrace();
-			Mensagem.mostraErro(
-					janela, 
-					"Falha na abertura do arquivo!"
-			);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
 					"Numero deve ser inteiro"
 			);
-		} catch(NullPointerException e) {
+			
+		} catch(IllegalArgumentException e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
-					"Selecione o tipo de ruido antes de filtra-lo"
+					e.getMessage()
 			);
 
 		} finally { 
 			//Habilitando as acoes do menu 
 			janela.habilitarMenu();
 		}
-	}*/
+	}
 
 	/**
 	 * Metodo responsavel por aplicar o filtro
@@ -158,40 +216,36 @@ public class ControladorPrincipal extends Controlador {
 	 * 
 	 * @return void
 	 */
-	/*public void filtrar() {
+	public void filtrar() {
+		
+		//Declaracao das variaveis
+		ImagemFiltrada imFiltrada = null;
+		
 		try {
+			
 			// Selecionando o tipo de filtro
-			String filtro = (String)janela.getCmbFiltros().getSelectedItem();
-
-			// Aplicando o filtro sobre a imagem
+			int filtro = (int)janela.getCmbFiltros().getSelectedIndex();
+			
+			/*
+			 *  Aplicando o filtro sobre a imagem
+			 */
 			for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-				((JanelaImagemFiltrada)j).
-				getPainelImagemDigitalizada().
-				constroiImagem(
-						this.filtroPassaBaixa(filtro).getTabelaPontos()
-				);
+				ImagemDigitalizada im = 
+					((ImagemDigitalizada)((JanelaImagem)j).getPainelImagem().getImagem());
+				FiltroPassaBaixa passaBaixa = 
+					(FiltroPassaBaixa)FactoryFiltro.create(Filtro.FILTRO_PASSABAIXA, im);
+				imFiltrada = passaBaixa.filtrar(filtro);
+				((JanelaImagem)j).getPainelImagem().constroiImagem(imFiltrada.getTabelaPontos());
 			}
-
-		} catch(IOException e) {
+			
+		} catch(IllegalArgumentException e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
-					"Falha na abertura do arquivo!"
-			);
-		} catch(NumberFormatException e) {
-			e.printStackTrace();
-			Mensagem.mostraErro(
-					janela, 
-					"Numero deve ser inteiro"
-			);
-		} catch(NullPointerException e) {
-			e.printStackTrace();
-			Mensagem.mostraErro(
-					janela, 
-					"Selecione o tipo de ruido antes de filtra-lo"
+					e.getMessage()
 			);
 		}
-	}*/
+	}
 
 	/**
 	 * Metodo responsavel por tratar as acoes do botao que mostra as informacoes
@@ -228,7 +282,110 @@ public class ControladorPrincipal extends Controlador {
 	/* ****************************************************************************************************************************************************************** 
 	 * 															Inicio dos metodos auxiliares (todos privados)
 	 *********************************************************************************************************************************************************************/
+
+	/**
+	 * Metodo responsavel por inicializar todas as 
+	 * imagens digitalizadas do projeto
+	 * 
+	 * @return void
+	 */
+	private void inicializarImagemDigitalizada() throws IOException, IllegalArgumentException {
+
+		// Declaracao das variaveis locais
+		int numeroLinhas, numeroColunas = 0;
+		Short[][] tonsDeCinza = null;
+
+		/*
+		 * Inicializando as variaveis locais
+		 */
+		numeroLinhas = this.arquivoCabecalho.getNumeroLinhas();
+		numeroColunas = this.arquivoCabecalho.getNumeroColunas();
+		tonsDeCinza = arquivoImagem.getTonsCinza(numeroLinhas, numeroColunas);
+
+		/*
+		 * Inicializando a imagem digitalizada
+		 */
+		JanelaImagemDigitalizada j = 
+			(JanelaImagemDigitalizada)FactoryJanelaImagem.create(
+			JanelaImagem.IMAGEM_DIGITALIZADA,
+				FactoryPainelImagem.create(
+					PainelImagem.IMAGEM_DIGITALIZADA, 
+					FactoryImagem.create(
+						Imagem.IMAGEM_DIGITALIZADA, 
+							numeroLinhas, 
+							numeroColunas
+					).constroiImagem(tonsDeCinza)
+				)
+			);
+		
+		/*
+		 * Adicionando a janela interna que contem
+		 * a imagem digitalizada no desktop e tornand-a
+		 * visivel
+		 */
+		lancarJanelaImagem(j);
+	}
 	
+	/**
+	 * Metodo responsavel por inicializar uma imagem filtrada,
+	 * de acordo com o tipo de filtro especificado
+	 * 
+	 * @param int tipo
+	 * @param ImagemDigitalizada imagem
+	 * 
+	 * @return void
+	 * @throws IOException
+	 * @throws NumberFormatException
+	 * @throws IllegalArgumentException
+	 */
+	private void inicializarImagemFiltradaPorRuido(int tipo, ImagemDigitalizada imagem) throws IOException, NumberFormatException, IllegalArgumentException {
+		
+		// Declaracao de variaveis locais
+		FiltroRuido filtro = null;
+		
+		// Inicializando o filtro
+		filtro = (FiltroRuido)FactoryFiltro.create(
+				Filtro.FILTRO_RUIDO, 
+				imagem
+		);
+		
+		/*
+		 *  Definindo a porcentagem de incidencia do filtro
+		 */
+		if(tipo == FiltroRuido.RUIDO_SAL) { 
+			filtro.setPorcentagemSal(this.porcentagemRuido(Constantes.FILTROS_RUIDOS[0]));
+		} else if(tipo == FiltroRuido.RUIDO_PIMENTA) {
+			filtro.setPorcentagemPimenta(this.porcentagemRuido(Constantes.FILTROS_RUIDOS[1]));
+		} else if(tipo == FiltroRuido.RUIDO_SAL_PIMENTA) {
+			filtro.setPorcentagemSal(this.porcentagemRuido(Constantes.FILTROS_RUIDOS[0]));
+			filtro.setPorcentagemPimenta(this.porcentagemRuido(Constantes.FILTROS_RUIDOS[1]));
+		}
+		
+		/*
+		 *  Inicializando o painel com a imagem filtrada
+		 */
+		PainelImagemFiltrada pImagemFiltrada = 
+			(PainelImagemFiltrada)FactoryPainelImagem.create(
+				PainelImagem.IMAGEM_FILTRADA,
+				filtro.filtrar(
+					tipo
+				)
+			);
+		
+		// Inicializando a janela interna que contem a imagem
+		JanelaImagemFiltrada j = 
+			(JanelaImagemFiltrada)FactoryJanelaImagem.create(
+				JanelaImagem.IMAGEM_FILTRADA, 
+				pImagemFiltrada
+			);
+		
+		/*
+		 *  Adicionando a janela interna ao desktop
+		 *  e tornando-a visivel
+		 */
+		lancarJanelaImagem(j);
+	}
+
 	/**
 	 * Metodo responsavel por desfazer as acoes anteriores
 	 * na reabertura do arquivo
@@ -241,6 +398,28 @@ public class ControladorPrincipal extends Controlador {
 			j.dispose();
 		}
 	}
+	
+	/**
+	 * Metodo responsavel por obter a imagem digitalizada
+	 * contida no desktop do aplicativo
+	 * 
+	 * @return ImagemDigitalizada
+	 */
+	private ImagemDigitalizada getImagemDigitalizada() {
+		
+		// Declaracao das variaveis locais
+		ImagemDigitalizada imDigitalizada = null;
+		
+		// Obtendo a imagem original dentre todas contidas no desktop
+		for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
+			if(j instanceof JanelaImagemDigitalizada) {
+				imDigitalizada = (ImagemDigitalizada)((JanelaImagemDigitalizada)j).getPainelImagem().getImagem();
+				break;
+			}
+		}
+		
+		return imDigitalizada;
+	}
 
 	/**
 	 * Metodo que retorna a porcentagem
@@ -251,6 +430,7 @@ public class ControladorPrincipal extends Controlador {
 	 * @throws NumberFormatException
 	 */
 	private int porcentagemRuido(String tipo) throws NumberFormatException {
+		
 		// Declaracao de variaveis locais
 		int porcentagem = 0;
 
@@ -274,6 +454,7 @@ public class ControladorPrincipal extends Controlador {
 	 * @return MyFileChooser
 	 */
 	private MyFileChooser abrirFileChooser() {
+		
 		// Declaracao das variaveis locais
 		MyFileChooser fileChooser = null;
 
@@ -297,14 +478,15 @@ public class ControladorPrincipal extends Controlador {
 	 * 
 	 * @throws IOException
 	 */
-	private void abrirArquivoImagem() throws IOException {
+	private void abrirArquivoImagem() throws IOException, IllegalArgumentException {
+		
 		// Abertura do arquivo
 		if(this.arquivoImagem == null) {
 			arquivoImagem = (ArquivoImagem)FactoryArquivo.create(
 					Arquivo.ARQUIVO_IMAGEM,
 					caminhoUltimoArquivo
 			);
-			
+
 			arquivoCabecalho = (ArquivoCabecalho)FactoryArquivo.create(
 					Arquivo.ARQUIVO_CABECALHO,
 					arquivoImagem.getAbsolutePath().replace("IMG", "CAB")

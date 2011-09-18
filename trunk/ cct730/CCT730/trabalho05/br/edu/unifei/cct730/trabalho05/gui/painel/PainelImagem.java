@@ -21,8 +21,8 @@ import br.edu.unifei.cct730.trabalho05.eventos.PainelImagemListener;
 public abstract class PainelImagem extends javax.swing.JPanel {
 
 	// Constantes
-	public static final int IMAGEM_DIGITALIZADA = 1;
-	public static final int IMAGEM_FILTRADA = 2;
+	public static final int IMAGEM_DIGITALIZADA = 0;
+	public static final int IMAGEM_FILTRADA = 1;
 	
 	// Declaracao das variaveis de instancia
 	protected Ponto[][] pontos = null;

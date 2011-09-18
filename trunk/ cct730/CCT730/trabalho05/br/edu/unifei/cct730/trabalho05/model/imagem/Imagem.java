@@ -16,8 +16,8 @@ import br.edu.unifei.cct730.trabalho05.model.ponto.Ponto;
 public abstract class Imagem {
 
 	// Constantes
-	public static final int IMAGEM_DIGITALIZADA = 1;
-	public static final int IMAGEM_FILTRADA = 2;
+	public static final int IMAGEM_DIGITALIZADA = 0;
+	public static final int IMAGEM_FILTRADA = 1;
 	
 	// Declaração das variaveis de instancia
 	protected Map<Short, List<Ponto>> tabelaPontos = null;
@@ -71,6 +71,24 @@ public abstract class Imagem {
 						)
 				)
 		);
+	}
+	
+	/**
+	 * Metodo responsavel por retornar uma matriz
+	 * dos tons de cinza presentes na imagem
+	 * 
+	 * @return Short[][]
+	 */
+	public Short[][] getTonsDeCinzaImagem() {
+		// Declaracao de variaveis locais
+		Short[][] tonsDeCinza = new Short[this.getNumeroLinhas()][this.getNumeroColunas()];
+		
+		for (Map.Entry<Short, List<Ponto>> entrada: this.getTabelaPontos().entrySet()) {
+			for (Ponto ponto: entrada.getValue()) {
+				tonsDeCinza[ponto.getX()][ponto.getY()] = entrada.getKey();
+			}
+		}
+		return tonsDeCinza;
 	}
 
 	// Metodos getters e setters

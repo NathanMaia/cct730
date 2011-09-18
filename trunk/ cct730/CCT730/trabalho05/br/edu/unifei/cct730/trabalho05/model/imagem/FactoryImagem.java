@@ -19,7 +19,7 @@ public class FactoryImagem {
 	 * 
 	 * @return Imagem
 	 */
-	public static Imagem getImagem(
+	public static Imagem create(
 			int tipoImagem, 
 			int numLinhas, 
 			int numColunas

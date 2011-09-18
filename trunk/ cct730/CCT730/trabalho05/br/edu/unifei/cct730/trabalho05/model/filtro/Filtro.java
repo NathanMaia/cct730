@@ -1,5 +1,7 @@
 package br.edu.unifei.cct730.trabalho05.model.filtro;
 
+import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 
 /**
@@ -17,14 +19,14 @@ public abstract class Filtro {
 	public static final int FILTRO_PASSABAIXA = 2;
 	
 	// Declaracao das variaveis de instancia
-	protected ImagemFiltrada imagem;
+	protected ImagemDigitalizada imagem;
 	
 	/**
 	 * Construtor 
 	 * 
 	 * @param Imagem im
 	 */
-	public Filtro(ImagemFiltrada im) {
+	public Filtro(ImagemDigitalizada im) {
 		this.imagem = im;
 	}
 	
@@ -39,11 +41,11 @@ public abstract class Filtro {
 	public abstract ImagemFiltrada filtrar(int tipoFiltro);
 
 	// Metodos getters e setters
-	public ImagemFiltrada getImagem() {
+	public Imagem getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(ImagemFiltrada imagem) {
+	public void setImagem(ImagemDigitalizada imagem) {
 		this.imagem = imagem;
 	}
 }

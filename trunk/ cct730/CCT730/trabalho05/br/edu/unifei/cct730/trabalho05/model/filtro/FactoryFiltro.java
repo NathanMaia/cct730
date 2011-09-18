@@ -1,5 +1,7 @@
 package br.edu.unifei.cct730.trabalho05.model.filtro;
 
+import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 
 /**
@@ -21,7 +23,7 @@ public class FactoryFiltro {
 	 * 
 	 * @return Filtro
 	 */
-	public static Filtro create(int tipoFiltro, ImagemFiltrada im) {
+	public static Filtro create(int tipoFiltro, ImagemDigitalizada im) throws IllegalArgumentException {
 		
 		switch(tipoFiltro) {
 			case Filtro.FILTRO_RUIDO:
