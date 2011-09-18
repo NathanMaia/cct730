@@ -1,5 +1,7 @@
 package br.edu.unifei.cct730.trabalho05.model.filtro;
 
+import br.edu.unifei.cct730.trabalho05.model.imagem.Imagem;
+import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemDigitalizada;
 import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 
 /**
@@ -12,15 +14,15 @@ import br.edu.unifei.cct730.trabalho05.model.imagem.ImagemFiltrada;
 public class FiltroPassaBaixa extends Filtro {
 
 	// Constantes
-	private static final int PASSABAIXA_MEDIA = 0;
-	private static final int PASSABAIXA_MEDIANA = 1;
+	public static final int PASSABAIXA_MEDIA = 0;
+	public static final int PASSABAIXA_MEDIANA = 1;
 	
 	/**
 	 * Construtor
 	 * 
 	 * @param ImagemFiltrada im
 	 */
-	public FiltroPassaBaixa(ImagemFiltrada im) {
+	public FiltroPassaBaixa(ImagemDigitalizada im) {
 		super(im);
 	}
 
@@ -30,10 +32,10 @@ public class FiltroPassaBaixa extends Filtro {
 	 * 
 	 * @param int tipoFiltro
 	 * 
-	 * @return ImagemFiltrada
+	 * @return Imagem
 	 */
 	@Override
-	public ImagemFiltrada filtrar(int tipoFiltro) {
+	public ImagemFiltrada filtrar(int tipoFiltro) throws IllegalArgumentException {
 
 		// Escolha do tipo de filtragem
 		switch(tipoFiltro) {
@@ -44,7 +46,7 @@ public class FiltroPassaBaixa extends Filtro {
 				return this.filtroMediana();
 				
 			default:
-				throw new NullPointerException("Tipo de filtro inexistente!");
+				throw new IllegalArgumentException("Tipo de filtro inexistente!");
 		}
 	}
 	
@@ -52,19 +54,27 @@ public class FiltroPassaBaixa extends Filtro {
 	 * Metodo responsavel por aplicar o filtro
 	 * passa baixa pela media
 	 * 
-	 * @return ImagemFiltrada
+	 * @return Imagem
 	 */
 	private ImagemFiltrada filtroMedia() {
-		return imagem;
+		
+		// Declaracao de variaveis locais
+		ImagemFiltrada imFiltrada = null;
+		
+		return imFiltrada;
 	}
 
 	/**
 	 * Metodo responsavel por aplicar o filtro
 	 * passa baixa pela mediana
 	 * 
-	 * @return ImagemFiltrada
+	 * @return Imagem
 	 */
 	private ImagemFiltrada filtroMediana() {
-		return imagem;
+		
+		// Declaracao de variaveis locais
+		ImagemFiltrada imFiltrada = null;
+		
+		return imFiltrada;
 	}
 }

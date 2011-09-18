@@ -26,6 +26,10 @@ public class PainelImagemFiltrada extends PainelImagem {
 
 	@Override
 	public void constroiImagem(Map<Short, List<Ponto>> tabelaPontos) {
-		// TODO Auto-generated method stub	
+		for (Map.Entry<Short, List<Ponto>> entrada: tabelaPontos.entrySet()) {
+			for (Ponto ponto: entrada.getValue()) {
+				this.setPosicao(ponto.getX(), ponto.getY(), ponto.getCor());
+			}
+		}
 	}
 }

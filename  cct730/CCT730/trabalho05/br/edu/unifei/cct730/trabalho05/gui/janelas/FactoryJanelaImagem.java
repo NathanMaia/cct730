@@ -21,7 +21,7 @@ public class FactoryJanelaImagem {
 	 * 
 	 * @return JanelaImagem
 	 */
-	public static JanelaImagem create(int tipoJanela, PainelImagem p) {
+	public static JanelaImagem create(int tipoJanela, PainelImagem p) throws IllegalArgumentException {
 		
 		switch(tipoJanela) {
 			case JanelaImagem.IMAGEM_DIGITALIZADA:

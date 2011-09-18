@@ -19,7 +19,7 @@ public class FactoryArquivo {
 	 * 
 	 * @return Arquivo
 	 */
-	public static Arquivo create(int tipoArquivo, String nomeArquivo) {
+	public static Arquivo create(int tipoArquivo, String nomeArquivo) throws IllegalArgumentException {
 		switch(tipoArquivo) {
 			case Arquivo.ARQUIVO_CABECALHO:
 				return new ArquivoCabecalho(nomeArquivo);

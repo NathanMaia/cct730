@@ -23,22 +23,4 @@ public class ImagemFiltrada extends Imagem {
 	public ImagemFiltrada(int numLinhas, int numColunas) {
 		super(numLinhas, numColunas);
 	}
-	
-	/**
-	 * Metodo responsavel por retornar uma matriz
-	 * dos tons de cinza presentes na imagem
-	 * 
-	 * @return Short[][]
-	 */
-	public Short[][] getTonsDeCinzaImagem() {
-		// Declaracao de variaveis locais
-		Short[][] tonsDeCinza = new Short[this.getNumeroLinhas()][this.getNumeroColunas()];
-		
-		for (Map.Entry<Short, List<Ponto>> entrada: this.getTabelaPontos().entrySet()) {
-			for (Ponto ponto: entrada.getValue()) {
-				tonsDeCinza[ponto.getX()][ponto.getY()] = entrada.getKey();
-			}
-		}
-		return tonsDeCinza;
-	}
 }

@@ -14,12 +14,8 @@ import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 public abstract class JanelaImagem extends javax.swing.JInternalFrame {
 
 	// Constantes
-	public static final int IMAGEM_DIGITALIZADA = 1;
-	public static final int IMAGEM_FILTRADA = 2;
-	
-	// Declaracao das variaveis de instacia
-	protected static int openFrameCount = 0;
-	protected static final int xOffset = 0, yOffset = 0;
+	public static final int IMAGEM_DIGITALIZADA = 0;
+	public static final int IMAGEM_FILTRADA = 1;
 	
 	// Declaracao das componentes da GUI
 	protected PainelImagem painelImagem;
@@ -61,13 +57,12 @@ public abstract class JanelaImagem extends javax.swing.JInternalFrame {
 		setResizable(false);
 		setMaximizable(false);
 		setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
 		
 		pack();
 	}
 	
 	// Metodos getters e setters
-	public PainelImagem getPainelImagemDigitalizada() {
+	public PainelImagem getPainelImagem() {
 		return painelImagem;
 	}
 }

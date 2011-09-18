@@ -24,7 +24,7 @@ public class FactoryPainelImagem {
 	 * 
 	 * @return 
 	 */
-	public PainelImagem create(int tipoPainel, Imagem im) {
+	public static PainelImagem create(int tipoPainel, Imagem im) throws IllegalArgumentException {
 
 		switch(tipoPainel) {
 			case PainelImagem.IMAGEM_DIGITALIZADA: 

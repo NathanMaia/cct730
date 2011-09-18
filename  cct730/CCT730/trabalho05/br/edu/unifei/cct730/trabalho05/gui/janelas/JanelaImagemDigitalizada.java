@@ -11,6 +11,10 @@ import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
  */
 public class JanelaImagemDigitalizada extends JanelaImagem {
 
+	// Declaracao das variaveis de instacia
+	private static int openFrameCount = 0;
+	private static final int xOffset = 0, yOffset = 0;
+	
 	/**
 	 * Construtor
 	 * 
@@ -19,12 +23,13 @@ public class JanelaImagemDigitalizada extends JanelaImagem {
 	 */
 	public JanelaImagemDigitalizada(PainelImagem p) {
 		super(
-			"[Ruido#" + (++openFrameCount) + "]", 
+			"[Imagem#" + (++openFrameCount) + "]", 
 			true, 
 			true, 
 			true,
 			false,
 			p
 		);
+		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
 	}
 }
