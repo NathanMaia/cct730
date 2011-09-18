@@ -5,6 +5,8 @@ import javax.swing.JInternalFrame;
 import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 
 /**
+ * Classe responsavel por instanciar a
+ * janela que contem a imagem digitalizada
  * 
  * @author fknappe
  *
