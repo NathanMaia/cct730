@@ -19,14 +19,14 @@ public abstract class Filtro {
 	public static final int FILTRO_PASSABAIXA = 2;
 	
 	// Declaracao das variaveis de instancia
-	protected ImagemDigitalizada imagem;
+	protected Imagem imagem;
 	
 	/**
 	 * Construtor 
 	 * 
 	 * @param Imagem im
 	 */
-	public Filtro(ImagemDigitalizada im) {
+	public Filtro(Imagem im) {
 		this.imagem = im;
 	}
 	

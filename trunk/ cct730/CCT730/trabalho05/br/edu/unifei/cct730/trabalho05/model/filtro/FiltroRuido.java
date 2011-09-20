@@ -32,7 +32,7 @@ public class FiltroRuido extends Filtro {
 	 * @param int pp
 	 *
 	 */
-	public FiltroRuido(ImagemDigitalizada im) {
+	public FiltroRuido(Imagem im) {
 		super(im);
 	}
 	
