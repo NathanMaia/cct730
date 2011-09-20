@@ -27,6 +27,7 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	 * @param String title
 	 */
 	public MyFileChooser(String title) {
+		super(".");
 		this.setDialogTitle(title);
 	}
 	
@@ -38,7 +39,7 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	 * @return int
 	 */
 	public int lancarOpenDialog(javax.swing.JFrame j) {
-		int retorno = this.showOpenDialog(j);
+		int retorno = this.showOpenDialog(null);
 		return retorno;
 	}
 	

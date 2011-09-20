@@ -67,7 +67,7 @@ public abstract class Imagem {
 	 * 
 	 * @return void
 	 */
-	protected void criarImagem(int i, int j, Short nivelCinza) {
+	public void criarImagem(int i, int j, Short nivelCinza) {
 		// Verifica se o tom de cinza ainda n‹o existe
 		if (this.tabelaPontos.containsKey(nivelCinza) == false) {
 			this.tabelaPontos.put(nivelCinza, new ArrayList<Ponto>());

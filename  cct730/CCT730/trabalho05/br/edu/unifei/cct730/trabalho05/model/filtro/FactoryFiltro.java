@@ -23,7 +23,7 @@ public class FactoryFiltro {
 	 * 
 	 * @return Filtro
 	 */
-	public static Filtro create(int tipoFiltro, ImagemDigitalizada im) throws IllegalArgumentException {
+	public static Filtro create(int tipoFiltro, Imagem im) throws IllegalArgumentException {
 		
 		switch(tipoFiltro) {
 			case Filtro.FILTRO_RUIDO:

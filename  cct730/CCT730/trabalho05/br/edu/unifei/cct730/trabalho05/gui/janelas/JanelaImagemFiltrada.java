@@ -14,8 +14,9 @@ import br.edu.unifei.cct730.trabalho05.gui.painel.PainelImagem;
 public class JanelaImagemFiltrada extends JanelaImagem {
 	
 	// Declaracao das variaveis de instacia
-	private static int openFrameCount = 0;
 	private static final int xOffset = 175, yOffset = 0;
+	private static int openFrameCount = 0;
+	private int dinamicOffsetCount = 0;
 	
 	/**
 	 * Construtor 
@@ -30,6 +31,10 @@ public class JanelaImagemFiltrada extends JanelaImagem {
 				false,
 				p
 		);
-		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
+	}
+
+	// Metodos getters e setters
+	public void setLocation(int dinamicOffsetCount) {
+		setLocation(xOffset * dinamicOffsetCount, yOffset * dinamicOffsetCount);
 	}
 }

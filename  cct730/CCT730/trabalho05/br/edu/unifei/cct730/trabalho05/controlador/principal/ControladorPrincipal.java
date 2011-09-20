@@ -26,6 +26,7 @@ import br.edu.unifei.cct730.trabalho05.utils.arquivo.ArquivoImagem;
 import br.edu.unifei.cct730.trabalho05.utils.arquivo.FactoryArquivo;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Constantes;
 import br.edu.unifei.cct730.trabalho05.utils.constantes.Mensagem;
+import br.edu.unifei.cct730.trabalho05.utils.operadores.OperacaoConvolucao;
 import br.edu.unifei.cct730.trabalho05.gui.janelas.FactoryJanelaImagem;
 import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaFiltroPassaBaixa;
 import br.edu.unifei.cct730.trabalho05.gui.janelas.JanelaImagem;
@@ -49,6 +50,7 @@ public class ControladorPrincipal extends Controlador {
 	private ArquivoImagem arquivoImagem = null;
 	private ArquivoCabecalho arquivoCabecalho = null;
 	private String caminhoUltimoArquivo = "";
+	private int openFrameCount = 0;
 
 	/**
 	 * Construtor
@@ -95,6 +97,8 @@ public class ControladorPrincipal extends Controlador {
 		try {
 			// Desabilitando todas as acoes ja existentes
 			this.desfazerAcoesAnteriores();
+			
+			this.openFrameCount = 1;
 
 			// Escolha do arquivo
 			fileChooser = this.abrirFileChooser();
@@ -106,49 +110,9 @@ public class ControladorPrincipal extends Controlador {
 			) {				
 				// Definindo o caminho do arquivo para aberturas posteriores
 				this.caminhoUltimoArquivo = fileChooser.getSelectedFile().getAbsolutePath();
+				
+				this.inicializarAcoes();
 
-				/*
-				 * Realizando a abertura do arquivo
-				 * da imagem 
-				 */
-				this.abrirArquivoImagem();
-
-				/*
-				 * Inicializando as imagens 
-				 */
-				this.inicializarImagemDigitalizada();
-
-				/*
-				 * Incializando a imagem com o filtro de 
-				 * ruido de sal 
-				 */
-				this.inicializarImagemFiltradaPorRuido(
-						FiltroRuido.RUIDO_SAL, 
-						this.getImagemDigitalizada()
-				);
-
-				/*
-				 * Inicializando a imagem com o filtro de
-				 * ruido de pimenta 
-				 */
-				this.inicializarImagemFiltradaPorRuido(
-						FiltroRuido.RUIDO_PIMENTA,
-						this.getImagemDigitalizada()
-				);
-
-				/*
-				 * Incializando a imagem com os filtros de
-				 * ruido de sal e pimenta simultaneamente
-				 */
-				this.inicializarImagemFiltradaPorRuido(
-						FiltroRuido.RUIDO_SAL_PIMENTA, 
-						this.getImagemDigitalizada()	
-				);
-
-				/*
-				 *  Garantindo que o arquivo da imagem foi finalizado
-				 */
-				this.fecharArquivoImagem();
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -192,15 +156,31 @@ public class ControladorPrincipal extends Controlador {
 		try {
 			// Desfazendo todas as acoes previas do usuario
 			this.desfazerAcoesAnteriores();
+			
+			this.openFrameCount = 1;
+			
+			this.inicializarAcoes();
 
+		} catch(IOException e) {
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					"Falha na abertura do arquivo!"
+			);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
 					"Numero deve ser inteiro"
 			);
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+			Mensagem.mostraErro(
+					janela, 
+					"Selecione o tipo de ruido antes de filtra-lo"
+			);
 
-		} catch(IllegalArgumentException e) {
+		} catch(IllegalArgumentException e) {  
 			e.printStackTrace();
 			Mensagem.mostraErro(
 					janela, 
@@ -237,22 +217,42 @@ public class ControladorPrincipal extends Controlador {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//Declaracao das variaveis
+					
+					// Definicao das variaveis locais
+					int valor = 0;
 					ImagemFiltrada imFiltrada = null;
+					Short[][] matrizConvolucao = null;
+					
+					// Definindo a dimensao da matriz de convolucao
+					valor = (int) jPassaBaixa.getSliderMatriz().getValue() * 2 + 3;
+					
+					// Finalizando a janela auxiliar de filtragem
+					jPassaBaixa.dispose();
 					
 					// Selecionando o tipo de filtro
 					int filtro = (int)janela.getCmbFiltros().getSelectedIndex();
+					
+					// Criando a matriz de convolucao para cada tipo de filtro
+					if(filtro == FiltroPassaBaixa.PASSABAIXA_MEDIA) {
+						matrizConvolucao = OperacaoConvolucao.definirMatrizConvolucaoFiltroMedia(valor);
+					} else if(filtro == FiltroPassaBaixa.PASSABAIXA_MEDIANA) {
+						matrizConvolucao = OperacaoConvolucao.definirMatrizConvolucaoFiltroMediana(valor);
+					}
 
 					/*
 					 *  Aplicando o filtro sobre a imagem
 					 */
 					for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
-						ImagemDigitalizada im = 
-							((ImagemDigitalizada)((JanelaImagem)j).getPainelImagem().getImagem());
-						FiltroPassaBaixa passaBaixa = 
-							(FiltroPassaBaixa)FactoryFiltro.create(Filtro.FILTRO_PASSABAIXA, im);
-						imFiltrada = passaBaixa.filtrar(filtro);
-						((JanelaImagem)j).getPainelImagem().constroiImagem(imFiltrada.getTabelaPontos());
+						if(j instanceof JanelaImagem) {
+							Imagem im = 
+								((JanelaImagem)j).getPainelImagem().getImagem();
+							FiltroPassaBaixa passaBaixa = 
+								(FiltroPassaBaixa)FactoryFiltro.create(Filtro.FILTRO_PASSABAIXA, im);
+							passaBaixa.setMatrizConvolucao(matrizConvolucao);
+							imFiltrada = passaBaixa.filtrar(filtro);
+							((JanelaImagem)j).getPainelImagem().constroiImagem(imFiltrada.getTabelaPontos());
+							((JanelaImagem)j).getPainelImagem().repaint();	
+						}
 					}
 				}
 			});
@@ -312,7 +312,7 @@ public class ControladorPrincipal extends Controlador {
 	/* ****************************************************************************************************************************************************************** 
 	 * 															Inicio dos metodos auxiliares (todos privados)
 	 *********************************************************************************************************************************************************************/
-
+	
 	/**
 	 * Metodo responsavel por inicializar todas as 
 	 * imagens digitalizadas do projeto
@@ -408,7 +408,8 @@ public class ControladorPrincipal extends Controlador {
 					JanelaImagem.IMAGEM_FILTRADA, 
 					pImagemFiltrada
 			);
-
+		j.setLocation(this.openFrameCount++);
+		
 		/*
 		 *  Adicionando a janela interna ao desktop
 		 *  e tornando-a visivel
@@ -427,6 +428,51 @@ public class ControladorPrincipal extends Controlador {
 		for(JInternalFrame j : janela.getDesktop().getAllFrames()) {
 			j.dispose();
 		}
+	}
+	
+	private void inicializarAcoes() throws IOException, NullPointerException, NumberFormatException, IllegalArgumentException {
+		/*
+		 * Realizando a abertura do arquivo
+		 * da imagem 
+		 */
+		this.abrirArquivoImagem();
+
+		/*
+		 * Inicializando as imagens 
+		 */
+		this.inicializarImagemDigitalizada();
+
+		/*
+		 * Incializando a imagem com o filtro de 
+		 * ruido de sal 
+		 */
+		this.inicializarImagemFiltradaPorRuido(
+				FiltroRuido.RUIDO_SAL, 
+				this.getImagemDigitalizada()
+		);
+
+		/*
+		 * Inicializando a imagem com o filtro de
+		 * ruido de pimenta 
+		 */
+		this.inicializarImagemFiltradaPorRuido(
+				FiltroRuido.RUIDO_PIMENTA,
+				this.getImagemDigitalizada()
+		);
+
+		/*
+		 * Incializando a imagem com os filtros de
+		 * ruido de sal e pimenta simultaneamente
+		 */
+		this.inicializarImagemFiltradaPorRuido(
+				FiltroRuido.RUIDO_SAL_PIMENTA, 
+				this.getImagemDigitalizada()	
+		);
+
+		/*
+		 *  Garantindo que o arquivo da imagem foi finalizado
+		 */
+		this.fecharArquivoImagem();
 	}
 
 	/**
@@ -489,7 +535,7 @@ public class ControladorPrincipal extends Controlador {
 		MyFileChooser fileChooser = null;
 
 		// Inicializando o ficheiro de arquivos
-		fileChooser = new MyFileChooser("Selecione a imagem");
+		fileChooser = new MyFileChooser("Abrir arquivo de imagem");
 
 		// Setando o diretorio local como inicial
 		fileChooser.defineDiretorioInicial(caminhoUltimoArquivo);
