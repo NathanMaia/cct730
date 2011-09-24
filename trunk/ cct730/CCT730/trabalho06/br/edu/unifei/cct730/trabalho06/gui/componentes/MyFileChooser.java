@@ -2,6 +2,7 @@ package br.edu.unifei.cct730.trabalho06.gui.componentes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -17,9 +18,6 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	// Declaracao das constantes da classe
 	public static final String OPERACAO_ERRO = "Erro na abertura do arquivo";
 	public static final String OPERACAO_CANCELADA = "Operacao Cancelada";
-	
-	// Declaracao das variaveis de instancia
-	private String caminhoArquivo = "";
 
 	/**
 	 * Construtor 
@@ -39,7 +37,20 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	 * @return int
 	 */
 	public int lancarOpenDialog(javax.swing.JFrame j) {
-		int retorno = this.showOpenDialog(null);
+		int retorno = this.showOpenDialog(j);
+		return retorno;
+	}
+	
+	/**
+	 * Metodo responsavel por lancar o dialog responsavel
+	 * por salvar o arquivo
+	 * 
+	 * @param JFrame j
+	 * 
+	 * @return int
+	 */
+	public int lancarSaveDialog(javax.swing.JFrame j) {
+		int retorno = this.showSaveDialog(j);
 		return retorno;
 	}
 	
@@ -53,23 +64,26 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	 */
 	public String getArquivoSelecionado(int op) throws FileNotFoundException {
 		
+		// Declaracao de variaveis locais
+		String caminhoArquivo = "";
+		
 		switch(op) {
 			case JFileChooser.APPROVE_OPTION:
-				this.caminhoArquivo = this.getSelectedFile().getAbsolutePath();
+				caminhoArquivo = this.getSelectedFile().getAbsolutePath();
 				break;
 				
 			case JFileChooser.CANCEL_OPTION:
-				this.caminhoArquivo = OPERACAO_CANCELADA;
+				caminhoArquivo = OPERACAO_CANCELADA;
 				break;
 				
 			case JFileChooser.ERROR_OPTION:
-				this.caminhoArquivo = OPERACAO_ERRO;
+				caminhoArquivo = OPERACAO_ERRO;
 				break;
 			
 			default:
 				throw new FileNotFoundException();
 		}
-		return this.caminhoArquivo;
+		return caminhoArquivo;
 	}
 
 	/**
@@ -98,6 +112,18 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 	}
 	
 	/**
+	 * Metodo responsavel por definir um filtro default
+	 * para o formato dos arquivos a serem salvos
+	 * 
+	 * @param String fileName
+	 * 
+	 * @return void
+	 */
+	public void formatoPadrao(String fileName) {
+		this.setSelectedFile(new File(fileName));
+	}
+	
+	/**
 	 * Metodo que define o diretorio inicial que o file chooser
 	 * se posicionara
 	 * 
@@ -109,10 +135,5 @@ public class MyFileChooser extends javax.swing.JFileChooser {
 		if(!path.equals("")) {
 			this.setCurrentDirectory(new File(path));
 		}
-	}
-	
-	// Metodos getters e setters
-	public String getCaminhoArquivo() {
-		return this.caminhoArquivo;
 	}
 }

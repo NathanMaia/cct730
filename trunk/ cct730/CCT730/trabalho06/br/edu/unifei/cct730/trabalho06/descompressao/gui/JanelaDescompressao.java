@@ -88,6 +88,26 @@ public class JanelaDescompressao extends javax.swing.JFrame {
 	private JButtonSair btnSair;
 	private JButtonSobre btnSobre;
 
+	/**
+	 * Metodo responsavel por habilitar as acoes do
+	 * menu de funcoes
+	 * 
+	 * @return void
+	 */
+	public void habilitaMenu() {
+		this.getBtnDescomprimir().setEnabled(true);
+	}
+	
+	/**
+	 * Metodo responsavel por desabilitar as acoes
+	 * do menu de funcoes
+	 * 
+	 * @return void
+	 */
+	public void desabilitaMenu() {
+		this.getBtnDescomprimir().setEnabled(false);
+	}
+	
 	// Metodos getters e setters
 	public JButtonAbrirArquivo getBtnAbrirArquivo() {
 		return btnAbrirArquivo;

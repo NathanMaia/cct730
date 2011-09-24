@@ -1,8 +1,10 @@
 package br.edu.unifei.cct730.trabalho06.utils.arquivo;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -14,13 +16,9 @@ import java.io.IOException;
  */
 public abstract class Arquivo extends File {
 
-	// Constantes
-	public static final int ARQUIVO_CABECALHO = 1;
-	public static final int ARQUIVO_IMAGEM = 2;
-	
 	//Declaracao de variaveis de instancia
-	protected BufferedReader stream = null;
-	protected String[] linha = null;
+	protected BufferedReader streamReader = null;
+	protected BufferedWriter streamWriter = null;
 	
 	/**
 	 * Construtor 
@@ -37,25 +35,52 @@ public abstract class Arquivo extends File {
 	 * @return BufferedReader
 	 * @throws IOException
 	 */
-	public BufferedReader abrirArquivo() throws IOException { 
-		this.stream = new BufferedReader(
-				new FileReader(
-						new File(this.getAbsolutePath())
-				)
+	public BufferedReader abrirArquivoLeitura() throws IOException { 
+		this.streamReader = new BufferedReader(
+			new FileReader(
+					new File(this.getAbsolutePath())
+			)
 		);
-		return this.stream;
+		return this.streamReader;
+	}
+	
+	/**
+	 * Metodo responsavel pela abertura do arquivo para escrita
+	 * 
+	 * @return BufferedWriter
+	 * @throws IOException
+	 */
+	public BufferedWriter abrirArquivoEscrita() throws IOException {
+		this.streamWriter = new BufferedWriter(
+			new FileWriter(
+					new File(this.getAbsolutePath())
+			)
+		);
+		return this.streamWriter;
 	}
 	
 	/**
 	 * Metodo responsavel por fechar o 
-	 * stream do arquivo
+	 * stream de leitura do arquivo
 	 * 
 	 * @return void
 	 * @throws IOException, NullPointerException
 	 */
-	public void fecharArquivo() throws IOException, NullPointerException {
-		this.stream.close();
-		this.stream = null;
+	public void fecharArquivoLeitura() throws IOException, NullPointerException {
+		this.streamReader.close();
+		this.streamReader = null;
+	}
+	
+	/**
+	 * Metodo responsavel por fechar o 
+	 * stream de escrita do arquivo
+	 * 
+	 * @return void
+	 * @throws IOException, NullPointerException
+	 */
+	public void fecharArquivoEscrita() throws IOException, NullPointerException {
+		this.streamWriter.close();
+		this.streamWriter = null;
 	}
 	
 	/**
@@ -65,7 +90,7 @@ public abstract class Arquivo extends File {
 	 * @return boolean
 	 */
 	public boolean isFechado() {
-		return (this.stream == null) ? true : false;
+		return (this.streamReader == null) ? true : false;
 	}
 	
 	/**
@@ -75,10 +100,17 @@ public abstract class Arquivo extends File {
 	 * @return boolean
 	 * @throws IOException
 	 */
-	protected boolean isReady() throws IOException {
-		if(this.stream == null) {
-			this.abrirArquivo();
+	public boolean isReadable() throws IOException {
+		if(this.streamReader == null) {
+			this.abrirArquivoLeitura();
 		} 
+		return true;
+	}
+	
+	protected boolean isWritable() throws IOException {
+		if(this.streamWriter == null) {
+			this.abrirArquivoEscrita();
+		}
 		return true;
 	}
 }

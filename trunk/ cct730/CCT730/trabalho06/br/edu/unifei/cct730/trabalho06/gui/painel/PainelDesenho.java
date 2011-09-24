@@ -58,6 +58,23 @@ public class PainelDesenho extends javax.swing.JPanel {
 		}
 	}
 	
+	/**
+	 * Construtor 
+	 * 
+	 * @param MatrizCelula m
+	 */
+	public PainelDesenho(MatrizCelula m) {
+		this.matriz = m;
+		this.altura = matriz.getNumLinhas();
+		this.largura = matriz.getNumColunas();
+		setLayout(new GridLayout(this.altura, this.largura, 1, 1));
+		for (int i = 0; i < altura; i++) {
+			for (int j = 0; j < largura; j++) {
+				this.add(matriz.getCelula(i, j));
+			}
+		}
+	}
+	
 	//Metodos getters e setters 
 	public Celula[][] getPixels() {
 		return matriz.getMatrizCelulas();
