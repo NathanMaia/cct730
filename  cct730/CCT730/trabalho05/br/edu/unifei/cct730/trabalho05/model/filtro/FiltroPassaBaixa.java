@@ -99,7 +99,12 @@ public class FiltroPassaBaixa extends Filtro {
 				for (int k = i - meioTemplateX, s = 0; k <= i + meioTemplateX; k++, s++) {
 					for (int m = j - meioTemplateY, t = 0; m <= j + meioTemplateY; m++, t++) {
 						
-						// Realiza a multiplicacao
+						/*
+						 *  Realiza a multiplicacao dos elementos
+						 *  da matriz pela matriz de convolucao
+						 */
+						
+						// Checagem para verificar se o elemento inspecionado est‡ na borda
 						if (k < 0 || m < 0 || k > numLinhas - 1 || m > numColunas - 1) {
 							multiplicacao = OperacaoMatematica.multiplicar((int) valorForaDaMatriz, (int) matrizConvolucao[s][t]);
 						} else {
@@ -111,7 +116,7 @@ public class FiltroPassaBaixa extends Filtro {
 					}
 				}
 				// Insere o novo valor na imagem filtrada
-				imFiltrada.criarImagem(i, j, new Integer(soma / (colunasFiltro * linhasFiltro)).shortValue());
+				imFiltrada.criarImagem(i, j, new Integer(soma / (linhasFiltro * colunasFiltro)).shortValue());
 			}
 		}
 		
@@ -155,11 +160,12 @@ public class FiltroPassaBaixa extends Filtro {
 			for (int j = 0; j < this.imagem.getNumeroColunas(); j++) {
 				count = 0;
 				// Obtendo todos os vizinhos do ponto
-				for (int a = -(colunasFiltro / 2); a <= (colunasFiltro / 2); a++) {
+				for (int a = -(linhasFiltro / 2); a <= (linhasFiltro / 2); a++) {
 					for (int b = -(colunasFiltro / 2); b <= (colunasFiltro / 2); b++) {
+						// Caso o pixel esteja dentro da matriz
 						if (i + a >= 0 && j + b >= 0 && i + a < this.imagem.getNumeroLinhas() && j + b < this.imagem.getNumeroColunas()) {
 							vetorVizinho[count] = tonsDeCinza[i + a][j + b];
-						} else {
+						} else { //Caso contr‡rio
 							vetorVizinho[count] = (int) valorForaDaMatriz;
 						}
 						count++;

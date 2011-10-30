@@ -28,8 +28,6 @@ public class FiltroRuido extends Filtro {
 	 * Construtor
 	 * 
 	 * @param ImagemFiltrada im
-	 * @param int ps
-	 * @param int pp
 	 *
 	 */
 	public FiltroRuido(Imagem im) {
