@@ -23,6 +23,14 @@ public class ArvoreHuffman {
 	/**
 	 * Construtor
 	 * 
+	 */
+	public ArvoreHuffman() {
+
+	}
+
+	/**
+	 * Construtor
+	 * 
 	 * @param NoHEAP r
 	 */
 	public ArvoreHuffman(NoHEAP r) {
@@ -40,13 +48,13 @@ public class ArvoreHuffman {
 		for(FrequenciaSimbolo fs : fsim) {
 			listaNos.add(new NoHEAP(fs.getFrequencia(), fs.getSimbolo()));
 		}
-		
+
 		//Cria a arvore
 		montarHEAP();
-		
+
 		//Percorre a arvore para descobrir a representação dos objetos
 		percorrerHEAP();
-		
+
 		//Coloca as representações em um vetor
 		frequenciaSimboloToVector();
 	}
@@ -151,7 +159,7 @@ public class ArvoreHuffman {
 	 * 
 	 * @return String
 	 */
-	private String buscaNoHEAP(String binario) {
+	public String buscaNoHEAP(String binario) {
 		return buscaNoHEAP(this.raiz, binario, 0); 
 	}
 
@@ -204,17 +212,18 @@ public class ArvoreHuffman {
 	 * @return void
 	 */
 	private void criarHEAPRecursivo(NoHEAP no, String simbolo, String binario) {
+
 		// Caso seja o ultimo bit
 		if(binario.length() == 1) {
 			switch(binario.charAt(0)) {
 			case '0':
-				if (no.getNoEsquerdo().equals(null)) {
+				if (no.getNoEsquerdo() == null) {
 					no.setNoEsquerdo(new NoHEAP());
 				}
 				no.getNoEsquerdo().setSimbolo(simbolo);
 				return;
 			case '1':
-				if(no.getNoDireito().equals(null)) {
+				if(no.getNoDireito() == null) {
 					no.setNoDireito(new NoHEAP());
 				}
 				no.getNoDireito().setSimbolo(simbolo);
@@ -224,14 +233,14 @@ public class ArvoreHuffman {
 		// Caso contrario
 		switch(binario.charAt(0)) {
 		case '0':
-			if(no.getNoEsquerdo().equals(null)) {
+			if(no.getNoEsquerdo() == null) {
 				no.setNoEsquerdo(new NoHEAP());
 			}
 			binario = binario.substring(1);
 			criarHEAPRecursivo(no.getNoEsquerdo(), simbolo, binario);
 			return;
 		case '1':
-			if(no.getNoEsquerdo().equals(null)) {
+			if(no.getNoDireito() == null) {
 				no.setNoDireito(new NoHEAP());
 			}
 			binario = binario.substring(1);
@@ -250,10 +259,19 @@ public class ArvoreHuffman {
 	 * @return void
 	 */
 	public void add(String simbolo, String binario) {
-		if (raiz.equals(null)) raiz = new NoHEAP();
+		if (raiz == null) {
+			raiz = new NoHEAP();
+		}
 		criarHEAPRecursivo(this.raiz, simbolo, binario);
 	}
 
+	/**
+	 * Metodo responsavel por retornar uma string
+	 * que contem a lista de simbolos presentes
+	 * nesta arvore
+	 * 
+	 * @return String
+	 */
 	public String listaSimbolos() {
 		String resposta = "";
 		for (FrequenciaSimbolo fs : frequenciaSimbolo) {

@@ -12,7 +12,7 @@ import br.edu.unifei.cct730.trabalho07.compressao.controlador.ControladorJanelaC
 /**
  * Classe responsavel por criar uma instancia
  * da janela que contem as acoes para compressao
- * da imagem sintetica
+ * da imagem digitalizada
  * 
  * @author fknappe
  *

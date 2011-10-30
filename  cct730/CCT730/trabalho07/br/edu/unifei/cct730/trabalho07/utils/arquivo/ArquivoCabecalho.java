@@ -18,7 +18,7 @@ public class ArquivoCabecalho extends Arquivo {
 	private int numeroLinhas = 0;
 	private int numeroColunas = 0;
 	protected String[] linha = null;
-	
+
 	/**
 	 * Construtor
 	 * 
@@ -57,15 +57,5 @@ public class ArquivoCabecalho extends Arquivo {
 			}
 		}
 		return Integer.parseInt(linha[1]);
-	}
-	
-	/**
-	 * Metodo responsavel por retornar a 
-	 * dimensao da imagem
-	 * 
-	 * @return int
-	 */
-	public int getTamanho() throws IOException {
-		return this.getNumeroLinhas().intValue() * this.getNumeroColunas().intValue();
 	}
 }
