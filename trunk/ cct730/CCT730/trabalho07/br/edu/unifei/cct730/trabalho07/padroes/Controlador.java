@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import br.edu.unifei.cct730.trabalho07.compressao.gui.JanelaCompressao;
+import br.edu.unifei.cct730.trabalho07.descompressao.gui.JanelaDescompressao;
 import br.edu.unifei.cct730.trabalho07.utils.Mensagem;
 
 /**
@@ -57,7 +58,11 @@ public abstract class Controlador {
 	 */
 	public void lancarJanelaImagem(JInternalFrame j) {
 		if(this.frame != null) {
-			((JanelaCompressao)frame).getDesktop().add(j);
+			if(this.frame instanceof JanelaCompressao) {
+			  ((JanelaCompressao)frame).getDesktop().add(j);
+			} else {
+				((JanelaDescompressao)frame).getDesktop().add(j);
+			}
 			j.setVisible(true);
 			j.toFront();
 			
@@ -76,7 +81,10 @@ public abstract class Controlador {
 	public void descomprimirHuffman(){}
 	
 	/**
+	 * Metodo responsavel por tratar as acoes
+	 * do botao sobre
 	 * 
+	 * @return void
 	 */
 	public void sobre() {
 		Mensagem.mostraMensagemSobre(
@@ -89,7 +97,10 @@ public abstract class Controlador {
 	}
 	
 	/**
+	 * Metodo responsavel por tratar as acoes
+	 * do botao sair
 	 * 
+	 * @return void
 	 */
 	public void sair() {
 		if(Mensagem.confirmaMensagem(

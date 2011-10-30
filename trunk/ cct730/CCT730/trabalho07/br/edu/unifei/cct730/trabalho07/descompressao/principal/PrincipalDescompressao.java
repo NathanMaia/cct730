@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.UIManager;
 
-import br.edu.unifei.cct730.trabalho06.descompressao.gui.JanelaDescompressao;
+import br.edu.unifei.cct730.trabalho07.descompressao.gui.JanelaDescompressao;
 
 public class PrincipalDescompressao {
 

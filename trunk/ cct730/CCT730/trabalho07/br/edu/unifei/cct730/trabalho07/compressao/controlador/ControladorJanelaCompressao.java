@@ -282,18 +282,9 @@ public class ControladorJanelaCompressao extends Controlador {
 		// Declaracao de variaveis locais
 		String relatorio = "";
 
-		try { 
-			relatorio += arv.listaSimbolos();
-			relatorio += "\n\nGrau de compactacao: \n" + "Imagem original : " + arquivoCabecalho.getTamanho() + " bytes\nImagem compactada: " + arquivoHDados.getHuffmanTamanho();
-			relatorio += " bytes\nPorcentagem de reducao: " + (100 - 100 * (arquivoHDados.getHuffmanTamanho()) / (arquivoCabecalho.getTamanho())) + "%";
-
-		} catch(IOException e) {
-			e.printStackTrace();
-			Mensagem.mostraErro(
-					frame, 
-					"Erro na leitura da dimensao da imagem"
-			);
-		}
+		relatorio += arv.listaSimbolos();
+		relatorio += "\n\nGrau de compactacao: \n" + "Imagem original : " + arquivoImagem.getTamanhoImagem() + " bytes\nImagem compactada: " + arquivoHDados.getHuffmanTamanho();
+		relatorio += " bytes\nPorcentagem de reducao: " + (100 - 100 * (arquivoHDados.getHuffmanTamanho()) / (arquivoImagem.getTamanhoImagem())) + "%";
 
 		return relatorio;
 	}

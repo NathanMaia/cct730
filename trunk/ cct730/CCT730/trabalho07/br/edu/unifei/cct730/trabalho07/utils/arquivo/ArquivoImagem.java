@@ -47,4 +47,8 @@ public class ArquivoImagem extends Arquivo {
 		}
 		return tonsDeCinza;
 	}
+	
+	public long getTamanhoImagem() {
+		return this.length();
+	}
 }

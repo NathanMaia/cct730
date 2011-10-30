@@ -11,7 +11,7 @@ public class FrequenciaSimbolo {
 	 * Construtor
 	 * 
 	 * @param int freq
-	 * @param String obj
+	 * @param String s
 	 */
 	public FrequenciaSimbolo(int freq, String s) {
 		this.frequencia = freq;
@@ -21,8 +21,8 @@ public class FrequenciaSimbolo {
 	/**
 	 * Construtor
 	 * 
-	 * @param String rep
-	 * @param String obj
+	 * @param String ch
+	 * @param String s
 	 */
 	public FrequenciaSimbolo(String ch, String s) {
 		this.codigoHuffman = ch;
