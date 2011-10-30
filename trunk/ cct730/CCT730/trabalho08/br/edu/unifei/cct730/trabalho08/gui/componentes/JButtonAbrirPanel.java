@@ -4,34 +4,30 @@ import br.edu.unifei.cct730.trabalho08.padroes.Command;
 import br.edu.unifei.cct730.trabalho08.padroes.Controlador;
 
 /**
- * Classe responsavel por implementar o botao responsavel pela abertura
- * do arquivo da imagem
+ * Classe responsavel por instanciar um botao encarregado pelas acoes do editor
+ * de imagens sinteticas
  * 
  * @author fknappe
  *
  */
-public class JButtonAbrirArquivo extends javax.swing.JButton implements Command{
-	
+public class JButtonAbrirPanel extends javax.swing.JButton implements Command {
+
 	//Declaracao das variaveis de instancia
 	private Controlador med = null;
 	
 	/**
 	 * Construtor
+	 * 
 	 * @param String title
-	 * @param Controlador m
+	 * @param Meditor m
 	 */
-	public JButtonAbrirArquivo(String title, Controlador m) {
+	public JButtonAbrirPanel(String title, Controlador m) {
 		this.med = m;
 		this.setText(title);
 	}
 
-	/**
-	 * Metodo responsavel por executar a acao definida pelo listener
-	 * 
-	 * @return void
-	 */
 	@Override
 	public void executar() {
-		this.med.abrirArquivo();
+		this.med.abrirPanel();
 	}
 }
