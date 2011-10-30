@@ -70,10 +70,9 @@ public abstract class Controlador {
 	}
 	
 	public abstract void registraEventos();
-	public void abrirArquivo(){}
+	public void aplicarMorfologico(){}
+	public void definirEstruturante(){}
 	public void abrirPanel(){}
-	public void comprimirHuffman(){}
-	public void descomprimirHuffman(){}
 	
 	/**
 	 * Metodo responsavel por tratar as acoes
