@@ -76,6 +76,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Metodo responsavel por habilitar
+	 * as acoes do menu
+	 * 
+	 * @return void
+	 */
+	public void habilitarMenu() {
+		
+	}
+	
+	/**
+	 * Metodo responsavel por desabilitar
+	 * as acoes do menu
+	 * 
+	 * @return void
+	 */
+	public void desabilitarMenu() {
+		
+	}
+	
 	// Declaracao dos componentes da GUI
 	private javax.swing.JPanel panelMenu;
 	private javax.swing.JDesktopPane desktop;

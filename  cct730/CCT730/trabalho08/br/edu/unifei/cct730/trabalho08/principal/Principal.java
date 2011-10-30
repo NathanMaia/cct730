@@ -17,7 +17,7 @@ public class Principal {
 		UIManager.put("OptionPane.noButtonText", "Não");  
 		UIManager.put("OptionPane.okButtonText", "OK");
 
-		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Morfologia");
+		final JanelaPrincipal janela = new JanelaPrincipal("Processamento de Imagens - Morfologia Matematica");
 		//Tratamento da ação de fechar a janela do aplicativo
 		janela.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
