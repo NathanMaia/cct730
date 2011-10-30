@@ -17,6 +17,7 @@ public class ArquivoCabecalho extends Arquivo {
 	// Declaracao de variaveis locais
 	private int numeroLinhas = 0;
 	private int numeroColunas = 0;
+	protected String[] linha = null;
 	
 	/**
 	 * Construtor

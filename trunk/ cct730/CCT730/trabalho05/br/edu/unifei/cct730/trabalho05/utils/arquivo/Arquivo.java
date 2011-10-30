@@ -20,7 +20,6 @@ public abstract class Arquivo extends File {
 	
 	//Declaracao de variaveis de instancia
 	protected BufferedReader stream = null;
-	protected String[] linha = null;
 	
 	/**
 	 * Construtor 
