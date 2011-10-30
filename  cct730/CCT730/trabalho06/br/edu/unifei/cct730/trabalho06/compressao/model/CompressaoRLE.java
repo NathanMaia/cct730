@@ -137,12 +137,15 @@ public class CompressaoRLE {
 	}
 
 	/**
-	 * Metodo responsavel 
+	 * Metodo responsavel por adicionar o valor
+	 * do encoding na matriz de valores
 	 * 
 	 * @param MatrizCelula matriz
 	 * @param String atual
 	 * @param String valor
 	 * @param int posicao
+	 * 
+	 * @return void
 	 */
 	private void escreveNaMatrizDescompactada(String[] matriz, String atual, String valor, int posicao) {
 		for (int j = 0; j < Integer.parseInt(valor); j++) {
